@@ -1,0 +1,41 @@
+name: Vortex
+game_slug: vortex-mod-manager
+slug: vortex-mod-manager
+version: 0.17.11
+runner: wine
+
+script:
+    files:
+    - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v0.17.11/vortex-setup-0.17.11.exe
+    - symlinks_setup_zip: https://gist.github.com/rockerbacon/97e3760a509d49a098bab38bbd6b0e89/archive/9aa57c148615b03f7c593b8ef8d41c3ab9e5c003.zip
+    game:
+        exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
+        prefix: $GAMEDIR
+    installer:
+    - extract:
+        file: symlinks_setup_zip
+        dst: $GAMEDIR/install_scripts
+    - chmodx: $GAMEDIR/install_scripts/vortex-symlink-sse.sh
+    - execute:
+        file: $GAMEDIR/install_scripts/vortex-symlink-sse.sh
+        env:
+            VORTEX_PREFIX: $GAMEDIR
+    - task:
+        name: winetricks
+        prefix: $GAMEDIR
+        app: win10 dotnet46
+        description: Installing .NET 4.6
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Bethesda Softworks\Skyrim Special Edition
+        type: REG_SZ
+        key: "Installed Path"
+        value: "c:\\program files (x86)\\steam\\steamapps\\common\\skyrim special edition"
+    - task:
+        name: wineexec
+        prefix: $GAMEDIR
+        executable: setup
+    wine:
+        version: tkg-4.0-x86_64
+
