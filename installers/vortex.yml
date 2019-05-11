@@ -7,17 +7,17 @@ runner: wine
 script:
     files:
     - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v0.17.11/vortex-setup-0.17.11.exe
-    - symlinks_setup_zip: https://gist.github.com/rockerbacon/97e3760a509d49a098bab38bbd6b0e89/archive/9aa57c148615b03f7c593b8ef8d41c3ab9e5c003.zip
+    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/0.1/vortex-symlinks.sh
     game:
         exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
         prefix: $GAMEDIR
     installer:
-    - extract:
-        file: symlinks_setup_zip
-        dst: $GAMEDIR/install_scripts
-    - chmodx: $GAMEDIR/install_scripts/vortex-symlink-sse.sh
+    - move:
+        src: symlinks_setup
+        dst: $GAMEDIR/setup-symlinks.sh
+    - chmodx: $GAMEDIR/setup-symlinks.sh
     - execute:
-        file: $GAMEDIR/install_scripts/vortex-symlink-sse.sh
+        file: $GAMEDIR/setup-symlinks.sh
         env:
             VORTEX_PREFIX: $GAMEDIR
     - task:
@@ -28,10 +28,17 @@ script:
     - task:
         name: set_regedit
         prefix: $GAMEDIR
-        path: HKEY_LOCAL_MACHINE\Software\Bethesda Softworks\Skyrim Special Edition
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Skyrim Special Edition
         type: REG_SZ
         key: "Installed Path"
-        value: "c:\\program files (x86)\\steam\\steamapps\\common\\skyrim special edition"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim special edition
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\489830
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\skyrim special edition
     - task:
         name: wineexec
         prefix: $GAMEDIR
