@@ -3,7 +3,7 @@ Installers to make Skyrim Special Edition plug and play on Lutris
 
 ## Vortex
 
-Plug and play installation, everything configured out of the box for usage with Skyrim Special Edition from Steam Play or Lutris Winesteam. Can also be used on a custom Wine Skyrim Special Edition installation with a few manual steps (see technical notes on lutris.net)
+Plug and play installation, everything configured out of the box for usage with Skyrim Special Edition from Steam Play or Lutris Winesteam. Can also be used on a custom Wine Skyrim Special Edition installation with a few manual steps (see custom wine installation section)
 
 ### KNOWN BUGS/LIMITATIONS:
 - You cannot safely launch apps from within Vortex as its prefix is not configured to run other apps;
