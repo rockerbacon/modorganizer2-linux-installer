@@ -98,8 +98,8 @@ do
 
     echo "INFO: Building symlinks for $CURRENT_GAME"
 
-    CURRENT_GAMEDIR=$(printenv "${CURRENT_GAME}_GAMEDIR")
-    CURRENT_APPID=$(printenv "${CURRENT_GAME}_APPID")
+    CURRENT_GAMEDIR=$(set -o posix; set | grep "${CURRENT_GAME}_GAMEDIR=" | sed "s/${CURRENT_GAME}_GAMEDIR=//")
+    CURRENT_APPID=$(set -o posix; set | grep "${CURRENT_GAME}_APPID=" | sed "s/${CURRENT_GAME}_APPID=//")
 
     echo "INFO: gamedir=\"$CURRENT_GAMEDIR\" APPID=\"$CURRENT_APPID\""
 
