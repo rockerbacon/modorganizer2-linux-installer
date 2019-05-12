@@ -1,50 +1,88 @@
 #!/bin/bash
 
-#### determine Skyrim prefix and Steam folder
-if [ "$SKYRIM_PREFIX" == "" ]; then
-	if [ -d "$HOME/.steam/steam/steamapps/compatdata/489830/pfx" ]; then
-		STEAM_FOLDER="$HOME/.steam/steam"
-		SKYRIM_PREFIX="$HOME/.steam/steam/steamapps/compatdata/489830/pfx"
-	elif [ -d "$HOME/.local/share/Steam/steamapps/compatdata/489830/pfx" ]; then
-		STEAM_FOLDER="$HOME/.local/share/Steam"
-		SKYRIM_PREFIX="$HOME/.local/share/Steam/steamapps/compatdata/489830/pfx"
-	elif [ -d "$HOME/.local/share/lutris/runners/winesteam/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/Skyrim Special Edition" ]; then
-        STEAM_FOLDER="$HOME/.local/share/lutris/runners/winesteam/prefix64/drive_c/Program Files (x86)/Steam"
-        SKYRIM_PREFIX="$HOME/.local/share/lutris/runners/winesteam/prefix64"
-    fi
+############### GAMES INFO ############################
 
-	if [ ! -d "$SKYRIM_PREFIX" ]; then
-		echo "Could not find prefix Skyrim Special Edition"
-		exit -1
-	fi
-fi
+SKYRIMSE_FOLDER="Syrim Special Edition"
+SKYRIMSE_STEAM_ID="489830"
 
-#### determine Vortex prefix
+#######################################################
+
+############### PATH CANDIDATES #######################
+
+STEAM_PROTON1_PATH="$HOME/.steam/steam"
+STEAM_PROTON2_PATH="$HOME/.local/share/Steam"
+WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
+
+#######################################################
+
+############### VORTEX PREFIX #########################
 if [ "$VORTEX_PREFIX" == "" ]; then
 	VORTEX_PREFIX=$(dirname $BASH_SOURCE)
 fi
-
-#### ensure required directories exist and are ready to receive the symlinks
-SKYRIM_MY_GAMES="$SKYRIM_PREFIX/drive_c/users/steamuser/My Documents/My Games"
-mkdir -p "$SKYRIM_MY_GAMES/Skyrim Special Edition"
-SKYRIM_APP_DATA="$SKYRIM_PREFIX/drive_c/users/steamuser/Local Settings/Application Data"
-mkdir -p "$SKYRIM_APP_DATA/Skyrim Special Edition"
-
-VORTEX_MY_GAMES="$VORTEX_PREFIX/drive_c/users/$USER/My Documents/My Games"
-rm -rf "$VORTEX_MY_GAMES/Skyrim Special Edition"
-mkdir -p "$VORTEX_MY_GAMES"
-VORTEX_APP_DATA="$VORTEX_PREFIX/drive_c/users/$USER/Local Settings/Application Data"
-rm -rf "$VORTEX_APP_DATA/Skyrim Special Edition"
-mkdir -p "$VORTEX_APP_DATA"
-if [ "$STEAM_FOLDER" != "" ]; then
-    VORTEX_PROGRAM_FILES="$VORTEX_PREFIX/drive_c/Program Files (x86)"
-    rm -rf "$VORTEX_PROGRAM_FILES/Steam"
-    mkdir -p "$VORTEX_PROGRAM_FILES"
+if [ ! -d "$VORTEX_PREFIX" ]; then
+    echo "ERROR: Invalid Vortex prefix"
+    exit -1
 fi
+#######################################################
 
-#### add symlikns between Skyrim's prefix and vortex's
-ln -s "$SKYRIM_MY_GAMES/Skyrim Special Edition" "$VORTEX_MY_GAMES/Skyrim Special Edition"
-ln -s "$SKYRIM_APP_DATA/Skyrim Special Edition" "$VORTEX_APP_DATA/Skyrim Special Edition"
-if [ "$STEAM_FOLDER" != "" ]; then
-    ln -s "$STEAM_FOLDER" "$VORTEX_PROGRAM_FILES/Steam"
-fi
+############## FUNCTIONS DECLARATIONS #################
+
+find_current_game_folders () {
+
+    if [ -d "$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_GAME_STEAM_ID/pfx" ]; then
+        CURRENT_INSTALL="$STEAM_PROTON1_PATH/steamapps/common/$CURRENT_GAME_FOLDER"
+        CURRENT_PREFIX="$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_GAME_FOLDER/pfx"
+        CURRENT_GAME_USER="steamuser"
+
+    elif [ -d "$STEAM_PROTON2_PATH/steamapps/compatdata/$CURRENT_GAME_STEAM_ID/pfx" ]; then
+        CURRENT_INSTALL="$STEAM_PROTON2_PATH/steamapps/common/$CURRENT_GAME_FOLDER"
+        CURRENT_PREFIX="$STEAM_PROTON2_PATH/steamapps/compatdata/$CURRENT_GAME_FOLDER/pfx"
+        CURRENT_GAME_USER="steamuser"
+
+    elif [ -d "$WINESTEAM_PATH/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAME_FOLDER" ]; then
+        CURRENT_INSTALL="$WINESTEAM_PATH/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAME_FOLDER"
+        CURRENT_PREFIX="$WINESTEAM_PATH/prefix64"
+        CURRENT_GAME_USER=$USER
+
+    fi
+
+    if [ ! -d "$CURRENT_INSTALL" ]; then
+        echo "WARN: Could not find $CURRENT_GAME_FOLDER installation"
+    fi
+    if [ ! -d "$CURRENT_PREFIX" ]; then
+        echo "WARN: Could not find $CURRENT_GAME_FOLDER prefix"
+    fi
+
+}
+
+create_current_game_symlinks () {
+    if [ -d "$CURRENT_INSTALL" ] && [ -d "$CURRENT_PREFIX" ]; then
+
+        mkdir -p "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/My Documents/My Games/$CURRENT_GAME_FOLDER"
+        mkdir -p "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/Local Settings/Application Data/$CURRENT_GAME_FOLDER"
+
+        rm -rf "$VORTEX_PREFIX/drive_c/users/$USER/My Documents/My Games/$CURRENT_GAME_FOLDER"
+        rm -rf "$VORTEX_PREFIX/drive_c/users/$USER/Local Settings/Application Data/$CURRENT_GAME_FOLDER"
+        rm -rf "$VORTEX_PREFIX/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAME_FOLDER"
+
+        ln -s "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/My Documents/My Games/$CURRENT_GAME_FOLDER" "$VORTEX_PREFIX/drive_c/users/$USER/My Documents/My Games/$CURRENT_GAME_FOLDER"
+        ln -s "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/Local Settings/Application Data/$CURRENT_GAME_FOLDER" "$VORTEX_PREFIX/drive_c/users/$USER/Local Settings/Application Data/$CURRENT_GAME_FOLDER"
+        ln -s "$CURRENT_INSTALL" "$VORTEX_PREFIX/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAME_FOLDER"
+
+    fi
+}
+
+#######################################################
+
+########## CREATE NECESSARY VORTEX FOLDERS ############
+mkdir -p "$VORTEX_PREFIX/drive_c/users/$USER/My Documents/My Games"
+mkdir -p "$VORTEX_PREFIX/drive_c/users/$USER/Local Settings/Application Data"
+mkdir -p "$VORTEX_PREFIX/drive_c/Program Files (x86)/Steam/steamapps/common"
+#######################################################
+
+################ CREATE SYMLINKS ######################
+CURRENT_GAME_FOLDER=$SKYRIMSE_FOLDER
+CURRENT_GAME_STEAM_ID=$SKYRIMSE_STEAM_ID
+find_current_game_folders
+create_current_game_symlinks
+#######################################################
