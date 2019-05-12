@@ -64,6 +64,26 @@ script:
     ################
     ######################################################
 
+    #### Oblivion ####
+    # Developer install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Oblivion
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\oblivion
+    # Steam install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\22330
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\oblivion
+    ################
+    ######################################################
+
     - task:
         name: wineexec
         prefix: $GAMEDIR

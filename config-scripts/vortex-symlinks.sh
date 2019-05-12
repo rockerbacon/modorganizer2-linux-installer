@@ -8,6 +8,9 @@ VSL_SKYRIMSE_APPID="489830"
 VSL_SKYRIM_GAMEDIR="Skyrim"
 VSL_SKYRIM_APPID="72850"
 
+VSL_OBLIVION_GAMEDIR="Oblivion"
+VSL_OBLIVION_APPID="22330"
+
 #######################################################
 
 ############### PATH CANDIDATES #######################
