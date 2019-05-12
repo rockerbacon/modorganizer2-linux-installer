@@ -2,7 +2,7 @@
 
 ############### GAMES INFO ############################
 
-VSL_SKYRIMSE_GAMEDIR="Syrim Special Edition"
+VSL_SKYRIMSE_GAMEDIR="Skyrim Special Edition"
 VSL_SKYRIMSE_APPID="489830"
 
 VSL_SKYRIM_GAMEDIR="Skyrim"
@@ -34,6 +34,9 @@ fi
 ############## FUNCTIONS DECLARATIONS #################
 
 find_current_game_paths () {
+
+    CURRENT_INSTALL=""
+    CURRENT_PREFIX=""
 
     if [ -d "$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
         CURRENT_INSTALL="$STEAM_PROTON1_PATH/steamapps/common/$CURRENT_GAMEDIR"
