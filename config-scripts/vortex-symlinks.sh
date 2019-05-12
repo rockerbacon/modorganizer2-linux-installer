@@ -26,6 +26,8 @@ fi
 if [ ! -d "$VORTEX_PREFIX" ]; then
     echo "ERROR: Invalid Vortex prefix \"$VORTEX_PREFIX\""
     exit -1
+else
+    echo "INFO: Using Vortex prefix at \"$VORTEX_PREFIX\""
 fi
 #######################################################
 
@@ -52,9 +54,13 @@ find_current_game_folders () {
 
     if [ ! -d "$CURRENT_INSTALL" ]; then
         echo "WARN: Could not find $CURRENT_GAME_FOLDER installation"
+    else
+        echo "INFO: Found installation for $CURRENT_GAME in \"$CURRENT_INSTALL\""
     fi
     if [ ! -d "$CURRENT_PREFIX" ]; then
         echo "WARN: Could not find $CURRENT_GAME_FOLDER prefix"
+    else
+        echo "INFO: Found prefix for $CURRENT_GAME in \"$CURRENT_PREFIX\""
     fi
 
 }
@@ -87,6 +93,8 @@ mkdir -p "$VORTEX_PREFIX/drive_c/Program Files (x86)/Steam/steamapps/common"
 ################ CREATE SYMLINKS ######################
 for CURRENT_GAME in $(printenv | grep -o -e 'VSL_\w*_FOLDER' | sed 's/_FOLDER//')
 do
+
+    echo "INFO: Building symlinks for $CURRENT_GAME"
 
     CURRENT_GAME_FOLDER=$(printenv "${CURRENT_GAME}_FOLDER")
     CURRENT_GAME_STEAM_ID=$(printenv "${CURRENT_GAME}_STEAM_ID")
