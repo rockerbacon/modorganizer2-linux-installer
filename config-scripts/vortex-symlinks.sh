@@ -23,7 +23,7 @@ if [ "$VORTEX_PREFIX" == "" ]; then
     SOURCE_FILE_PATH=$(dirname $BASH_SOURCE)
 	VORTEX_PREFIX="$SOURCE_FILE_PATH/.."
 fi
-if [ ! -d "$VORTEX_PREFIX/drive_c/Program Files/Black Tree Gaming Ltd/Vortex" ]; then
+if [ ! -d "$VORTEX_PREFIX" ]; then
     echo "ERROR: Invalid Vortex prefix \"$VORTEX_PREFIX\""
     exit -1
 else
