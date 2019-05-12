@@ -37,12 +37,12 @@ find_current_game_paths () {
 
     if [ -d "$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
         CURRENT_INSTALL="$STEAM_PROTON1_PATH/steamapps/common/$CURRENT_GAMEDIR"
-        CURRENT_PREFIX="$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_GAMEDIR/pfx"
+        CURRENT_PREFIX="$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_APPID/pfx"
         CURRENT_GAME_USER="steamuser"
 
     elif [ -d "$STEAM_PROTON2_PATH/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
         CURRENT_INSTALL="$STEAM_PROTON2_PATH/steamapps/common/$CURRENT_GAMEDIR"
-        CURRENT_PREFIX="$STEAM_PROTON2_PATH/steamapps/compatdata/$CURRENT_GAMEDIR/pfx"
+        CURRENT_PREFIX="$STEAM_PROTON2_PATH/steamapps/compatdata/$CURRENT_APPID/pfx"
         CURRENT_GAME_USER="steamuser"
 
     elif [ -d "$WINESTEAM_PATH/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAMEDIR" ]; then
@@ -53,12 +53,12 @@ find_current_game_paths () {
     fi
 
     if [ ! -d "$CURRENT_INSTALL" ]; then
-        echo "WARN: Could not find $CURRENT_GAMEDIR installation"
+        echo "WARN: Could not find $CURRENT_GAME installation"
     else
         echo "INFO: Found installation for $CURRENT_GAME in \"$CURRENT_INSTALL\""
     fi
     if [ ! -d "$CURRENT_PREFIX" ]; then
-        echo "WARN: Could not find $CURRENT_GAMEDIR prefix"
+        echo "WARN: Could not find $CURRENT_GAME prefix"
     else
         echo "INFO: Found prefix for $CURRENT_GAME in \"$CURRENT_PREFIX\""
     fi
