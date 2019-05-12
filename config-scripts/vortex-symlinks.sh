@@ -101,6 +101,8 @@ do
     CURRENT_GAMEDIR=$(printenv "${CURRENT_GAME}_GAMEDIR")
     CURRENT_APPID=$(printenv "${CURRENT_GAME}_APPID")
 
+    echo "INFO: gamedir=\"$CURRENT_GAMEDIR\" APPID=\"$CURRENT_APPID\""
+
     find_current_game_paths
     create_current_game_symlinks
 
