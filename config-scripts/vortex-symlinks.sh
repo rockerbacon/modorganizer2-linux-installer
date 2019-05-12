@@ -91,7 +91,7 @@ mkdir -p "$VORTEX_PREFIX/drive_c/Program Files (x86)/Steam/steamapps/common"
 #######################################################
 
 ################ CREATE SYMLINKS ######################
-GAMES=$(printenv | grep -o -e 'VSL_\w*_FOLDER' | sed 's/_FOLDER//')
+GAMES=$(set -o posix; set | grep -o -e 'VSL_\w*_FOLDER' | sed 's/_FOLDER//')
 echo "INFO: Found games:"
 echo $GAMES
 for CURRENT_GAME in $GAMES
