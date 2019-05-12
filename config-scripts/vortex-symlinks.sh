@@ -23,6 +23,9 @@ VSL_FALLOUT3_APPID="22300"
 VSL_FALLOUT_NEWVEGAS_GAMEDIR="Fallout New Vegas"
 VSL_FALLOUT_NEWVEGAS_APPID="22380"
 
+VSL_MORROWIND_GAMEDIR="Morrowind"
+VSL_MORROWIND_APPID="22320"
+
 #######################################################
 
 ############### PATH CANDIDATES #######################

@@ -17,6 +17,7 @@ Can also be used on custom Wine installations with a few manual steps (see the "
 - Fallout 3 - Game of the Year Edition (Untested)
 - Fallout 3 (Untested)
 - Fallout New Vegas (Untested)
+- Morrowind (Untested)
 
 ### KNOWN BUGS/LIMITATIONS:
 - You cannot safely launch apps from within Vortex as its prefix is not configured to run other apps;
