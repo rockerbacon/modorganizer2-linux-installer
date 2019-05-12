@@ -12,7 +12,7 @@ script:
         exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
         prefix: $GAMEDIR
     installer:
-    - move:
+    - merge:
         src: symlinks_setup
         dst: $GAMEDIR/vortex-symlinks.sh
     - chmodx: $GAMEDIR/vortex-symlinks.sh
@@ -31,13 +31,6 @@ script:
     - task:
         name: set_regedit
         prefix: $GAMEDIR
-        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Skyrim Special Edition
-        type: REG_SZ
-        key: "Installed Path"
-        value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim special edition
-    - task:
-        name: set_regedit
-        prefix: $GAMEDIR
         path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\489830
         type: REG_SZ
         key: "Installed Path"
@@ -45,13 +38,6 @@ script:
     #
 
     # Skyrim
-    - task:
-        name: set_regedit
-        prefix: $GAMEDIR
-        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Skyrim
-        type: REG_SZ
-        key: "Installed Path"
-        value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim
     - task:
         name: set_regedit
         prefix: $GAMEDIR
