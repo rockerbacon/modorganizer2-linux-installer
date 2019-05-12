@@ -20,9 +20,10 @@ WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 
 ############### VORTEX PREFIX #########################
 if [ "$VORTEX_PREFIX" == "" ]; then
-	VORTEX_PREFIX=$(dirname $BASH_SOURCE)
+    SOURCE_FILE_PATH=$(dirname $BASH_SOURCE)
+	VORTEX_PREFIX="$SOURCE_FILE_PATH/.."
 fi
-if [ ! -d "$VORTEX_PREFIX" ]; then
+if [ ! -d "$VORTEX_PREFIX/drive_c/Program Files/Black Tree Gaming Ltd/Vortex" ]; then
     echo "ERROR: Invalid Vortex prefix \"$VORTEX_PREFIX\""
     exit -1
 else

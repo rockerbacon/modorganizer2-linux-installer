@@ -12,14 +12,12 @@ script:
         exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
         prefix: $GAMEDIR
     installer:
-    - move:
+    - copy:
         src: symlinks_setup
-        dst: $GAMEDIR/vortex-symlinks.sh
-    - chmodx: $GAMEDIR/vortex-symlinks.sh
+        dst: $GAMEDIR/config_scripts
+    - chmodx: $GAMEDIR/config_scripts/vortex-symlinks.sh
     - execute:
-        file: $GAMEDIR/vortex-symlinks.sh
-        env:
-            VORTEX_PREFIX: $GAMEDIR
+        file: $GAMEDIR/config_scripts/vortex-symlinks.sh
     - task:
         name: winetricks
         prefix: $GAMEDIR
@@ -27,7 +25,8 @@ script:
         description: Installing .NET 4.6
 
     ###################### REGEDITS #######################
-    # Skyrim SE
+    #### Skyrim SE ####
+    # Developer install path
     - task:
         name: set_regedit
         prefix: $GAMEDIR
@@ -35,6 +34,7 @@ script:
         type: REG_SZ
         key: "Installed Path"
         value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim special edition
+    # Steam install path
     - task:
         name: set_regedit
         prefix: $GAMEDIR
@@ -42,9 +42,10 @@ script:
         type: REG_SZ
         key: "Installed Path"
         value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim special edition
-    #
+    ###################
 
-    # Skyrim
+    #### Skyrim ####
+    # Developer install path
     - task:
         name: set_regedit
         prefix: $GAMEDIR
@@ -52,6 +53,7 @@ script:
         type: REG_SZ
         key: "Installed Path"
         value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim
+    # Steam install path
     - task:
         name: set_regedit
         prefix: $GAMEDIR
@@ -59,7 +61,7 @@ script:
         type: REG_SZ
         key: "Installed Path"
         value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim
-    #
+    ################
     ######################################################
 
     - task:
