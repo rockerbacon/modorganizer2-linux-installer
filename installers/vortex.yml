@@ -6,8 +6,8 @@ runner: wine
 
 script:
     files:
-    - setup: "https://github.com/Nexus-Mods/Vortex/releases/download/v0.17.11/vortex-setup-0.17.11.exe"
-    - symlinks_setup: "https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.0/vortex-symlinks.sh"
+    - setup: "N/A:Vortex installer"
+    - symlinks_setup: "N/A:Vortex symlink script"
     game:
         exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
         prefix: $GAMEDIR
@@ -21,8 +21,13 @@ script:
     - task:
         name: winetricks
         prefix: $GAMEDIR
-        app: win10 dotnet46
-        description: Installing .NET 4.6
+        app: win10
+        description: Configuring Windows version
+    # - task:
+    #     name: winetricks
+    #     prefix: $GAMEDIR
+    #     app: dotnet46
+    #     description: Installing .NET 4.6
 
     ###################### REGEDITS #######################
     # Skyrim SE
