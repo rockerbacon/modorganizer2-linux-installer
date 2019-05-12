@@ -2,8 +2,11 @@
 
 ############### GAMES INFO ############################
 
-SKYRIMSE_FOLDER="Syrim Special Edition"
-SKYRIMSE_STEAM_ID="489830"
+VSL_SKYRIMSE_FOLDER="Syrim Special Edition"
+VSL_SKYRIMSE_STEAM_ID="489830"
+
+VSL_SKYRIM_FOLDER="Skyrim"
+VSL_SKYRIM_STEAM_ID="72850"
 
 #######################################################
 
@@ -20,7 +23,7 @@ if [ "$VORTEX_PREFIX" == "" ]; then
 	VORTEX_PREFIX=$(dirname $BASH_SOURCE)
 fi
 if [ ! -d "$VORTEX_PREFIX" ]; then
-    echo "ERROR: Invalid Vortex prefix"
+    echo "ERROR: Invalid Vortex prefix \"$VORTEX_PREFIX\""
     exit -1
 fi
 #######################################################
@@ -81,8 +84,14 @@ mkdir -p "$VORTEX_PREFIX/drive_c/Program Files (x86)/Steam/steamapps/common"
 #######################################################
 
 ################ CREATE SYMLINKS ######################
-CURRENT_GAME_FOLDER=$SKYRIMSE_FOLDER
-CURRENT_GAME_STEAM_ID=$SKYRIMSE_STEAM_ID
-find_current_game_folders
-create_current_game_symlinks
+for CURRENT_GAME in $(printenv | grep -o -e 'VSL_\w*_FOLDER' | sed 's/_FOLDER//')
+do
+
+    CURRENT_GAME_FOLDER=$(printenv "${CURRENT_GAME}_FOLDER")
+    CURRENT_GAME_STEAM_ID=$(printenv "${CURRENT_GAME}_STEAM_ID")
+
+    find_current_game_folders
+    create_current_game_symlinks
+
+done
 #######################################################

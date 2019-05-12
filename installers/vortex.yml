@@ -14,10 +14,10 @@ script:
     installer:
     - move:
         src: symlinks_setup
-        dst: $GAMEDIR/setup-symlinks.sh
-    - chmodx: $GAMEDIR/setup-symlinks.sh
+        dst: $GAMEDIR/vortex-symlinks.sh
+    - chmodx: $GAMEDIR/vortex-symlinks.sh
     - execute:
-        file: $GAMEDIR/setup-symlinks.sh
+        file: $GAMEDIR/vortex-symlinks.sh
         env:
             VORTEX_PREFIX: $GAMEDIR
     - task:
@@ -25,6 +25,9 @@ script:
         prefix: $GAMEDIR
         app: win10 dotnet46
         description: Installing .NET 4.6
+
+    ###################### REGEDITS #######################
+    # Skyrim SE
     - task:
         name: set_regedit
         prefix: $GAMEDIR
@@ -38,7 +41,27 @@ script:
         path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\489830
         type: REG_SZ
         key: "Installed Path"
-        value: c:\\program files (x86)\\steam\\steamapps\\common\skyrim special edition
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim special edition
+    #
+
+    # Skyrim
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Skyrim
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\72850
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\skyrim
+    #
+    ######################################################
+
     - task:
         name: wineexec
         prefix: $GAMEDIR
