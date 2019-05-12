@@ -84,6 +84,86 @@ script:
     ################
     ######################################################
 
+    #### Fallout 4 ####
+    # Developer install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Fallout 4
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\fallout 4
+    # Steam install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\377160
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\fallout 4
+    ################
+    ######################################################
+
+    #### Fallout 3 - GOTY ####
+    # Developer install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Fallout 3 - Game of the Year Edition
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout 3 - Game of the Year Edition
+    # Steam install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\22370
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout 3 - Game of the Year Edition
+    ################
+    ######################################################
+
+    #### Fallout 3 ####
+    # Developer install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Fallout 3
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout 3
+    # Steam install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\22300
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout 3
+    ################
+    ######################################################
+
+    #### Fallout New Vegas ####
+    # Developer install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Fallout New Vegas
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout New Vegas
+    # Steam install path
+    - task:
+        name: set_regedit
+        prefix: $GAMEDIR
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\22380
+        type: REG_SZ
+        key: "Installed Path"
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout New Vegas
+    ################
+    ######################################################
+
     - task:
         name: wineexec
         prefix: $GAMEDIR

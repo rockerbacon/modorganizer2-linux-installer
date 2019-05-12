@@ -11,6 +11,18 @@ VSL_SKYRIM_APPID="72850"
 VSL_OBLIVION_GAMEDIR="Oblivion"
 VSL_OBLIVION_APPID="22330"
 
+VSL_FALLOUT4_GAMEDIR="Fallout 4"
+VSL_FALLOUT4_APPID="377160"
+
+VSL_FALLOUT3_GOTY_GAMEDIR="Fallout 3 - Game of the Year Edition"
+VSL_FALLOUT3_APPID="22370"
+
+VSL_FALLOUT3_GAMEDIR="Fallout 3"
+VSL_FALLOUT3_APPID="22300"
+
+VSL_FALLOUT_NEWVEGAS_GAMEDIR="Fallout New Vegas"
+VSL_FALLOUT_NEWVEGAS_APPID="22380"
+
 #######################################################
 
 ############### PATH CANDIDATES #######################

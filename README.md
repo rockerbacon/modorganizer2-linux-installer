@@ -10,8 +10,13 @@ Support for other games can be added through a few edits to the installer (see t
 Can also be used on custom Wine installations with a few manual steps (see the "CUSTOM WINE INSTALLATION" section).
 
 ### WORKING GAMES:
-- Skyrim Special Edition
-- Skyrim (Untested)
+- TESV: Skyrim Special Edition
+- TESV: Skyrim (Untested)
+- TESIV: Oblivion (Untested)
+- Fallout 4 (Untested)
+- Fallout 3 - Game of the Year Edition (Untested)
+- Fallout 3 (Untested)
+- Fallout New Vegas (Untested)
 
 ### KNOWN BUGS/LIMITATIONS:
 - You cannot safely launch apps from within Vortex as its prefix is not configured to run other apps;
