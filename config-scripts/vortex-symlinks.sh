@@ -20,7 +20,8 @@ WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 
 ############### VORTEX PREFIX #########################
 if [ "$VORTEX_PREFIX" == "" ]; then
-	VORTEX_PREFIX=$(dirname $BASH_SOURCE)
+    CURRENT_DIRECTORY=$(dirname $BASH_SOURCE)
+	VORTEX_PREFIX="$CURRENT_DIRECTORY/.."
 fi
 if [ ! -d "$VORTEX_PREFIX" ]; then
     echo "ERROR: Invalid Vortex prefix \"$VORTEX_PREFIX\""
