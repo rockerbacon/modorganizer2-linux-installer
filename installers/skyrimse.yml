@@ -1,0 +1,19 @@
+name: "The Elder Scrolls V: Skyrim Special Edition"
+game_slug: the-elder-scrolls-v-skyrim-special-edition
+slug: the-elder-scrolls-v-skyrim-special-edition
+version: Steam play
+runner: steam
+
+script:
+    files:
+    - audio_fix_zip: https://github.com/spooknik/SkyrimSE-Linux-Modding/releases/download/1.0.2/skyrim-se-audio-fix-1.0.2.zip
+    game:
+        appid: 489830
+    installer:
+    - extract:
+        file: audio_fix_zip
+        dst: $GAMEDIR/audiofix
+    - execute:
+        file: $GAMEDIR/audiofix/faudio-19.02/wine_setup_faudio.sh
+        env:
+            WINEPREFIX: "$HOME/.steam/steam/steamapps/compatdata/489830/pfx"
