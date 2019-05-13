@@ -38,7 +38,7 @@ WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 
 ############### VORTEX PREFIX #########################
 if [ "$VORTEX_PREFIX" == "" ]; then
-    SOURCE_FILE_PATH=$(dirname $BASH_SOURCE)
+    SOURCE_FILE_PATH=$(dirname "$0")
 	VORTEX_PREFIX="$SOURCE_FILE_PATH/.."
 fi
 if [ ! -d "$VORTEX_PREFIX" ]; then

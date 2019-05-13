@@ -7,13 +7,16 @@ runner: steam
 script:
     files:
     - audio_fix_zip: https://github.com/Kron4ek/FAudio-Builds/archive/master.zip
-    - export_steam_prefix: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/tag/1.31/install-audio-fix.sh
+    - install_audio_fix: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/tag/1.31/install-audio-fix.sh
     game:
         appid: 489830
     installer:
     - extract:
         file: audio_fix_zip
         dst: $GAMEDIR/audiofix
-    - chmodx: $CACHE/export_steam_prefix/install-audio-fix.sh
+    - copy:
+        src: install_audio_fix
+        dst: $GAMEDIR/audiofix
+    - chmodx: $GAMEDIR/audiofix/install-audio-fix.sh
     - execute:
-        file: $CACHE/export_steam_prefix/install-audio-fix.sh
+        file: $GAMEDIR/audiofix/install-audio-fix.sh
