@@ -7,6 +7,7 @@ elif [ -d "$HOME/.local/share/Steam" ]; then
 else
     echo "Could not find Steam"
     exit -1
+fi
 
 if [ "$AUDIOFIX_EXECUTABLE" == "" ] && [ "$GAMEDIR" != "" ]; then
     AUDIOFIX_EXECUTABLE="$GAMEDIR/audiofix/wine_setup_faudio.sh"
