@@ -15,13 +15,17 @@ VSL_FALLOUT4_GAMEDIR="Fallout 4"
 VSL_FALLOUT4_APPID="377160"
 
 VSL_FALLOUT3_GOTY_GAMEDIR="Fallout 3 - Game of the Year Edition"
-VSL_FALLOUT3_APPID="22370"
+VSL_FALLOUT3_GOTY_APPID="22370"
+VSL_FALLOUT3_GOTY_OVERRIDE_MYGAMES="Fallout3"
+VSL_FALLOUT3_GOTY_OVERRIDE_APPDATA="Fallout3"
 
 VSL_FALLOUT3_GAMEDIR="Fallout 3"
 VSL_FALLOUT3_APPID="22300"
 
 VSL_FALLOUT_NEWVEGAS_GAMEDIR="Fallout New Vegas"
 VSL_FALLOUT_NEWVEGAS_APPID="22380"
+VSL_FALLOUT_NEWVEGAS_OVERRIDE_MYGAMES="FalloutNV"
+VSL_FALLOUT_NEWVEGAS_OVERRIDE_APPDATA="FalloutNV"
 
 VSL_MORROWIND_GAMEDIR="Morrowind"
 VSL_MORROWIND_APPID="22320"
@@ -50,6 +54,9 @@ fi
 #######################################################
 
 ############## FUNCTIONS DECLARATIONS #################
+game_attribute () {
+     echo $(set | grep "${CURRENT_GAME}_${1}=" | sed "s/${CURRENT_GAME}_${1}=//; s/^'//; s/'$//")
+}
 
 find_current_game_paths () {
 
@@ -89,15 +96,30 @@ find_current_game_paths () {
 create_current_game_symlinks () {
     if [ -d "$CURRENT_INSTALL" ] && [ -d "$CURRENT_PREFIX" ]; then
 
-        mkdir -p "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/My Documents/My Games/$CURRENT_GAMEDIR"
-        mkdir -p "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/Local Settings/Application Data/$CURRENT_GAMEDIR"
+        OVERRIDE_MYGAMES=$(game_attribute "OVERRIDE_MYGAMES")
+        OVERRIDE_APPDATA=$(game_attribute "OVERRIDE_APPDATA")
 
-        rm -rf "$VORTEX_PREFIX/drive_c/users/$USER/My Documents/My Games/$CURRENT_GAMEDIR"
-        rm -rf "$VORTEX_PREFIX/drive_c/users/$USER/Local Settings/Application Data/$CURRENT_GAMEDIR"
+        if [ "$OVERRIDE_MYGAMES" == "" ]; then
+            MYGAMES=$CURRENT_GAMEDIR
+        else
+            MYGAMES=$OVERRIDE_MYGAMES
+        fi
+
+        if [ "$OVERRIDE_APPDATA" == "" ]; then
+            APPDATA=$CURRENT_GAMEDIR
+        else
+            APPDATA=$OVERRIDE_APPDATA
+        fi
+
+        mkdir -p "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/My Documents/My Games/$MYGAMES"
+        mkdir -p "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/Local Settings/Application Data/$APPDATA"
+
+        rm -rf "$VORTEX_PREFIX/drive_c/users/$USER/My Documents/My Games/$MYGAMES"
+        rm -rf "$VORTEX_PREFIX/drive_c/users/$USER/Local Settings/Application Data/$APPDATA"
         rm -rf "$VORTEX_PREFIX/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAMEDIR"
 
-        ln -s "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/My Documents/My Games/$CURRENT_GAMEDIR" "$VORTEX_PREFIX/drive_c/users/$USER/My Documents/My Games/$CURRENT_GAMEDIR"
-        ln -s "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/Local Settings/Application Data/$CURRENT_GAMEDIR" "$VORTEX_PREFIX/drive_c/users/$USER/Local Settings/Application Data/$CURRENT_GAMEDIR"
+        ln -s "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/My Documents/My Games/$MYGAMES" "$VORTEX_PREFIX/drive_c/users/$USER/My Documents/My Games/$MYGAMES"
+        ln -s "$CURRENT_PREFIX/drive_c/users/$CURRENT_GAME_USER/Local Settings/Application Data/$APPDATA" "$VORTEX_PREFIX/drive_c/users/$USER/Local Settings/Application Data/$APPDATA"
         ln -s "$CURRENT_INSTALL" "$VORTEX_PREFIX/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAMEDIR"
 
     fi
@@ -112,7 +134,8 @@ mkdir -p "$VORTEX_PREFIX/drive_c/Program Files (x86)/Steam/steamapps/common"
 #######################################################
 
 ################ CREATE SYMLINKS ######################
-GAMES=$(set -o posix; set | grep -o -e 'VSL_\w*_GAMEDIR' | sed 's/_GAMEDIR//')
+set -o posix
+GAMES=$(set | grep -o -e 'VSL_\w*_GAMEDIR' | sed 's/_GAMEDIR//')
 echo "INFO: Found games:"
 echo $GAMES
 for CURRENT_GAME in $GAMES
@@ -120,8 +143,8 @@ do
 
     echo "INFO: Building symlinks for $CURRENT_GAME"
 
-    CURRENT_GAMEDIR=$(set -o posix; set | grep "${CURRENT_GAME}_GAMEDIR=" | sed "s/${CURRENT_GAME}_GAMEDIR=//; s/^'//; s/'$//")
-    CURRENT_APPID=$(set -o posix; set | grep "${CURRENT_GAME}_APPID=" | sed "s/${CURRENT_GAME}_APPID=//")
+    CURRENT_GAMEDIR=$(game_attribute "GAMEDIR")
+    CURRENT_APPID=$(game_attribute "APPID")
 
     echo "INFO: gamedir=\"$CURRENT_GAMEDIR\" APPID=\"$CURRENT_APPID\""
 
