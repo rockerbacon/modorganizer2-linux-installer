@@ -1,18 +1,22 @@
-name: The Elder Scrolls V: Skyrim Special Edition
+name: "The Elder Scrolls V: Skyrim Special Edition"
 game_slug: the-elder-scrolls-v-skyrim-special-edition
 slug: the-elder-scrolls-v-skyrim-special-edition
-version: 1.3
+version: Steam play
 runner: steam
 
 script:
     files:
-    - audio_fix_zip: https://github.com/spooknik/SkyrimSE-Linux-Modding/releases/download/1.0.2/skyrim-se-audio-fix-1.0.2.zip
+    - audio_fix_zip: https://github.com/Kron4ek/FAudio-Builds/archive/master.zip
+    - export_steam_prefix: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/tag/1.3/skyrimse-steam-prefix.sh
     game:
         appid: 489830
     installer:
     - extract:
         file: audio_fix_zip
         dst: $GAMEDIR/audiofix
-    - chmodx: $GAMEDIR/audiofix/install_audio.sh
     - execute:
-        file: $GAMEDIR/audiofix/install_audio.sh
+        file: export_steam_prefix
+    - execute:
+        file: $GAMEDIR/audiofix/wine_setup_faudio.sh
+        env:
+            WINEPREFIX: $STEAM_PREFIX
