@@ -157,7 +157,8 @@ done
 ######### LINK DOWNLOADS HANDLER SHORTCUT #############
 echo "INFO: Linking Nexus Mods downloads to Vortex"
 ESCAPED_VORTEX_PREFIX=$(echo $VORTEX_PREFIX | sed 's/\//\\\//g')
-sed -i "s/<VORTEX_PREFIX>/$ESCAPED_VORTEX_PREFIX/g" "$HOME/.local/share/applications/vortex-downloads-handler.desktop"
+ESCAPED_HOME=$(echo $HOME | sed 's/\//\\\//g')
+sed -i "s/<VORTEX_PREFIX>/$ESCAPED_VORTEX_PREFIX/g; s/<HOME>/$ESCAPED_HOME/g" "$HOME/.local/share/applications/vortex-downloads-handler.desktop"
 xdg-mime default vortex-downloads-handler.desktop x-scheme-handler/nxm
 xdg-mime default vortex-downloads-handler.desktop x-scheme-handler/nxm-protocol
 #######################################################

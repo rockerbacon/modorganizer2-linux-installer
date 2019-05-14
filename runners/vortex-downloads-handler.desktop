@@ -1,23 +1,8 @@
 [Desktop Entry]
 Type=Application
 Categories=Game;
-#Path to the folder containing Vortex.exe
 Path=<VORTEX_PREFIX>/drive_c/Program Files/Black Tree Gaming Ltd/Vortex
-
-#you do not need to set PATH below if you use your systems wine version! if you use a specific wine version tho, put that into PATH here.
-#if you use a different versions for different applications, wine will fail to start them at the same time, saying that a running wineserver has an incompatible version. in that case, close the other application first!
-#if you are setup like that^, then best create multiple vortex.desktop files with different PATHs
-#WINEPREFIX should point to the prefix that you installed vortex in.
-Exec=env WINEPREFIX="<VORTEX_PREFIX>" PATH="$HOME/.local/share/lutris/runners/wine/tkg-4.0-x86_64/bin:$PATH" wine Vortex.exe -d %u
-
-#Name that will show up in GUI applications
+Exec=env WINEPREFIX="<VORTEX_PREFIX>" PATH="<HOME>/.local/share/lutris/runners/wine/tkg-4.0-x86_64/bin:$PATH" wine Vortex.exe -d %u
 Name=Vortex
-
-#Mime Types to Handle. Dont change
 MimeType=x-scheme-handler/nxm;x-scheme-handler/nxm-protocol
-
-#set to "false" if you do not want to see a terminal pop up when you start Vortex.
-Terminal=false
-X-KeepTerminal=false
-
 NoDisplay=true
