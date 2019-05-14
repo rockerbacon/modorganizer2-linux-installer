@@ -43,7 +43,7 @@ WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 ############### VORTEX PREFIX #########################
 if [ "$VORTEX_PREFIX" == "" ]; then
     SOURCE_FILE_PATH=$(dirname "$0")
-	VORTEX_PREFIX="$SOURCE_FILE_PATH/.."
+	VORTEX_PREFIX=$(realpath "$SOURCE_FILE_PATH/..")
 fi
 if [ ! -d "$VORTEX_PREFIX" ]; then
     echo "ERROR: Invalid Vortex prefix \"$VORTEX_PREFIX\""
@@ -152,4 +152,12 @@ do
     create_current_game_symlinks
 
 done
+#######################################################
+
+######### LINK DOWNLOADS HANDLER SHORTCUT #############
+echo "INFO: Linking Nexus Mods downloads to Vortex"
+ESCAPED_VORTEX_PREFIX=$(echo $VORTEX_PREFIX | sed 's/\//\\\//g')
+sed -i "s/<VORTEX_PREFIX>/$ESCAPED_VORTEX_PREFIX/g" "$HOME/.local/share/applications/vortex-downloads-handler.desktop"
+xdg-mime default vortex-downloads-handler.desktop x-scheme-handler/nxm
+xdg-mime default vortex-downloads-handler.desktop x-scheme-handler/nxm-protocol
 #######################################################
