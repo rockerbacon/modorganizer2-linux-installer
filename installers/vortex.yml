@@ -117,10 +117,10 @@ script:
     - task:
         name: set_regedit
         prefix: $GAMEDIR
-        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Fallout 3 - Game of the Year Edition
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Fallout 3 goty
         type: REG_SZ
         key: "Installed Path"
-        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout 3 - Game of the Year Edition
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout 3 goty
     # Steam install path
     - task:
         name: set_regedit
@@ -128,7 +128,7 @@ script:
         path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\22370
         type: REG_SZ
         key: "Installed Path"
-        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout 3 - Game of the Year Edition
+        value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout 3 goty
     ################
     ######################################################
 
