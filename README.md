@@ -7,16 +7,14 @@ Plug and play installation, everything configured out of the box for games insta
 
 Support for other games can be added through a few edits to the installer (see the "ADD SUPPORT FOR GAMES" section).
 
-Can also be used on custom Wine installations with a few manual steps (see the "CUSTOM WINE INSTALLATION" section).
-
 ### WORKING GAMES:
 - TESV: Skyrim Special Edition
 - TESV: Skyrim (Untested)
 - TESIV: Oblivion (Untested)
 - Fallout 4 (Untested)
-- Fallout 3 - Game of the Year Edition (Untested)
+- Fallout 3 - Game of the Year Edition (Bugfix deployed, awaiting new tests)
 - Fallout 3 (Untested)
-- Fallout New Vegas (Untested)
+- Fallout New Vegas
 - Morrowind (Untested)
 
 ### KNOWN BUGS/LIMITATIONS:
@@ -26,8 +24,8 @@ Can also be used on custom Wine installations with a few manual steps (see the "
 
 ### ADD SUPPORT FOR GAMES
 #### Game Requirements
-- Game must store its configurations inside the folder _users/\<user\>/My Documents/My Games/\<Game Title\>_
-- Game must store its load order data inside the folder _users/\<user\>/Local Settings/Application Data/\<Game Title\>_
+- Game must store its configurations inside the folder _users/\<user\>/My Documents/My Games/_
+- Game must store its load order data inside the folder _users/\<user\>/Local Settings/Application Data/_
 All Bethesda games should fulfill these requirements.
 #### Editing config-scripts/vortex-symlinks.sh
 This edit is needed to configure the symlink builder, which helps Vortex know where your game's configurations and plugins data are. This step cannot be skipped.
@@ -42,7 +40,12 @@ This edit is needed to configure the symlink builder, which helps Vortex know wh
 VSL_GAME_NAME_GAMEDIR="gamedir from step 5"
 VSL_GAME_NAME_APPID="APPID from step 2"
 ```
-8. Save the file and close it.
+8. If the game saves its data under a different name from gamedir inside _My Games_ or _Application Data_ then these edits are also necessary:
+```
+VSL_GAME_NAME_OVERRIDE_MYGAMES="folder name inside My Games"
+VSL_GAME_NAME_OVERRIDE_APPDATA="folder name inside Application Data"
+```
+9. Save the file and close it.
 Note: GAME_NAME can be anything which identifies the game but can only contain characters, numbers and underscores.
 
 #### Editing installers/vortex.yml
@@ -88,19 +91,27 @@ Rebuilding the symlinks is very easy, there's a script included with the Vortex 
 bash ./vortex-symlinks.sh
 ```
 
-### CUSTOM WINE INSTALLATION (Currently unavailable):
-First install Vortex normally through Lutris and close it after installation is finished. Then move on to the custom configuration:
+## SKSE64
 
-We need to configure symlinks so that Vortex will be able to edit the files your game uses. Luckly for you, I've wrote a simple script which takes care of that for us:
-1. Open Lutris' Vortex installation folder on a terminal (usually _/home/\<user\>/Games/vortex-mod-manager_);
-2. Execute the following commands:
+For a copy of Skyrim Special Edition installed for Steam Play only.
+
+Currently mostly plug and play. As of 1.6, a few manual steps are required and game reconfiguration may be needed. See known bugs and limitations before using the installer.
+
+Lauching SKSE64 from within Lutris will run the default game launcher. In order to play the game using SKSE64 the game must be run from Steam (or Lutris, which launches Steam).
+
+### KNOWN BUGS/LIMITATIONS
+- Launching SKSE64 from within Lutris allows the user to launch Skyrim's default launcher but starting the game from within this launcher will not load SKSE. This is the default SKSE behavior;
+- Manual steps are required in order for SKSE to run using Skyrim's custom proton prefix, which can only be done from within Steam. The installer will inform the needed steps;
+- After installation is complete Steam may run first time setup again, which will cause fAudio to be overriden and game settings to be erased;
+
+## SKYRIM SPECIAL EDITION
+
+As of 1.6 installs the game for Steam Play and saves the files needed for the audio fix inside the game's folder. It does not install the audio fix automatically yet.
+
+The audio fix can be installed by running the commands:
 ```
-export SKYRIM_PREFIX="<custom wine installation prefix directory path>"
-bash ./vortex-symlinks.sh
+cd $HOME/.steam/steam/steamapps/common/Skyrim\ Special\ Edition/audiofix
+bash ./install-audio-fix.sh
 ```
-Now Vortex is already able to manage the game, but it still does not know which game that is. For that we need to allow Vortex to see where the game is installed:
-1. Launch Vortex;
-2. Go to _Settings > Games > Add Search Directory_;
-3. Navigate to your Skyrim Special Edition installation folder;
-4. Go to _Games > Scan > Scan: Full_;
-5. Now you should be able to use the manager with no problems.
+
+Every time Steam runs first time setup the audio fix must be installed again.
