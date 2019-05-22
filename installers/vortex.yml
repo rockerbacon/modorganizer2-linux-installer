@@ -197,5 +197,6 @@ script:
         prefix: $GAMEDIR
         executable: setup
     wine:
+        dxvk: true
         version: tkg-4.0-x86_64
 
