@@ -7,8 +7,8 @@ runner: wine
 script:
     files:
     - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v0.17.11/vortex-setup-0.17.11.exe
-    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.6/vortex-symlinks.sh
-    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.6/vortex-downloads-handler.desktop
+    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.7/vortex-symlinks.sh
+    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.7/vortex-downloads-handler.desktop
     game:
         exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
         prefix: $GAMEDIR
@@ -191,6 +191,15 @@ script:
         value: c:\\program files (x86)\\steam\\steamapps\\common\\Morrowind
     ################
     ######################################################
+
+    - input_menu:
+        description: "ATTENTION!\n
+            -Vortex cannot be updated after installed, doing so will break it\n
+            -After installation finishes, Vortex will start. Before adding any games you must go to \"Settings\" and disable \"Annoucements\", \"News\" and \"Latest Mods\" in the \"Interface\" tab, otherwise you'll get stuck in a crash loop"
+        options:
+            - waiting: "Click here after you read everything carefully"
+            - proceed: "I'm aware of what I need to do, procced with the installation"
+        preselect: waiting
 
     - task:
         name: wineexec

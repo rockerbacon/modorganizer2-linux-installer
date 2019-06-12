@@ -17,10 +17,17 @@ Support for other games can be added through a few edits to the installer (see t
 - Fallout New Vegas
 - Morrowind (Untested)
 
+### CONFIRMED WORKING EXTERNAL APPLICATIONS:
+- Fores New Idles in Skyrim (FNIS)
+- SSEEdit
+- LOOT
+- Bodyslide and Outfit Studio
+Other applications may work as well, but they have not been tested.
+
 ### KNOWN BUGS/LIMITATIONS:
-- You cannot safely launch apps from within Vortex as its prefix is not configured to run other apps;
-- Although profiles work for plugins and configs they will not work for saves;
-- If a new game is installed after Vortex, it'll be unable to manage mods for that game untill the symlinks are rebuild (see the section "REBUILDING SYMLINKS" for instructions).
+- The game cannot be launched from within the application;
+- If a new game is installed after Vortex, it'll be unable to manage mods for that game untill the symlinks are rebuild (see the section "REBUILDING SYMLINKS" for instructions);
+- After Vortex update 0.18.7, having the dashlets "Announcements", "News" and "Latest Mods" enabled in "Settings" can cause Vortex to go on a crash loop after a game is added.
 
 ### ADD SUPPORT FOR GAMES
 #### Game Requirements
