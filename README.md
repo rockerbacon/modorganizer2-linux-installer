@@ -22,6 +22,7 @@ Support for other games can be added through a few edits to the installer (see t
 - SSEEdit
 - LOOT
 - Bodyslide and Outfit Studio
+
 Other applications may work as well, but they have not been tested.
 
 ### KNOWN BUGS/LIMITATIONS:
