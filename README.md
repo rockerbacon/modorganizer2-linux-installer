@@ -80,7 +80,7 @@ path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Valve\Steam\Apps\some APPID
 12. Change "same APPID" with the APPID from step 2 from the previous edit;
 13. Now we look for the line:
 ```
-value: c:\\program files (x86)\\steam\\steamapps\\common\\same gamedir
+value: c:\\program files (x86)\\steam\\steamapps\\common\\some gamedir
 ```
 14. This one should be the same as the one we got from step 9. Change "some gamedir" with the gamedir from step 5 from the previous edit;
 15. Save the file and close it.
@@ -92,10 +92,10 @@ We use symlinks in order to trick Vortex into thinking all your game files resid
 The upside of this approach is that you don't need Vortex installed on the same prefix as your game, which makes Wine configuration easier to manage and allows for tools such as Lutris to work well. The downside is that symlinks need a physical folder to point to and before the game is installed this folder does not exist.
 
 Rebuilding the symlinks is very easy, there's a script included with the Vortex installation for that:
-1. Open Lutris' Vortex installation folder on a terminal (usually _/home/\<user\>/Games/vortex-mod-manager_);
+1. Open Lutris' Vortex installation folder on a terminal (usually _$HOME/Games/vortex-mod-manager_);
 2. Execute the following command:
 ```
-bash ./vortex-symlinks.sh
+bash config_scripts/vortex-symlinks.sh
 ```
 
 ## SKSE64

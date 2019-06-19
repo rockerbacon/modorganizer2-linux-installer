@@ -7,8 +7,8 @@ runner: wine
 script:
     files:
     - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v0.17.11/vortex-setup-0.17.11.exe
-    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.7/vortex-symlinks.sh
-    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.7/vortex-downloads-handler.desktop
+    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.7.1/vortex-symlinks.sh
+    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.7.1/vortex-downloads-handler.desktop
     game:
         exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
         prefix: $GAMEDIR
