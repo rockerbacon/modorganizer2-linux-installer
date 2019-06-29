@@ -28,7 +28,27 @@ Other applications may work as well, but they have not been tested.
 ### KNOWN BUGS/LIMITATIONS:
 - The game cannot be launched from within the application;
 - If a new game is installed after Vortex, it'll be unable to manage mods for that game untill the symlinks are rebuild (see the section "REBUILDING SYMLINKS" for instructions);
-- After Vortex update 0.18.7, having the dashlets "Announcements", "News" and "Latest Mods" enabled in "Settings" can cause Vortex to go on a crash loop after a game is added.
+- After Vortex update 0.18.7, having the dashlets "Announcements", "News" and "Latest Mods" enabled in "Settings" can cause Vortex to go on a crash loop after a game is added;
+- Games installed outside of _$HOME/.steam/steam_, _$HOME/.local/share/Steam_ or _$HOME/.local/share/lutris/runners/winesteam_ require manual configuration. (see the section "NON-DEFAULT INSTALL LOCATIONS" for instructions)
+
+### NON-DEFAULT INSTALL LOCATIONS
+By default, the symlink build script will look for installed games in the following folders:
+- _$HOME/.steam/steam_: default Steam instal location;
+- _$HOME/.local/share/Steam_: there are a few reports on the internet of Steam using this folder as its default install location;
+- _$HOME/.local/share/lutris/runners/winesteam_: Lutris default location for games using the Wine Steam runner
+
+If you have your games installed on a non-standard Steam library you will need to manually edit the Vortex symlink build script and rebuild the symlinks in order for your games to be detected. Manually adding search directories inside Vortex will not work. Here are the steps needed to do it:
+
+1. Determine your custom Steam library location. This can be done by opening Steam > Settings > Downloads > Steam Library Folders;
+2. Open the Vortex symlink build script in _$HOME/Games/vortex-mod-manager/config_scripts/vortex-symlinks.sh_;
+3. Find the block "PATH CANDIDATES", there you should see the following:
+```
+STEAM_PROTON1_PATH="$HOME/.steam/steam"
+STEAM_PROTON2_PATH="$HOME/.local/share/Steam"
+WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
+```
+4. Pick any of the locations and replace it with your custom library location from step 1. Remember that once replaced, the script will no longer look in the old location so you want to replace a location you do not use;
+5. Rebuild the symlinks by executing the script. (see section "REBUILDING SYMLINKS")
 
 ### ADD SUPPORT FOR GAMES
 #### Game Requirements
