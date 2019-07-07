@@ -11,7 +11,7 @@ Support for other games can be added through a few edits to the installer (see t
 - TESV: Skyrim Special Edition
 - TESV: Skyrim (Untested)
 - TESIV: Oblivion (Untested)
-- Fallout 4 (Untested)
+- Fallout 4
 - Fallout 3 - Game of the Year Edition (Bugfix deployed, awaiting new tests)
 - Fallout 3 (Untested)
 - Fallout New Vegas
@@ -37,7 +37,13 @@ By default, the symlink build script will look for installed games in the follow
 - _$HOME/.local/share/Steam_: there are a few reports on the internet of Steam using this folder as its default install location;
 - _$HOME/.local/share/lutris/runners/winesteam_: Lutris default location for games using the Wine Steam runner
 
-If you have your games installed on a non-standard Steam library you will need to manually edit the Vortex symlink build script and rebuild the symlinks in order for your games to be detected. Manually adding search directories inside Vortex will not work. Here are the steps needed to do it:
+If you have your games installed on a non-standard Steam library you will need to:
+
+1. Install Vortex on the same drive you installed your games on;
+2. Manually edit the Vortex symlink build script;
+3. Rebuild the symlinks in order for your games to be detected.
+
+The instructions for editing the script are as follows:
 
 1. Determine your custom Steam library location. This can be done by opening Steam > Settings > Downloads > Steam Library Folders;
 2. Open the Vortex symlink build script in _$HOME/Games/vortex-mod-manager/config_scripts/vortex-symlinks.sh_;
