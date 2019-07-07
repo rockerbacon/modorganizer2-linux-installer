@@ -9,7 +9,7 @@ Support for other games can be added through a few edits to the installer (see t
 
 ### WORKING GAMES:
 - TESV: Skyrim Special Edition
-- TESV: Skyrim (Untested)
+- TESV: Skyrim
 - TESIV: Oblivion (Untested)
 - Fallout 4
 - Fallout 3 - Game of the Year Edition (Bugfix deployed, awaiting new tests)
