@@ -28,7 +28,6 @@ Other applications may work as well, but they have not been tested.
 ### KNOWN BUGS/LIMITATIONS:
 - The game cannot be launched from within the application;
 - If a new game is installed after Vortex, it'll be unable to manage mods for that game untill the symlinks are rebuild (see the section "REBUILDING SYMLINKS" for instructions);
-- After Vortex update 0.18.7, having the dashlets "Announcements", "News" and "Latest Mods" enabled in "Settings" can cause Vortex to go on a crash loop after a game is added;
 - Games installed outside of _$HOME/.steam/steam_, _$HOME/.local/share/Steam_ or _$HOME/.local/share/lutris/runners/winesteam_ require manual configuration. (see the section "NON-DEFAULT INSTALL LOCATIONS" for instructions)
 
 ### NON-DEFAULT INSTALL LOCATIONS
