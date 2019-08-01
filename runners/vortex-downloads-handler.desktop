@@ -2,7 +2,7 @@
 Type=Application
 Categories=Game;
 Path=<VORTEX_PREFIX>/drive_c/Program Files/Black Tree Gaming Ltd/Vortex
-Exec=env WINEPREFIX="<VORTEX_PREFIX>" PATH="<HOME>/.local/share/lutris/runners/wine/tkg-4.0-x86_64/bin:$PATH" wine Vortex.exe -d %u
+Exec=env WINEPREFIX="<VORTEX_PREFIX>" PATH="<HOME>/.local/share/lutris/runners/wine/lutris-4.12.1-x86_64/bin:$PATH" wine Vortex.exe -d %u
 Name=Vortex
 MimeType=x-scheme-handler/nxm;x-scheme-handler/nxm-protocol
 NoDisplay=true
