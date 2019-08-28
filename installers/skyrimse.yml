@@ -20,3 +20,8 @@ script:
     - chmodx: $GAMEDIR/audiofix/install-audio-fix.sh
     - execute:
         file: $GAMEDIR/audiofix/install-audio-fix.sh
+    system:
+        env:
+            PROTON_NO_ESYNC: 1
+        reset_pulse: true
+        pulse_latency: true
