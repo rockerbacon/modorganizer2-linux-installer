@@ -7,7 +7,7 @@ runner: steam
 script:
     files:
     - audio_fix_zip: https://github.com/Kron4ek/FAudio-Builds/releases/download/19.08/faudio-19.08.tar.xz
-    - install_audio_fix: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8/install-audio-fix.sh
+    - install_audio_fix: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.1/install-audio-fix.sh
     game:
         appid: 489830
     installer:
