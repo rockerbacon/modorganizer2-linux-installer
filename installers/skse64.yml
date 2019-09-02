@@ -6,7 +6,6 @@ runner: linux
 
 script:
     files:
-    - proton_patch: https://github.com/spooknik/SkyrimSE-Linux-Modding/releases/download/1.0.2/skyrim-proton-1.0.2.zip
     - skse_dll: https://skse.silverlock.org/beta/skse64_2_00_16.7z
     - skse_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.1/skse_launcher.sh
     - selauncher_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.1/selauncher_launcher.sh
@@ -21,13 +20,6 @@ script:
             STEAM_COMPAT_DATA_PATH: "$HOME/.steam/steam/steamapps/compatdata/489830"
 
     installer:
-    - extract:
-        file: proton_patch
-        dst: $GAMEDIR/proton_patch
-    - chmodx: $GAMEDIR/proton_patch/install_proton.sh
-    - execute:
-        file: $GAMEDIR/proton_patch/install_proton.sh
-
     - extract:
         file: skse_dll
         dst: $GAMEDIR/skse_binaries
@@ -63,7 +55,7 @@ script:
             4. Copy and paste this \"bash $HOME/Games/skyrim-script-extender-64/proton_runner/skse_launcher.sh && echo %command% > /dev/null\" on the textbox (without the quotes);\n
             5. Click on \"OK\";\n
             6. Still on the properties menu check the option \"Force the use of a specific Steam Play compatibility tool\";\n
-            7. Select \"Proton 3.16-4 for Skyrim SE\" from the dropdown menu;\n
+            7. Select \"Proton 4.11-x\" from the dropdown menu;\n
             8. Click on \"Close\""
         options:
             - waiting: "Click here after you've finished all steps"
