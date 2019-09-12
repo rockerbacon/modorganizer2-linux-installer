@@ -8,5 +8,5 @@ SKYRIM_INSTALL_FOLDER="$HOME/.steam/steam/steamapps/common/Skyrim Special Editio
 if [ "$EXECUTABLE" != "" ]; then
     echo "Launching $EXECUTABLE"
     export STEAM_COMPAT_DATA_PATH=$SKYRIM_COMPAT_DATA
-    $SKYRIM_PROTON_BINARY run "$EXECUTABLE"
+    "$SKYRIM_PROTON_BINARY" run "$EXECUTABLE"
 fi
