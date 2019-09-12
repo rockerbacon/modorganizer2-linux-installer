@@ -1,6 +1,14 @@
 # lutris-skyrimse-installers
 Installers to make Skyrim Special Edition plug and play on Lutris
 
+## Installing
+
+These installers are not available on Lutris.net. In order to used them you have to download the .yml file for the app you want from the [latest stable release](https://github.com/rockerbacon/lutris-skyrimse-installers/releases) and install it with the command:
+```
+lutris -i /path/to/downloaded/file.yml
+```
+IMPORTANT: If Lutris is already open the path to the file must be absolute, since the working directory for Lutris will not be the same as the terminal's. If in doubt just make sure Lutris is not running before executing the install command.
+
 ## Vortex
 
 Plug and play installation, everything configured out of the box for games installed for Steam Play or Lutris Winesteam (see the "WORKING GAMES" section).
