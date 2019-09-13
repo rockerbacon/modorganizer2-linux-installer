@@ -7,8 +7,8 @@ runner: linux
 script:
     files:
     - skse_dll: https://skse.silverlock.org/beta/skse64_2_00_16.7z
-    - skse_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.1/skse_launcher.sh
-    - selauncher_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.1/selauncher_launcher.sh
+    - skse_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.2/skse_launcher.sh
+    - selauncher_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.2/selauncher_launcher.sh
 
     game:
         exe: $GAMEDIR/proton_runner/selauncher_launcher.sh
