@@ -1,12 +1,12 @@
 name: "Skyrim Script Extender 64 (SKSE64)"
 game_slug: skyrim-script-extender-64
 slug: skyrim-script-extender-64
-version: v2.00.16
+version: v2.00.17
 runner: linux
 
 script:
     files:
-    - skse_dll: https://skse.silverlock.org/beta/skse64_2_00_16.7z
+    - skse_dll: https://skse.silverlock.org/beta/skse64_2_00_17.7z
     - skse_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.2/skse_launcher.sh
     - selauncher_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.2/selauncher_launcher.sh
 
@@ -28,7 +28,7 @@ script:
         src: $GAMEDIR/skse_binaries/Data
         dst: "$HOME/.steam/steam/steamapps/common/Skyrim Special Edition/Data"
     - copy:
-        src: $GAMEDIR/skse_binaries/skse64_1_5_73.dll
+        src: $GAMEDIR/skse_binaries/skse64_1_5_97.dll
         dst: "$HOME/.steam/steam/steamapps/common/Skyrim Special Edition"
     - copy:
         src: $GAMEDIR/skse_binaries/skse64_loader.exe
@@ -61,4 +61,3 @@ script:
             - waiting: "Click here after you've finished all steps"
             - proceed: "I've followed the steps, procced with the installation"
         preselect: waiting
-
