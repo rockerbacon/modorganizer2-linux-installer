@@ -1,14 +1,14 @@
 name: Vortex
 game_slug: vortex-mod-manager
 slug: vortex-mod-manager
-version: 1.0.5
+version: 1.1.14
 runner: wine
 
 script:
     files:
-    - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v1.0.5/vortex-setup-1.0.5.exe
-    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.2/vortex-symlinks.sh
-    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.8.2/vortex-downloads-handler.desktop
+    - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v1.1.14/vortex-setup-1.1.14.exe
+    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9/vortex-symlinks.sh
+    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9/vortex-downloads-handler.desktop
     game:
         exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
         prefix: $GAMEDIR
@@ -29,8 +29,8 @@ script:
     - task:
         name: winetricks
         prefix: $GAMEDIR
-        app: win10 dotnet46 corefonts
-        description: Installing .NET 4.6 and Corefonts
+        app: win10 dotnet48 corefonts
+        description: Installing .NET 4.8 and Corefonts
 
     ###################### REGEDITS #######################
     #### Skyrim SE ####
@@ -198,5 +198,5 @@ script:
         executable: setup
     wine:
         dxvk: true
-        version: lutris-4.12.1-x86_64
+        version: lutris-5.2-x86_64
 
