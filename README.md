@@ -134,25 +134,22 @@ bash config_scripts/vortex-symlinks.sh
 
 ## SKSE64
 
-For a copy of Skyrim Special Edition installed for Steam Play only.
-
-Currently mostly plug and play. As of 1.6, a few manual steps are required and game reconfiguration may be needed. See known bugs and limitations before using the installer.
+For a copy of Skyrim Special Edition installed for Steam Play only. See known bugs and limitations before using the installer.
 
 Lauching SKSE64 from within Lutris will run the default game launcher. In order to play the game using SKSE64 the game must be run from Steam (or Lutris, which launches Steam).
 
 ### KNOWN BUGS/LIMITATIONS
 - Launching SKSE64 from within Lutris allows the user to launch Skyrim's default launcher but starting the game from within this launcher will not load SKSE. This is the default SKSE behavior;
-- Manual steps are required in order for SKSE to run using Skyrim's custom proton prefix, which can only be done from within Steam. The installer will inform the needed steps;
-- After installation is complete Steam may run first time setup again, which will cause fAudio to be overriden and game settings to be erased;
+- After installation is complete Steam might run first time setup again, which will cause fAudio to be overriden and game settings to be reset. See section [Skyrim Special Edition](#skyrim-special-edition) for instructions on getting fAudio again;
 
 ## SKYRIM SPECIAL EDITION
 
-As of 1.6 installs the game for Steam Play and saves the files needed for the audio fix inside the game's folder. It does not install the audio fix automatically yet.
+Plug and play.
 
-The audio fix can be installed by running the commands:
+### KNOWN BUGS/LIMITATIONS
+
+- Steam might decide to rerun first time setup under some circumstances, which will uninstall fAudio and result in silent music and dialogue. To reinstall fAudio run the commands:
 ```
 cd $HOME/.steam/steam/steamapps/common/Skyrim\ Special\ Edition/audiofix
 bash ./install-audio-fix.sh
 ```
-
-Every time Steam runs first time setup the audio fix must be installed again.
