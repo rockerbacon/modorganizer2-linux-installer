@@ -157,7 +157,7 @@ script:
     - task:
         name: set_regedit
         prefix: $GAMEDIR
-        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\Fallout New Vegas
+        path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Bethesda Softworks\FalloutNV
         type: REG_SZ
         key: "Installed Path"
         value: c:\\program files (x86)\\steam\\steamapps\\common\\Fallout New Vegas
