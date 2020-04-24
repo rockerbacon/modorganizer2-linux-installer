@@ -15,7 +15,7 @@ Plug and play installation, everything configured out of the box for games insta
 
 Support for other games can be added through a few edits to the installer (see the "ADD SUPPORT FOR GAMES" section).
 
-## Disable Updates
+### Disable Updates
 
 Vortex is tested and guaranteed to have basic functionality working with the versions supplied by the installers. Updates to either Vortex or Wine have been shown to break things very often.
 
