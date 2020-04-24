@@ -1,14 +1,14 @@
 name: Vortex
 game_slug: vortex-mod-manager
 slug: vortex-mod-manager
-version: 1.1.14
+version: 1.1.15
 runner: wine
 
 script:
     files:
-    - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v1.1.14/vortex-setup-1.1.14.exe
-    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9/vortex-symlinks.sh
-    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9/vortex-downloads-handler.desktop
+    - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v1.1.15/vortex-setup-1.1.15.exe
+    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9.2/vortex-symlinks.sh
+    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9.2/vortex-downloads-handler.desktop
     game:
         exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
         prefix: $GAMEDIR
