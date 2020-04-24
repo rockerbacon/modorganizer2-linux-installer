@@ -15,6 +15,14 @@ Plug and play installation, everything configured out of the box for games insta
 
 Support for other games can be added through a few edits to the installer (see the "ADD SUPPORT FOR GAMES" section).
 
+### Disable Updates
+
+Vortex is tested and guaranteed to have basic functionality working with the versions supplied by the installers. Updates to either Vortex or Wine have been shown to break things very often.
+
+Updates can be disabled by going to `Settings > Vortex > Update` and selecting the option 'No automatic updates'.
+
+If your current installation is broken because of an update, you can reinstall an older version by downloading an installer from [here](https://github.com/Nexus-Mods/Vortex/releases) and running it inside Vortex's prefix: in Lutris, right click the application and use the option 'Run EXE inside wine prefix'
+
 ### WORKING GAMES:
 - TESV: Skyrim Special Edition
 - TESV: Skyrim
