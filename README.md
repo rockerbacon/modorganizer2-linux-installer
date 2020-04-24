@@ -21,6 +21,8 @@ Vortex is tested and guaranteed to have basic functionality working with the ver
 
 Updates can be disabled by going to `Settings > Vortex > Update` and selecting the option 'No automatic updates'.
 
+If your current installation is broken because of an update, you can reinstall an older version by downloading an installer from [here](https://github.com/Nexus-Mods/Vortex/releases) and running it inside Vortex's prefix: in Lutris, right click the application and use the option 'Run EXE inside wine prefix'
+
 ### WORKING GAMES:
 - TESV: Skyrim Special Edition
 - TESV: Skyrim
