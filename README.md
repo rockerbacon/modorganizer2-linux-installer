@@ -15,9 +15,11 @@ Plug and play installation, everything configured out of the box for games insta
 
 Support for other games can be added through a few edits to the installer (see the "ADD SUPPORT FOR GAMES" section).
 
-## Do Not Update Anything
+## Disable Updates
 
 Vortex is tested and guaranteed to have basic functionality working with the versions supplied by the installers. Updates to either Vortex or Wine have been shown to break things very often.
+
+Updates can be disabled by going to `Settings > Vortex > Update` and selecting the option 'No automatic updates'.
 
 ### WORKING GAMES:
 - TESV: Skyrim Special Edition
