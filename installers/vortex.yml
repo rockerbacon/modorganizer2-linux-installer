@@ -192,10 +192,21 @@ script:
     ################
     ######################################################
 
+    - input_menu:
+        description: "MANUAL STEPS RECOMMENDED:\n\n
+            Vortex is tested and guaranteed to have basic functionality working with the version supplied in this installer. Updates have been shown to break things very often.\n
+            It is highly recommended to disable automatic updates after Vortex is installed, by going to 'Settings > Vortex > Update' and selecting the option 'No automatic updates'
+        "
+        options:
+            - waiting: "Click here after reading the instructions"
+            - proceed: "I have read everything and know what to do"
+        preselect: waiting
+
     - task:
         name: wineexec
         prefix: $GAMEDIR
         executable: setup
+
     wine:
         dxvk: true
         version: lutris-5.2-x86_64
