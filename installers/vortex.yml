@@ -7,8 +7,8 @@ runner: wine
 script:
     files:
     - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v1.1.15/vortex-setup-1.1.15.exe
-    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9.2/vortex-symlinks.sh
-    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9.2/vortex-downloads-handler.desktop
+    - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9.3/vortex-symlinks.sh
+    - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9.3/vortex-downloads-handler.desktop
     game:
         exe: drive_c/Program Files/Black Tree Gaming Ltd/Vortex/Vortex.exe
         prefix: $GAMEDIR
@@ -193,13 +193,16 @@ script:
     ######################################################
 
     - input_menu:
-        description: "MANUAL STEPS RECOMMENDED:\n\n
-            Vortex is tested and guaranteed to have basic functionality working with the version supplied in this installer. Updates have been shown to break things very often.\n
-            It is highly recommended to disable automatic updates after Vortex is installed, by going to 'Settings > Vortex > Update' and selecting the option 'No automatic updates'
+        description: "MANUAL STEPS REQUIRED:\n\n
+            Vortex is tested and guaranteed to have basic functionality working with the version supplied in this installer. Updates have been shown to break things very often.\n\n
+            In order to keep Vortex from updating automatically, please follow these steps:\n
+            1. Disconnect from the internet NOW to keep Vortex from updating on its first launch;\n
+            2. After the first launch, go to 'Settings > Vortex > Update' and select the option 'No automatic updates';\n
+            3. Close Vortex and reconnect to the internet;
         "
         options:
             - waiting: "Click here after reading the instructions"
-            - proceed: "I have read everything and know what to do"
+            - proceed: "I have disconnected, continue to the first launch"
         preselect: waiting
 
     - task:
