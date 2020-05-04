@@ -5,19 +5,22 @@ version: v2.00.17
 runner: linux
 
 script:
+    requires: the-elder-scrolls-v-skyrim-special-edition
+
     files:
     - skse_dll: https://skse.silverlock.org/beta/skse64_2_00_17.7z
-    - skse_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9.3/skse_launcher.sh
-    - selauncher_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9.3/selauncher_launcher.sh
+    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/proton_launcher.sh
 
     game:
-        exe: $GAMEDIR/proton_runner/selauncher_launcher.sh
-        args: skse64_loader.exe
-        working_dir: "$HOME/.steam/steam/steamapps/common/Skyrim Special Edition"
+        exe: $GAMEDIR/proton_launcher.sh
+        args: >
+            --noesync
+            --restart-pulse
+            --protonver '4.*'
+            --native 'xaudio2_7'
+            489830 skse64_loader.exe
 
-    system:
-        env:
-            STEAM_COMPAT_DATA_PATH: "$HOME/.steam/steam/steamapps/compatdata/489830"
+        working_dir: "$WINESTEAM:489830:/"
 
     installer:
     - extract:
@@ -38,26 +41,7 @@ script:
         dst: "$HOME/.steam/steam/steamapps/common/Skyrim Special Edition"
 
     - copy:
-        src: skse_launcher
-        dst: $GAMEDIR/proton_runner
-    - chmodx: $GAMEDIR/proton_runner/skse_launcher.sh
+        src: proton_launcher
+        dst: $GAMEDIR/
+    - chmodx: $GAMEDIR/proton_launcher.sh
 
-    - copy:
-        src: selauncher_launcher
-        dst: $GAMEDIR/proton_runner
-    - chmodx: $GAMEDIR/proton_runner/selauncher_launcher.sh
-
-    - input_menu:
-        description: "MANUAL STEPS REQUIRED:\n
-            1. Open Steam and find Skyrim Special Edition;\n
-            2. Right click on it and select the option \"Properties\";\n
-            3. Click on \"Set Launch Options...\";\n
-            4. Copy and paste this \"bash $HOME/Games/skyrim-script-extender-64/proton_runner/skse_launcher.sh && echo %command% > /dev/null\" on the textbox (without the quotes);\n
-            5. Click on \"OK\";\n
-            6. Still on the properties menu check the option \"Force the use of a specific Steam Play compatibility tool\";\n
-            7. Select \"Proton 4.11-x\" from the dropdown menu;\n
-            8. Click on \"Close\""
-        options:
-            - waiting: "Click here after you've finished all steps"
-            - proceed: "I've followed the steps, proceed with the installation"
-        preselect: waiting
