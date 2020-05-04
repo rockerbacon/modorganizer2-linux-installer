@@ -195,6 +195,7 @@ if [ ! -d "$proton_dir" ]; then
 fi
 
 steam_dir=$(dirname "$proton_libdir")
+steam32_dir=$(readlink "$steam_dir/bin32")/steam-runtime
 
 if [ "$restart_pulse" == "true" ]; then
 			pulseaudio --kill \
@@ -205,14 +206,11 @@ fi
 
 echo "Executing 'STEAM_COMPAT_DATA_PATH=\"$compat_data\" ${proton_extra_envs[@]} \"$proton_dir/proton\" run \"$executable\" $@'"
 
-PATH="$proton_dir/dist/bin:$steam32_dir/steam-runtime/amd64/usr/bin:$steam32_dir/steam-runtime/usr/bin:$PATH" \
-\
-LD_LIBRARY_PATH="$proton_dir/dist/lib64:$proton_dir/dist/lib:$steam32_dir/steam-runtime/pinned_libs_32:$steam32_dir/steam-runtime/pinned_libs_64:/usr/lib/x86_64-linux-gun/libfakeroot:/lib/i386-linux-gnu:/usr/lib/i386-linux-gnu:/lib32:/usr/lib32:/lib:/usr/lib:/usr/lib/i386-linux-gnu/sse2:$steam32_dir/steam-runtime/lib/i386-linux-gnu:$steam32_dir/steam-runtime/usr/lib/i386-linux-gnu:$steam32_dir/steam-runtime/lib/x86_64-linux-gnu:$steam32_dir/steam-runtime/usr/lib/x86_64-linux-gnu:$steam32_dir/steam-runtime/lib:$steam32_dir/steam-runtime/usr/lib"
-\
+PATH="$steam32_dir/amd64/usr/bin:$steam32_dir/usr/bin:$PATH" \
+LD_LIBRARY_PATH="$proton_dir/dist/lib64:$proton_dir/dist/lib:$steam32_dir/pinned_libs_32:$steam32_dir/pinned_libs_64" \
 STEAM_COMPAT_DATA_PATH="$compat_data" \
 SteamGameId=$appid \
-SteamAppId=$appid \
-STEAM_COMPAT_CLIENT_INSTALL_PATH="$steam_dir" \
+${proton_extra_envs[@]}\
 \
 "$proton_dir/proton" run "$executable" $@
 
