@@ -1,0 +1,47 @@
+name: "Skyrim Script Extender (SKSE)"
+game_slug: skyrim-script-extender
+slug: skyrim-script-extender
+version: v1.07.03
+runner: linux
+
+script:
+    requires: the-elder-scrolls-v-skyrim
+
+    files:
+    - skse_dll: https://skse.silverlock.org/beta/skse_1_07_03.7z
+    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/proton_launcher.sh
+
+    game:
+        exe: $GAMEDIR/proton_launcher.sh
+        args: >
+            --noesync
+            --restart-pulse
+            --protonver '5.*'
+            --native 'd3d9 d3dx9_42'
+            72850 skse_loader.exe
+
+        working_dir: "$WINESTEAM:72850:/"
+
+    installer:
+    - extract:
+        file: skse_dll
+        dst: $GAMEDIR/skse_binaries
+
+    - merge:
+        src: $GAMEDIR/skse_binaries/Data
+        dst: "$HOME/.steam/steam/steamapps/common/Skyrim/Data"
+    - copy:
+        src: $GAMEDIR/skse_binaries/skse_1_9_32.dll
+        dst: "$HOME/.steam/steam/steamapps/common/Skyrim"
+    - copy:
+        src: $GAMEDIR/skse_binaries/skse_loader.exe
+        dst: "$HOME/.steam/steam/steamapps/common/Skyrim"
+    - copy:
+        src: $GAMEDIR/skse_binaries/skse_steam_loader.dll
+        dst: "$HOME/.steam/steam/steamapps/common/Skyrim"
+
+    - copy:
+        src: proton_launcher
+        dst: $GAMEDIR/
+    - chmodx: $GAMEDIR/proton_launcher.sh
+
