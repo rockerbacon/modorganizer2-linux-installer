@@ -1,0 +1,41 @@
+name: Mod Organizer 2
+game_slug: mod-organizer-2
+slug: mod-organizer-2
+version: 2.2.0 for Skyrim
+runner: linux
+
+script:
+    requires: the-elder-scrolls-v-skyrim
+
+    files:
+    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/proton_launcher.sh
+    - skse_dll: https://skse.silverlock.org/beta/skse_1_07_03.7z
+    - mo_archive: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.0/Mod.Organizer.2.2.0.7z
+
+    game:
+        exe: $GAMEDIR/proton_launcher.sh
+        args: >-
+            --restart-pulse
+            --native 'd3dx9_42'
+            --protonver '5.*'
+            72850 ModOrganizer2/ModOrganizer.exe
+
+    installer:
+    - copy:
+        src: proton_launcher
+        dst: $GAMEDIR/
+    - chmodx: $GAMEDIR/proton_launcher.sh
+
+    - extract:
+        file: skse_dll
+        dst: $GAMEDIR/
+
+    - extract:
+        file: mo_archive
+        dst: $GAMEDIR/ModOrganizer2/
+
+    - execute:
+        command: winetricks -q vcrun2017 dotnet40 d3dcompiler_43 d3dx9
+        env:
+            WINEPREFIX: $GAMEDIR/../../compatdata/72850/pfx
+
