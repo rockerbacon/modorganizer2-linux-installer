@@ -58,6 +58,28 @@ OPTIONS:
 EOF
 }
 
+xtermbox() {
+	action_on_exit=$1
+	msg=$2
+	xterm -e bash -c "
+		echo '$msg'
+		echo
+		echo Press enter to $action_on_exit
+		read
+	"
+}
+
+if [ -n "$(command -v zenity)" ]; then
+	infobox="zenity --ellipsize --info --text"
+	errorbox="zenity --ellipsize --error --text"
+elif [ -n "$(command -v xmessage)" ]; then
+	infobox="xmessage -buttons continue:0"
+	errorbox="xmessage -buttons exit:0"
+else
+	infobox="xtermbox continue"
+	errorbox="xtermbox exit"
+fi
+
 ###    DEFAULTS    ###
 protonver='*'
 proton_extra_envs=()
@@ -163,6 +185,7 @@ if [ -z "$executable" ]; then
 fi
 ###    PARSE POSITIONAL ARGS    ###
 
+
 ###    ASSERT PATHS    ###
 if [ -n "$workdir" ]; then
 	cd "$workdir"
@@ -211,6 +234,18 @@ if [ ! -d "$proton_dir" ]; then
 	exit 1
 fi
 ###    FIND PROTON EXECUTABLE    ###
+
+###    ASSERT STEAM RUNNING    ###
+if [ -z "$(pidof steam)" ]; then
+	$infobox "Steam must be running before continuing. Please start Steam"
+
+	if [ -z "$(pidof steam)" ]; then
+		$errorbox "Steam was not started, aborting"
+		echo "ERROR: Steam not running" >&2
+		exit 1
+	fi
+fi
+###    ASSERT STEAM RUNNING    ###
 
 ###    RESET PULSEAUDIO    ###
 if [ "$restart_pulse" == "true" ]; then
