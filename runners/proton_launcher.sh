@@ -164,14 +164,14 @@ if [ -z $appid ]; then
 fi
 
 executable=$1; shift
-if [ -z $executable ]; then
+if [ -z "$executable" ]; then
 	echo "ERROR: please specify the EXECUTABLE" >&2
 	print_help >&2
 	exit 1
 fi
 ###    PARSE POSITIONAL ARGS    ###
 
-if [ -n $workdir ]; then
+if [ -n "$workdir" ]; then
 	cd "$workdir"
 	echo "Changed working directory to '$workdir'"
 fi
@@ -195,9 +195,9 @@ if [ ! -f "$proton_bin" ]; then
 fi
 
 if [ "$restart_pulse" == "true" ]; then
-			pulseaudio --kill
-	&&	echo "Killed pulseaudio"
-	&&	pulseaudio --start
+			pulseaudio --kill \
+	&&	echo "Killed pulseaudio" \
+	&&	pulseaudio --start \
 	&&	echo "Started pulseaudio"
 fi
 
