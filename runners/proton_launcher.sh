@@ -210,7 +210,7 @@ PATH="$steam32_dir/amd64/usr/bin:$steam32_dir/usr/bin:$PATH" \
 LD_LIBRARY_PATH="$proton_dir/dist/lib64:$proton_dir/dist/lib:$steam32_dir/pinned_libs_32:$steam32_dir/pinned_libs_64" \
 STEAM_COMPAT_DATA_PATH="$compat_data" \
 SteamGameId=$appid \
-${proton_extra_envs[@]}\
+${proton_extra_envs[@]} \
 \
 "$proton_dir/proton" run "$executable" $@
 
