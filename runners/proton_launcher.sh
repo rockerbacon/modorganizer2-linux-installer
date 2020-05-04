@@ -67,7 +67,6 @@ protonver='.*'
 proton_extra_envs=()
 proton_libdir="$HOME/.steam/steam"
 restart_pulse=false
-workdir=""
 ###    DEFAULTS    ###
 
 ###    PARSE NAMED ARGS    ###
@@ -189,7 +188,7 @@ proton_bin=$(find "$proton_libdir/steamapps/common/" \
 	|	sort -rV \
 	|	head -n 1
 )
-if [ ! -f "proton_bin" ]; then
+if [ ! -f "$proton_bin" ]; then
 	echo "ERROR: could not find proton version matching '$protonver' in directory '$proton_libdir/steamapps/common/'" >&2
 	print_help >&2
 	exit 1
