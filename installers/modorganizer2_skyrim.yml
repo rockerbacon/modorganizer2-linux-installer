@@ -9,6 +9,7 @@ script:
 
     files:
     - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/proton_launcher.sh
+    - readme: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/modorganizer2_skyrim.README
     - skse_dll: https://skse.silverlock.org/beta/skse_1_07_03.7z
     - mo_archive: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.0/Mod.Organizer.2.2.0.7z
 
@@ -21,6 +22,40 @@ script:
             72850 ModOrganizer2/ModOrganizer.exe
 
     installer:
+    - input_menu:
+        description: |-
+            IMPORTANT!!!
+
+            Make sure your game is configured to use Proton 5.0 on Steam. You can do so by right clicking on
+            it > Properties > Force the use of a specific Steam Play compatibility tool.
+
+            This installer expects Steam to have performed first time setup, so make sure Skyrim
+            was launched on Steam at least once before proceeding with the installation.
+
+            When uninstalling Mod Organizer 2, untick the option to remove data files in Lutris.
+            This option will removed all game files, not just files added by this installer.
+
+            In order to run Mod Organizer 2, Steam must also be running. If you do not receive
+            warnings when attempting to launch Mod Organizer 2 before Steam, make sure either
+            zenity or xmessage or xterm are installed on your system.
+
+            This installer contains SKSE 1.07.03 and tweaks which allow usage of ENBs.
+            In-game ENB commands such as toggle effects, open editor, etc will not work, however.
+
+            In case of questions or issues visit https://github.com/rockerbacon/lutris-skyrimse-installers
+
+            The contents of this message will be available on 'modorganizer2_skyrim.README',
+            inside the game's install directory
+
+        options:
+            - waiting: Click here after reading everything
+            - proceed: I'm ready to continue with the installation
+        preselect: waiting
+
+    - copy:
+        src: readme
+        dst: $GAMEDIR/
+
     - copy:
         src: proton_launcher
         dst: $GAMEDIR/
