@@ -1,6 +1,6 @@
 name: "Skyrim Script Extender 64 (SKSE64)"
-game_slug: skyrim-script-extender-64
-slug: skyrim-script-extender-64
+game_slug: skyrim-script-extender-skse64
+slug: skyrim-script-extender-skse64
 version: v2.00.17
 runner: linux
 
@@ -13,32 +13,17 @@ script:
 
     game:
         exe: $GAMEDIR/proton_launcher.sh
-        args: >
+        args: >-
             --noesync
             --restart-pulse
             --protonver '4.*'
             --native 'xaudio2_7'
             489830 skse64_loader.exe
 
-        working_dir: "$WINESTEAM:489830:/"
-
     installer:
     - extract:
         file: skse_dll
-        dst: $GAMEDIR/skse_binaries
-
-    - merge:
-        src: $GAMEDIR/skse_binaries/Data
-        dst: "$HOME/.steam/steam/steamapps/common/Skyrim Special Edition/Data"
-    - copy:
-        src: $GAMEDIR/skse_binaries/skse64_1_5_97.dll
-        dst: "$HOME/.steam/steam/steamapps/common/Skyrim Special Edition"
-    - copy:
-        src: $GAMEDIR/skse_binaries/skse64_loader.exe
-        dst: "$HOME/.steam/steam/steamapps/common/Skyrim Special Edition"
-    - copy:
-        src: $GAMEDIR/skse_binaries/skse64_steam_loader.dll
-        dst: "$HOME/.steam/steam/steamapps/common/Skyrim Special Edition"
+        dst: $GAMEDIR/
 
     - copy:
         src: proton_launcher

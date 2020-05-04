@@ -8,9 +8,9 @@ script=$0
 print_help() {
 cat << EOF
 
-Launch arbitrary executables inside a Steam game's Proton prefix
-
 Usage: $script [OPTIONS...] APPID EXECUTABLE [EXECUTABLE_ARGS...]
+
+Launch arbitrary executables inside a Steam game's Proton prefix
 
 APPID:			APPID for the Steam game
 			visit https://steamdb.info to a game's APPID
@@ -28,9 +28,6 @@ OPTIONS:
 	-e,--env	send custom environment variable to Proton
 
 	--int-scaling	enable integer scaling
-
-	-l,--libdir	specify Steam library where to look for the game
-			default is \$HOME/.steam/steam
 
 	-n,--native	specify dlls which should prefer native versions
 			should be a quoted space-separated list
@@ -62,8 +59,7 @@ EOF
 }
 
 ###    DEFAULTS    ###
-libdir="$HOME/.steam/steam"
-protonver='.*'
+protonver='*'
 proton_extra_envs=()
 proton_libdir="$HOME/.steam/steam"
 restart_pulse=false
@@ -89,10 +85,6 @@ while [ "$parsing_args" == "true" ]; do
 
 		--int-scaling)
 			proton_extra_evs+=("WINE_FULLSCREEN_INTEGER_SCALING=1"); shift 1
-			;;
-
-		-l|--libdir)
-			libdir=$2; shift 2
 			;;
 
 		-n|--native)
@@ -157,7 +149,7 @@ done
 
 ###    PARSE POSITIONAL ARGS    ###
 appid=$1; shift
-if [ -z $appid ]; then
+if [ -z "$appid" ]; then
 	echo "ERROR: please specify the APPID" >&2
 	print_help >&2
 	exit 1
@@ -171,18 +163,43 @@ if [ -z "$executable" ]; then
 fi
 ###    PARSE POSITIONAL ARGS    ###
 
+###    ASSERT PATHS    ###
 if [ -n "$workdir" ]; then
 	cd "$workdir"
 	echo "Changed working directory to '$workdir'"
 fi
 
-compat_data="$libdir/steamapps/compatdata/$appid"
-if [ ! -d "$compat_data" ]; then
-	echo "ERROR: could not find compatdata for game with APPID '$appid' in directory '$compat_data'" >&2
+if [ ! -f "$executable" ]; then
+	echo "ERROR: could not find executable '$executable'" >&2
 	print_help >&2
 	exit 1
 fi
+###    ASSERT PATHS    ###
 
+###    FIND GAME LIBRARY    ####
+steam_libraries=$( \
+		cat "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
+	|	grep -oE '/(\w|/)+'
+)
+steam_libraries=$(echo -e "$HOME/.steam/steam\n$steam_libraries")
+
+for libdir in $steam_libraries; do
+	echo "Searching for game in library '$libdir'"
+	compat_data="$libdir/steamapps/compatdata/$appid"
+	if [ -d "$compat_data" ]; then
+		echo "Found game"
+		break
+	fi
+done
+
+if [ ! -d "$compat_data" ]; then
+	echo "ERROR: could not find a game with APPID '$appid'" >&2
+	print_help >&2
+	exit 1
+fi
+###    FIND GAME LIBRARY    ####
+
+###    FIND PROTON EXECUTABLE    ###
 proton_dir=$(find "$proton_libdir/steamapps/common/" \
 		-maxdepth 1 -path "*/Proton $protonver" \
 	|	sort -rV \
@@ -193,24 +210,33 @@ if [ ! -d "$proton_dir" ]; then
 	print_help >&2
 	exit 1
 fi
+###    FIND PROTON EXECUTABLE    ###
 
-steam_dir=$(dirname "$proton_libdir")
-steam32_dir=$(readlink "$steam_dir/bin32")/steam-runtime
-
+###    RESET PULSEAUDIO    ###
 if [ "$restart_pulse" == "true" ]; then
 			pulseaudio --kill \
 	&&	echo "Killed pulseaudio" \
 	&&	pulseaudio --start \
 	&&	echo "Started pulseaudio"
 fi
+###    RESET PULSEAUDIO    ###
 
-echo "Executing 'STEAM_COMPAT_DATA_PATH=\"$compat_data\" ${proton_extra_envs[@]} \"$proton_dir/proton\" run \"$executable\" $@'"
+###    RUN EXECUTABLE    ###
+steam_dir=$(dirname "$proton_libdir")
+steam32_dir=$(readlink "$steam_dir/bin32")/steam-runtime
 
-PATH="$steam32_dir/amd64/usr/bin:$steam32_dir/usr/bin:$PATH" \
-LD_LIBRARY_PATH="$proton_dir/dist/lib64:$proton_dir/dist/lib:$steam32_dir/pinned_libs_32:$steam32_dir/pinned_libs_64" \
-STEAM_COMPAT_DATA_PATH="$compat_data" \
-SteamGameId=$appid \
-${proton_extra_envs[@]} \
-\
-"$proton_dir/proton" run "$executable" $@
+echo; set -x
+
+env \
+	PATH="$steam32_dir/amd64/usr/bin:$steam32_dir/usr/bin:$PATH" \
+	LD_LIBRARY_PATH="$proton_dir/dist/lib64:$proton_dir/dist/lib:$steam32_dir/pinned_libs_32:$steam32_dir/pinned_libs_64" \
+	STEAM_COMPAT_DATA_PATH="$compat_data" \
+	SteamGameId=$appid \
+	SteamAppId=$appid \
+	${proton_extra_envs[@]} \
+	\
+	"$proton_dir/proton" run "$executable" $@
+
+set +x; echo
+###    RUN EXECUTABLE    ###
 
