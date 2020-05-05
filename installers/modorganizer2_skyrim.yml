@@ -1,7 +1,7 @@
 name: Mod Organizer 2
 game_slug: mod-organizer-2
 slug: mod-organizer-2
-version: 2.2.0 for Skyrim
+version: 2.2.2.1 for Skyrim
 runner: linux
 
 script:
@@ -11,7 +11,7 @@ script:
     - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/proton_launcher.sh
     - readme: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/modorganizer2_skyrim.README
     - skse_dll: https://skse.silverlock.org/beta/skse_1_07_03.7z
-    - mo_archive: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.0/Mod.Organizer.2.2.0.7z
+    - mo_archive: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.2.1/Mod.Organizer-2.2.2.1.7z
 
     game:
         exe: $GAMEDIR/proton_launcher.sh
@@ -70,7 +70,7 @@ script:
         dst: $GAMEDIR/ModOrganizer2/
 
     - execute:
-        command: winetricks -q vcrun2017 dotnet40 d3dcompiler_43 d3dx9
+        command: $HOME/.local/share/lutris/runtime/winetricks/winetricks -q vcrun2019 dotnet48 d3dcompiler_43 d3dx9
         env:
             WINEPREFIX: $GAMEDIR/../../compatdata/72850/pfx
 
