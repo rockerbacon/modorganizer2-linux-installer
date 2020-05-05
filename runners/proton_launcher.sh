@@ -70,14 +70,17 @@ xtermbox() {
 }
 
 if [ -n "$(command -v zenity)" ]; then
-	infobox="zenity --ellipsize --info --text"
-	errorbox="zenity --ellipsize --error --text"
+	infobox="zenity --ok-label=Continue --ellipsize --info --text"
+	errorbox="zenity --ok-label=Exit --ellipsize --error --text"
 elif [ -n "$(command -v xmessage)" ]; then
 	infobox="xmessage -buttons continue:0"
 	errorbox="xmessage -buttons exit:0"
-else
+elif [ -n "$(command -v xterm)" ]; then
 	infobox="xtermbox continue"
 	errorbox="xtermbox exit"
+else
+	infobox="echo"
+	errorbox="echo"
 fi
 
 ###    DEFAULTS    ###
@@ -157,7 +160,7 @@ while [ "$parsing_args" == "true" ]; do
 			;;
 
 		-*)
-			echo "ERROR: unknown option '$option'" >&2
+			echo "ERROR: unknown option '$argname'" >&2
 			print_help >&2
 			exit 1
 			;;
@@ -200,22 +203,26 @@ fi
 ###    ASSERT PATHS    ###
 
 ###    FIND GAME LIBRARY    ####
-steam_libraries=$( \
-	grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
-)
-steam_libraries=$(echo -e "$HOME/.steam/steam\n$steam_libraries")
+if [ -n "$STEAM_LIBRARY" ]; then
+	compat_data="$STEAM_LIBRARY/steamapps/compatdata/$appid"
+else
+	steam_libraries=$( \
+		grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
+	)
+	steam_libraries=$(echo -e "$HOME/.steam/steam\n$steam_libraries")
 
-for libdir in $steam_libraries; do
-	echo "Searching for game in library '$libdir'"
-	compat_data="$libdir/steamapps/compatdata/$appid"
-	if [ -d "$compat_data" ]; then
-		echo "Found game"
-		break
-	fi
-done
+	for libdir in $steam_libraries; do
+		echo "Searching for game in library '$libdir'"
+		compat_data="$libdir/steamapps/compatdata/$appid"
+		if [ -d "$compat_data" ]; then
+			echo "Found game"
+			break
+		fi
+	done
+fi
 
 if [ ! -d "$compat_data" ]; then
-	echo "ERROR: could not find a game with APPID '$appid'" >&2
+	$errorbox "Could not find a game with APPID '$appid'"
 	print_help >&2
 	exit 1
 fi
@@ -228,7 +235,7 @@ proton_dir=$(find "$proton_libdir/steamapps/common/" \
 	|	head -n 1
 )
 if [ ! -d "$proton_dir" ]; then
-	echo "ERROR: could not find proton version matching '$protonver' in directory '$proton_libdir/steamapps/common/'" >&2
+	$errorbox "Could not find proton version matching '$protonver' in directory '$proton_libdir/steamapps/common/'"
 	print_help >&2
 	exit 1
 fi
