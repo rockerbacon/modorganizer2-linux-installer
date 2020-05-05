@@ -9,6 +9,8 @@ script:
 
     files:
     - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/proton_launcher.sh
+    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/modorganizer2-nxm-broker.sh
+    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/modorganizer2-nxm-handler.desktop
     - readme: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/modorganizer2_skyrim.README
     - skse_dll: https://skse.silverlock.org/beta/skse_1_07_03.7z
     - mo_archive: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.2.1/Mod.Organizer-2.2.2.1.7z
@@ -63,6 +65,19 @@ script:
         src: proton_launcher
         dst: $GAMEDIR/
     - chmodx: $GAMEDIR/proton_launcher.sh
+
+    - copy:
+        src: nxm_broker
+        dst: $HOME/.local/bin
+    - chmodx: $HOME/.local/bin/modorganizer2-nxm-broker.sh
+
+    - copy:
+        src: nxm_mime_handler
+        dst: $HOME/.local/share/applications
+    - execute:
+        command: xdg-mime default modorganizer2-nxm-handler.desktop x-scheme-handler/nxm
+    - execute:
+        command: xdg-mime default modorganizer2-nxm-handler.desktop x-scheme-handler/nxm-protocol
 
     - extract:
         file: skse_dll
