@@ -202,7 +202,7 @@ fi
 ###    FIND GAME LIBRARY    ####
 steam_libraries=$( \
 		cat "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
-	|	grep -oE '/(\w|/)+'
+	|	grep -oE '/[^"]+'
 )
 steam_libraries=$(echo -e "$HOME/.steam/steam\n$steam_libraries")
 
