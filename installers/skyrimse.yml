@@ -5,23 +5,11 @@ version: Steam play
 runner: steam
 
 script:
-    files:
-    - audio_fix_zip: https://github.com/Kron4ek/FAudio-Builds/releases/download/19.08/faudio-19.08.tar.xz
-    - install_audio_fix: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/1.9.3/install-audio-fix.sh
     game:
         appid: 489830
-    installer:
-    - extract:
-        file: audio_fix_zip
-        dst: $GAMEDIR/audiofix
-    - copy:
-        src: install_audio_fix
-        dst: $GAMEDIR/audiofix
-    - chmodx: $GAMEDIR/audiofix/install-audio-fix.sh
-    - execute:
-        file: $GAMEDIR/audiofix/install-audio-fix.sh
     system:
         env:
             PROTON_NO_ESYNC: 1
+            WINEDLLOVERRIDES: xaudio2_7=n,b
         reset_pulse: true
         pulse_latency: true
