@@ -2,7 +2,7 @@
 
 declare -A gamesmap
 
-new_game() {
+register_handler_for() {
 	gamesmap[${1}_dir]=$dir
 	gamesmap[${1}_appid]=$appid
 	gamesmap[${1}_launcher_opts]=$launcher_opts
@@ -14,8 +14,15 @@ new_game() {
 dir="Skyrim"
 appid=72850
 launcher_opts="--restart-pulse --native d3dx9_42 --protonver 5.*"
-new_game "skyrim"
+register_handler_for "skyrim"
 ###    SKYRIM    ###
+
+###    FALLOUT NEW VEGAS    ###
+dir="Fallout New Vegas"
+appid=22380
+launcher_opts="--restart-pulse --native d3dx9_42 --protonver 5.*"
+register_handler_for "newvegas"
+###    FALLOUT NEW VEGAS    ###
 
 ########################
 
