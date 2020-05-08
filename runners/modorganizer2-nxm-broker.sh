@@ -24,6 +24,13 @@ launcher_opts="--restart-pulse --native d3dx9_42 --protonver 5.*"
 register_handler_for "newvegas"
 ###    FALLOUT NEW VEGAS    ###
 
+###    SKYRIM SPECIAL EDITION    ###
+dir="Skyrim Special Edition"
+appid=489830
+launcher_opts="--restart-pulse --native 'xaudio2_7' --protonver 5.*"
+register_handler_for "skyrimspecialedition"
+###    SKYRIM SPECIAL EDITION    ###
+
 ########################
 
 steam_libraries_list_file="$HOME/.steam/steam/steamapps/libraryfolders.vdf"
@@ -93,6 +100,8 @@ fi
 
 cd "$game_dir"
 
-STEAM_LIBRARY=$libdir \
-"$game_dir/proton_launcher.sh" $launcher_opts $appid "$mo2_dir/nxmhandler.exe" "$nxm_link"
+bash -c "
+	STEAM_LIBRARY=$libdir \\
+	'$game_dir/proton_launcher.sh' $launcher_opts $appid '$mo2_dir/nxmhandler.exe' '$nxm_link'
+"
 
