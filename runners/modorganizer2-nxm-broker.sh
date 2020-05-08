@@ -13,14 +13,14 @@ register_handler_for() {
 ###    SKYRIM    ###
 dir="Skyrim"
 appid=72850
-launcher_opts="--restart-pulse --native d3dx9_42 --protonver 5.*"
+launcher_opts="--restart-pulse --protonver 5.*"
 register_handler_for "skyrim"
 ###    SKYRIM    ###
 
 ###    FALLOUT NEW VEGAS    ###
 dir="Fallout New Vegas"
 appid=22380
-launcher_opts="--restart-pulse --native d3dx9_42 --protonver 5.*"
+launcher_opts="--restart-pulse --protonver 5.*"
 register_handler_for "newvegas"
 ###    FALLOUT NEW VEGAS    ###
 

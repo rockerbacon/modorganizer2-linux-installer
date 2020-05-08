@@ -20,7 +20,6 @@ script:
         exe: $GAMEDIR/proton_launcher.sh
         args: >-
             --restart-pulse
-            --native 'd3dx9_42'
             --protonver '5.*'
             72850 ModOrganizer2/ModOrganizer.exe
 
