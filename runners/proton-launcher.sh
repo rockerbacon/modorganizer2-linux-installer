@@ -44,6 +44,9 @@ OPTIONS:
 
 	--restart-pulse	restart pulseaudio right before running EXECUTABLE
 
+	--system-libs	prefer system libraries over
+			libraries supplied by Steam
+
 	-w,--workdir	specify working directory for the entire script
 			the script switches to this directory
 			right after parsing all arguments
@@ -137,6 +140,10 @@ while [ "$parsing_args" == "true" ]; do
 
 		--restart-pulse)
 			restart_pulse=true; shift 1
+			;;
+
+		--system-libs)
+			prefer_system_libs=true; shift 1
 			;;
 
 		-w|--workdir)
