@@ -1,0 +1,212 @@
+name: Mod Organizer 2
+game_slug: mod-organizer-2
+slug: mod-organizer-2
+version: 2.2.2.1 Unified Package
+runner: linux
+
+script:
+    require-binaries: zenity | xmessage | xterm
+
+    files:
+    # utils
+    - dialog_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-utils/dialog.sh
+    - find_library_for_appid_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-utils/find-library-for-appid.sh
+
+    # supported games info
+    - gamesinfo_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-gamesinfo/gamesinfo.tar.gz
+
+    # mo2/game runners
+    - proton_launcher_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/proton-launcher.sh
+    - wine_launcher_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/wine-launcher.sh
+    - nxm_broker_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-broker.sh
+    - nxm_mime_handler_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-handler.desktop
+
+    # docs
+    # - docs_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-installers/modorganizer2_skyrim.README
+
+    # modding tools
+    - openjdk_8u252: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jre_x64_windows_8u252b09.zip
+
+    - nvse_5.1b4: http://nvse.silverlock.org/download/nvse_5_1_beta4.7z
+    - skse_1.7.3: https://skse.silverlock.org/beta/skse_1_07_03.7z
+    - skse64_2.0.17: https://skse.silverlock.org/beta/skse64_2_00_17.7z
+
+    # mod organizer
+    - mo_archive_2.2.2.1: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.2.1/Mod.Organizer-2.2.2.1.7z
+
+    game:
+        exe: $GAMEDIR/run.sh
+
+    installer:
+    - input_menu:
+        description: |-
+            Welcome to the Mod Organizer 2 installer!
+
+            This installer only allows Mod Organizer 2 to manage a single game.
+            Install one instance of Mod Organizer 2 for each game you want to manage.
+            It is recommended to configure a cache path in "Lutris > Preferences > Lutris Preferences" to avoid re-downloading files.
+
+            Remember that you can find instructions and information in "$HOME/.local/share/modorganizer2/docs/README.md" if you have already installed Mod Organizer 2 before.
+
+            Which game would you like to manage with this installation?
+
+        id: NEXUS_GAME_ID
+        options:
+            - newvegas: Fallout New Vegas
+            - skyrim: Skyrim
+            - skyrimspecialedition: Skyrim Special Edition
+        preselect: newvegas
+
+    - input_menu:
+        description: |-
+            Do you play this game through Steam Play (Proton)?
+            If yes, remember to run the game at least once before installing Mod Organizer 2.
+
+        id: RUNNER
+        options:
+            - proton: Yes, I use Steam Play
+            - wine: No, I use pure Wine
+        preselect: proton
+
+    ###    install utils    ###
+    - copy:
+        src: dialog_2.2.0
+        dst: $HOME/.local/share/modorganizer2/
+    - chmodx: $HOME/.local/share/modorganizer2/dialog.sh
+
+    - copy:
+        src: find_library_for_appid_2.2.0
+        dst: $HOME/.local/share/modorganizer2/
+    - chmodx: $HOME/.local/share/modorganizer2/find-library-for-appid.sh
+    ###    install utils    ###
+
+    ###    install games info    ###
+    - extract:
+        file: gamesinfo_2.2.0
+        dst: $HOME/.local/share/modorganizer2/gamesinfo/
+    ###    install games info    ###
+
+    ###    install runners    ###
+    - copy:
+        src: wine_launcher_2.2.0
+        dst: $HOME/.local/share/modorganizer2/
+    - chmodx: $HOME/.local/share/modorganizer2/wine-launcher.sh
+
+    - copy:
+        src: proton_launcher_2.2.0
+        dst: $HOME/.local/share/modorganizer2/
+    - chmodx: $HOME/.local/share/modorganizer2/proton-launcher.sh
+
+    - copy:
+        src: nxm_broker_2.2.0
+        dst: $HOME/.local/bin
+    - chmodx: $HOME/.local/bin/modorganizer2-nxm-broker.sh
+
+    - copy:
+        src: nxm_mime_handler_2.2.0
+        dst: $HOME/.local/share/applications
+    - execute:
+        command: xdg-mime default modorganizer2-nxm-handler.desktop x-scheme-handler/nxm
+    ###    install runners    ###
+
+    ###    decompress external resources    ###
+    - extract:
+        file: openjdk_8u252
+        dst: $CACHE/extracted-openjdk/
+
+    - extract:
+        file: nvse_5.1b4
+        dst: $CACHE/newvegas-script-extender/
+
+    - extract:
+        file: skse_1.7.3
+        dst: $CACHE/skyrim-script-extender/
+
+    - extract:
+        file: skse64_2.0.17
+        dst: $CACHE/skyrimspecialedition-script-extender/
+    ###    decompress external resources    ###
+
+    ###    prepare prefix    ###
+    - execute:
+        command: |
+            shared="$HOME/.local/share/modorganizer2"
+
+            nexus_game_id=$INPUT_NEXUS_GAME_ID
+            runner=$INPUT_RUNNER
+
+            if [ "$runner" == "proton" ]; then
+                source "$shared/gamesinfo/$nexus_game_id.sh"
+                steam_library=$("$shared/find-library-for-appid.sh" $game_appid)
+
+                if [ ! -d "$steam_library" ]; then
+                    "$shared/dialog.sh" errorbox \
+                        "Could not find '$game_steam_subdirectory' in your Steam library"
+                    exit 1
+                fi
+
+                game_prefix="$steam_library/steamapps/compatdata/$game_appid/pfx"
+                game_installation="$steam_library/steamapps/common/$game_steam_subdirectory"
+
+                if [ -d "$CACHE/${nexus_game_id}-script-extender" ]; then
+                    echo "Installing script extender..."
+
+                    output=$( \
+                        cp -af \
+                        "$CACHE/${nexus_game_id}-script-extender/." \
+                        "$game_installation/" 2>&1 \
+                    )
+                    if [ "$?" != "0" ]; then
+                        "$shared/dialog.sh" errorbox \
+                            "Error while installing script extender: $output"
+                        exit 1
+                    fi
+                fi
+
+                mkdir -p "$game_prefix/drive_c/java"
+                output=$( \
+                    cp -af \
+                    "$CACHE/extracted-openjdk/." \
+                    "$game_prefix/drive_c/java/" 2>&1 \
+                )
+                if [ "$?" != "0" ]; then
+                    "$shared/dialog.sh" errorbox \
+                        "Error while installing OpenJDK: $output"
+                    exit 1
+                fi
+
+                WINEPREFIX="$game_prefix" \
+                "$HOME/.local/share/lutris/runtime/winetricks/winetricks" -q $game_protontricks
+                if [ "$?" != "0" ]; then
+                    "$shared/dialog.sh" errorbox \
+                        "Error while installing winetricks, please run Lutris from a terminal and check the logs"
+                    exit 1
+                fi
+
+                echo -e \
+                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
+                 > "$GAMEDIR/run.sh"
+
+            elif [ "$runner" == "wine" ]; then
+                "$shared/dialog.sh" errorbox \
+                    "Installation for custom Wine prefixes not yet supported"
+            fi
+
+            # workaround to stop installation if command fails
+            echo "success" > '$CACHE/successful-prefix-preparation'
+
+        env:
+            GAMEDIR: $GAMEDIR
+            CACHE: $CACHE
+
+    - move: # raises error if command fails
+        src: $CACHE/successful-prefix-preparation
+        dst: $CACHE/successful-prefix-preparation-acknowledged
+
+    - chmodx: $GAMEDIR/run.sh
+    ###    prepare prefix    ###
+
+    - extract:
+        file: mo_archive_2.2.2.1
+        dst: $GAMEDIR/ModOrganizer2/
+
