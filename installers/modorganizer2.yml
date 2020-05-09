@@ -130,10 +130,12 @@ script:
     ###    prepare prefix    ###
     - execute:
         command: |
-            shared="$HOME/.local/share/modorganizer2"
+            mo2_winetricks="vcrun2019 vcrun2015 dotnet40"
 
             nexus_game_id=$INPUT_NEXUS_GAME_ID
             runner=$INPUT_RUNNER
+
+            shared="$HOME/.local/share/modorganizer2"
 
             if [ "$runner" == "proton" ]; then
                 source "$shared/gamesinfo/$nexus_game_id.sh"
@@ -176,7 +178,7 @@ script:
                 fi
 
                 WINEPREFIX="$game_prefix" \
-                "$HOME/.local/share/lutris/runtime/winetricks/winetricks" -q $game_protontricks
+                "$HOME/.local/share/lutris/runtime/winetricks/winetricks" -q $mo2_winetricks $game_protontricks
                 if [ "$?" != "0" ]; then
                     "$shared/dialog.sh" errorbox \
                         "Error while installing winetricks, please run Lutris from a terminal and check the logs"
@@ -185,7 +187,12 @@ script:
 
                 echo -e \
                 "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
-                 > "$GAMEDIR/run.sh"
+                > "$GAMEDIR/run.sh"
+
+                # echo -e \
+                # "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe'" \
+                # > "$GAMEDIR/download.sh"
+
 
             elif [ "$runner" == "wine" ]; then
                 "$shared/dialog.sh" errorbox \
@@ -204,6 +211,7 @@ script:
         dst: $CACHE/successful-prefix-preparation-acknowledged
 
     - chmodx: $GAMEDIR/run.sh
+    # - chmodx: $GAMEDIR/download.sh
     ###    prepare prefix    ###
 
     - extract:
