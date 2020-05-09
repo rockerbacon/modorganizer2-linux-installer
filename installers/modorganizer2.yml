@@ -130,7 +130,7 @@ script:
     ###    prepare prefix    ###
     - execute:
         command: |
-            mo2_winetricks="vcrun2019 vcrun2015 dotnet40"
+            mo2_protontricks="vcrun2019 vcrun2015 dotnet40"
 
             nexus_game_id=$INPUT_NEXUS_GAME_ID
             runner=$INPUT_RUNNER
@@ -178,7 +178,7 @@ script:
                 fi
 
                 WINEPREFIX="$game_prefix" \
-                "$HOME/.local/share/lutris/runtime/winetricks/winetricks" -q $mo2_winetricks $game_protontricks
+                "$HOME/.local/share/lutris/runtime/winetricks/winetricks" -q $mo2_protontricks $game_protontricks
                 if [ "$?" != "0" ]; then
                     "$shared/dialog.sh" errorbox \
                         "Error while installing winetricks, please run Lutris from a terminal and check the logs"
@@ -189,14 +189,15 @@ script:
                 "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
                 > "$GAMEDIR/run.sh"
 
-                # echo -e \
-                # "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe'" \
-                # > "$GAMEDIR/download.sh"
+                echo -e \
+                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' '\$1'" \
+                > "$GAMEDIR/download.sh"
 
 
             elif [ "$runner" == "wine" ]; then
                 "$shared/dialog.sh" errorbox \
                     "Installation for custom Wine prefixes not yet supported"
+                exit 1
             fi
 
             # workaround to stop installation if command fails
@@ -211,10 +212,15 @@ script:
         dst: $CACHE/successful-prefix-preparation-acknowledged
 
     - chmodx: $GAMEDIR/run.sh
-    # - chmodx: $GAMEDIR/download.sh
+    - chmodx: $GAMEDIR/download.sh
     ###    prepare prefix    ###
 
     - extract:
         file: mo_archive_2.2.2.1
         dst: $GAMEDIR/ModOrganizer2/
+
+    - execute:
+        command: mkdir -p '$HOME/.config/modorganizer2/instances'
+    - execute:
+        command: ln -s '$GAMEDIR/' '$HOME/.config/modorganizer2/instances/$INPUT_NEXUS_GAME_ID'
 
