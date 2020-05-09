@@ -1,8 +1,5 @@
 #!/bin/bash
 
-SKYRIM_PROTON_BINARY="$HOME/.steam/steam/steamapps/common/Proton 4.11/proton"
-SKYRIM_INSTALL_FOLDER="$HOME/.steam/steam/steamapps/common/Skyrim Special Edition"
-
 script=$0
 
 print_help() {
@@ -201,6 +198,18 @@ if [ ! -f "$executable" ]; then
 fi
 ###    ASSERT PATHS    ###
 
+###    ASSERT STEAM RUNNING    ###
+if [ -z "$(pidof steam)" ]; then
+	$infobox "Steam must be running before continuing. Please start Steam"
+
+	if [ -z "$(pidof steam)" ]; then
+		$errorbox "Steam was not started, aborting"
+		echo "ERROR: Steam not running" >&2
+		exit 1
+	fi
+fi
+###    ASSERT STEAM RUNNING    ###
+
 ###    FIND GAME LIBRARY    ####
 if [ -n "$STEAM_LIBRARY" ]; then
 	compat_data="$STEAM_LIBRARY/steamapps/compatdata/$appid"
@@ -240,17 +249,28 @@ if [ ! -d "$proton_dir" ]; then
 fi
 ###    FIND PROTON EXECUTABLE    ###
 
-###    ASSERT STEAM RUNNING    ###
-if [ -z "$(pidof steam)" ]; then
-	$infobox "Steam must be running before continuing. Please start Steam"
+###    BUILD LD_LIBRARY_PATH    ###
+steam_dir=$(dirname "$proton_libdir")
+steam_rundir=$(readlink "$steam_dir/bin32")/steam-runtime
 
-	if [ -z "$(pidof steam)" ]; then
-		$errorbox "Steam was not started, aborting"
-		echo "ERROR: Steam not running" >&2
-		exit 1
-	fi
+steam_pinned_libs="$steam_rundir/pinned_libs_32:$steam_rundir/pinned_libs_64"
+
+system_libs=$( \
+			ldconfig -N -v 2>/dev/null \
+		|	grep -oE '^/[^:]+' \
+		| tr '\n' ':' \
+		| sed 's/:$//' \
+)
+
+steam_32libs="$steam_rundir/i386/lib/i368-linux-gnu:$steam_rundir/i386/lib:$steam_rundir/i386/usr/lib/i386-linux-gnu:$steam_rundir/i386/usr/lib"
+steam_64libs="$steam_rundir/amd64/lib/x86_64-linux-gnu:$steam_rundir/amd64/lib:$steam_rundir/amd64/usr/lib/x86_64-linux-gnu:$steam_rundir/amd64/usr/lib"
+
+if [ "$prefer_system_libs" == "true" ]; then
+	library_path="$system_libs:$steam_pinned_libs:$steam_32libs:$steam_64libs"
+else
+	library_path="$steam_pinned_libs:$system_libs:$steam_32libs:$steam_64libs"
 fi
-###    ASSERT STEAM RUNNING    ###
+###    BUILD LD_LIBRARY_PATH    ###
 
 ###    RESET PULSEAUDIO    ###
 if [ "$restart_pulse" == "true" ]; then
@@ -262,12 +282,9 @@ fi
 ###    RESET PULSEAUDIO    ###
 
 ###    RUN EXECUTABLE    ###
-steam_dir=$(dirname "$proton_libdir")
-steam32_dir=$(readlink "$steam_dir/bin32")/steam-runtime
-
 run_proton="
-	PATH='$steam32_dir/amd64/usr/bin:$steam32_dir/usr/bin:$PATH' \\
-	LD_LIBRARY_PATH='$proton_dir/dist/lib64:$proton_dir/dist/lib:$steam32_dir/pinned_libs_32:$steam32_dir/pinned_libs_64' \\
+	PATH='$steam_rundir/amd64/usr/bin:$steam_rundir/usr/bin:$PATH' \\
+	LD_LIBRARY_PATH='$library_path' \\
 	STEAM_COMPAT_DATA_PATH='$compat_data' \\
 	SteamGameId=$appid \\
 	SteamAppId=$appid \\
