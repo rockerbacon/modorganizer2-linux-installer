@@ -266,18 +266,19 @@ fi
 steam_dir=$(dirname "$proton_libdir")
 steam32_dir=$(readlink "$steam_dir/bin32")/steam-runtime
 
-echo; set -x
+run_proton="
+	PATH='$steam32_dir/amd64/usr/bin:$steam32_dir/usr/bin:$PATH' \\
+	LD_LIBRARY_PATH='$proton_dir/dist/lib64:$proton_dir/dist/lib:$steam32_dir/pinned_libs_32:$steam32_dir/pinned_libs_64' \\
+	STEAM_COMPAT_DATA_PATH='$compat_data' \\
+	SteamGameId=$appid \\
+	SteamAppId=$appid \\
+	${proton_extra_envs[@]} \\
+	\\
+	'$proton_dir/proton' run '$executable' $@
+"
 
-env \
-	PATH="$steam32_dir/amd64/usr/bin:$steam32_dir/usr/bin:$PATH" \
-	LD_LIBRARY_PATH="$proton_dir/dist/lib64:$proton_dir/dist/lib:$steam32_dir/pinned_libs_32:$steam32_dir/pinned_libs_64" \
-	STEAM_COMPAT_DATA_PATH="$compat_data" \
-	SteamGameId=$appid \
-	SteamAppId=$appid \
-	${proton_extra_envs[@]} \
-	\
-	"$proton_dir/proton" run "$executable" $@
+echo -e "\n$run_proton\n"
 
-set +x; echo
+bash -c "$run_proton"
 ###    RUN EXECUTABLE    ###
 
