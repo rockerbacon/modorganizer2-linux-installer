@@ -158,7 +158,22 @@ script:
             runner=$INPUT_RUNNER
 
             if [ "$runner" == "proton" ]; then
+                if [ ! -f "$CACHE/gamesinfo/$nexus_game_id.sh" ]; then
+                    "$CACHE/utils/dialog.sh" errorbox \
+                        "Could not find gameinfo for '$nexus_game_id', remove Lutris cache and try again"
+                    exit 1
+                fi
+
                 source "$CACHE/gamesinfo/$nexus_game_id.sh"
+
+                if [ -z "$game_appid" ]; then
+                    echo "ERROR: empty game_appid" >&2
+                    exit 1
+                elif [ -z "$game_steam_subdirectory" ]; then
+                    echo "ERROR: empty steam_subdirectory" >&2
+                    exit 1
+                fi
+
                 steam_library=$("$CACHE/utils/find-library-for-appid.sh" $game_appid)
 
                 if [ ! -d "$steam_library" ]; then
