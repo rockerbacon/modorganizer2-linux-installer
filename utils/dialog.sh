@@ -136,6 +136,43 @@ directorypicker() {
 	esac
 }
 
+textentry() {
+	message=$1; shift
+	default_value=$1; shift
+	case "$interface" in
+		zenity)
+			entry_value=$(zenity --entry --entry-text="$default_value" --text "$message"); confirm=$?
+
+			if [ "$confirm" == "0" ]; then
+				echo "$entry_value"
+			fi
+
+			return $confirm
+			;;
+		xmessage|xterm)
+			tmpfile=$(mktemp /tmp/text-entry-XXXX)
+			xterm -e bash -c "
+				echo '$message'
+				echo 'Type (or leave empty to cancel) and press enter:'
+				read entry_value
+
+				if [ -z \"\$entry_value\" ]; then
+					exit 1
+				else
+					echo \"\$entry_value\" > $tmpfile
+				fi
+			"; confirm=$?
+
+			if [ "$confirm" == "0" ]; then
+				cat $tmpfile
+				rm $tmpfile
+			fi
+
+			return $confirm
+			;;
+	esac
+}
+
 $dialogtype "$@"
 exit $?
 
