@@ -1,5 +1,7 @@
 #!/bin/bash
 
+dialogtype=$1; shift
+
 if [ -n "$FORCE_INTERFACE" ]; then
 	interface=$FORCE_INTERFACE
 elif [ -n "$(command -v zenity)" ]; then
@@ -68,7 +70,43 @@ infobox() {
 	return 0
 }
 
-dialogtype=$1; shift
+directorypicker() {
+	message=$1; shift
+	case "$interface" in
+		zenity)
+			finish_selection="false"
+			selection_entry=""
+			while [ "$finish_selection" != "true" ]; do
+				raw_entry=$(zenity --entry --entry-text="$selection_entry" --extra-button="Browse" --text "$message"); confirm=$?
+				eval selection_entry="$raw_entry"
+
+				case "$confirm" in
+					0)
+						if [ ! -d "$selection_entry" ]; then
+							zenity --error --ellipsize --text="Directory '$selection_entry' does not exist"
+						else
+							finish_selection=true
+						fi
+						;;
+					1)
+						if [ "$selection_entry" == "Browse" ]; then
+							selection_entry=$(zenity --file-selection --directory)
+						else
+							finish_selection=true
+						fi
+						;;
+				esac
+			done
+
+			if [ "$confirm" == "0" ]; then
+				echo $(realpath "$selection_entry")
+			fi
+			;;
+
+		xmessage|xterm)
+			;;
+	esac
+}
 
 $dialogtype "$@"
 exit $?
