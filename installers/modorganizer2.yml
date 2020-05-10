@@ -130,7 +130,7 @@ script:
     ###    prepare prefix    ###
     - execute:
         command: |
-            mo2_protontricks="vcrun2019 vcrun2015 dotnet40"
+            mo2_protontricks="vcrun2019"
 
             nexus_game_id=$INPUT_NEXUS_GAME_ID
             runner=$INPUT_RUNNER
@@ -190,7 +190,7 @@ script:
                 > "$GAMEDIR/run.sh"
 
                 echo -e \
-                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' '\$1'" \
+                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' \"\$1\"" \
                 > "$GAMEDIR/download.sh"
 
 
@@ -220,7 +220,8 @@ script:
         dst: $GAMEDIR/ModOrganizer2/
 
     - execute:
-        command: mkdir -p '$HOME/.config/modorganizer2/instances'
-    - execute:
-        command: ln -s '$GAMEDIR/' '$HOME/.config/modorganizer2/instances/$INPUT_NEXUS_GAME_ID'
+        command: |
+            mkdir -p '$HOME/.config/modorganizer2/instances'
+            rm -f "$HOME/.config/modorganizer2/instances/$INPUT_NEXUS_GAME_ID"
+            ln -s '$GAMEDIR/' '$HOME/.config/modorganizer2/instances/$INPUT_NEXUS_GAME_ID'
 
