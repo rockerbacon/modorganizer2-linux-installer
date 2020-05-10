@@ -101,9 +101,37 @@ directorypicker() {
 			if [ "$confirm" == "0" ]; then
 				echo $(realpath "$selection_entry")
 			fi
+
+			return $confirm
 			;;
 
 		xmessage|xterm)
+			tmpfile=$(mktemp /tmp/file-selection-XXXX)
+			xterm -e bash -c "
+				finish_selection='false'
+				while [ \"\$finish_selection\" != 'true' ]; do
+					echo '$message'
+					echo 'Type the directory path (or leave empty to cancel) and press enter:'
+					read raw_entry
+					eval selection_entry=\"\$raw_entry\"
+
+					if [ -z \"\$selection_entry\" ]; then
+						exit 1
+					elif [ ! -d \"\$selection_entry\" ]; then
+						echo -e \"\nERROR: Directory '\$selection_entry' does not exist\n\"
+					else
+						echo \$(realpath \"\$selection_entry\") > $tmpfile
+						finish_selection='true'
+					fi
+				done
+			"; confirm=$?
+
+			if [ "$confirm" == "0" ]; then
+				cat $tmpfile
+				rm $tmpfile
+			fi
+
+			return $confirm
 			;;
 	esac
 }
