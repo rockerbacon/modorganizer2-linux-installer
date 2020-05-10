@@ -289,19 +289,17 @@ fi
 ###    RESET PULSEAUDIO    ###
 
 ###    RUN EXECUTABLE    ###
-run_proton="
-	PATH='$steam_rundir/amd64/usr/bin:$steam_rundir/usr/bin:$PATH' \\
-	LD_LIBRARY_PATH='$library_path' \\
-	STEAM_COMPAT_DATA_PATH='$compat_data' \\
-	SteamGameId=$appid \\
-	SteamAppId=$appid \\
-	${proton_extra_envs[@]} \\
-	\\
-	'$proton_dir/proton' run '$executable' $@
-"
+echo; set -x
 
-echo -e "\n$run_proton\n"
+PATH="$steam_rundir/amd64/usr/bin:$steam_rundir/usr/bin:$PATH" \
+LD_LIBRARY_PATH="$library_path" \
+STEAM_COMPAT_DATA_PATH="$compat_data" \
+SteamGameId=$appid \
+SteamAppId=$appid \
+${proton_extra_envs[*]} \
+\
+"$proton_dir/proton" run "$executable" $@
 
-bash -c "$run_proton"
+set +x; echo
 ###    RUN EXECUTABLE    ###
 
