@@ -245,6 +245,10 @@ script:
             # workaround to stop installation if command fails
             echo "success" > '$CACHE/successful-prefix-preparation'
 
+        env:
+            GAMEDIR: $GAMEDIR
+            CACHE: $CACHE
+
     - move: # raises error if command fails
         src: $CACHE/successful-prefix-preparation
         dst: $CACHE/successful-prefix-preparation-acknowledged
