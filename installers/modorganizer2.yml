@@ -24,7 +24,11 @@ script:
     # modding tools
     - openjdk: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jre_x64_windows_8u252b09.zip
 
+    - fose: https://www.fose.silverlock.org/download/fose_v1_2_beta2.7z
+    - f4se: https://f4se.silverlock.org/beta/f4se_0_06_21.7z
     - nvse: http://nvse.silverlock.org/download/nvse_5_1_beta4.7z
+    - mwse: https://github.com/MWSE/MWSE/releases/download/build-automatic/mwse.zip
+    - obse: http://obse.silverlock.org/download/obse_0021.zip
     - skse: https://skse.silverlock.org/beta/skse_1_07_03.7z
     - skse64: https://skse.silverlock.org/beta/skse64_2_00_17.7z
 
@@ -47,19 +51,26 @@ script:
 
         id: NEXUS_GAME_ID
         options:
+            - fallout3: Fallout 3
+            - fallou4: Fallout 4
             - newvegas: Fallout New Vegas
+            - morrowind: Morrowind
+            - oblivion: Oblivion
             - skyrim: Skyrim
             - skyrimspecialedition: Skyrim Special Edition
-        preselect: newvegas
+        preselect: fallout3
 
     - input_menu:
         description: |-
             Do you play this game through Steam Play (Proton)?
-            If yes, remember to run the game at least once before installing Mod Organizer 2.
+
+            If yes, ensure the following before continuing:
+                * The game was run at least once on Steam
+                * The game is configured to use Proton 5. On Steam: right click the game > Properties > tab "General" > Force the use of a specific Steam Play compatibility tool
 
         id: RUNNER
         options:
-            - proton: Yes, I use Steam Play
+            - proton: Yes, I use Steam Play and everything is set up
             - wine: No, I use pure Wine
         preselect: proton
 
@@ -104,14 +115,30 @@ script:
         command: xdg-mime default modorganizer2-nxm-handler.desktop x-scheme-handler/nxm
     ###    install runners    ###
 
-    ###    decompress external resources    ###
+    ###    decompress modding tools    ###
     - extract:
         file: openjdk
         dst: $CACHE/extracted-openjdk/
 
     - extract:
+        file: fose
+        dst: $CACHE/fallout3-script-extender/
+
+    - extract:
+        file: f4se
+        dst: $CACHE/fallout4-script-extender/
+
+    - extract:
         file: nvse
         dst: $CACHE/newvegas-script-extender/
+
+    - extract:
+        file: mwse
+        dst: $CACHE/morrowind-script-extender/
+
+    - extract:
+        file: obse
+        dst: $CACHE/oblivion-script-extender/
 
     - extract:
         file: skse
@@ -120,7 +147,7 @@ script:
     - extract:
         file: skse64
         dst: $CACHE/skyrimspecialedition-script-extender/
-    ###    decompress external resources    ###
+    ###    decompress modding tools    ###
 
     ###    prepare prefix    ###
     - execute:
@@ -131,7 +158,22 @@ script:
             runner=$INPUT_RUNNER
 
             if [ "$runner" == "proton" ]; then
+                if [ ! -f "$CACHE/gamesinfo/$nexus_game_id.sh" ]; then
+                    "$CACHE/utils/dialog.sh" errorbox \
+                        "Could not find gameinfo for '$nexus_game_id', remove Lutris cache and try again"
+                    exit 1
+                fi
+
                 source "$CACHE/gamesinfo/$nexus_game_id.sh"
+
+                if [ -z "$game_appid" ]; then
+                    echo "ERROR: empty game_appid" >&2
+                    exit 1
+                elif [ -z "$game_steam_subdirectory" ]; then
+                    echo "ERROR: empty steam_subdirectory" >&2
+                    exit 1
+                fi
+
                 steam_library=$("$CACHE/utils/find-library-for-appid.sh" $game_appid)
 
                 if [ ! -d "$steam_library" ]; then
