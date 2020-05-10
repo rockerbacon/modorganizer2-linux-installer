@@ -9,30 +9,27 @@ script:
 
     files:
     # utils
-    - dialog_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-utils/dialog.sh
-    - find_library_for_appid_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-utils/find-library-for-appid.sh
+    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-utils/dialog.sh
+    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-utils/find-library-for-appid.sh
 
     # supported games info
-    - gamesinfo_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-gamesinfo/gamesinfo.tar.gz
+    - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-gamesinfo/gamesinfo.tar.gz
 
     # mo2/game runners
-    - proton_launcher_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/proton-launcher.sh
-    - wine_launcher_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/wine-launcher.sh
-    - nxm_broker_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-broker.sh
-    - nxm_mime_handler_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-handler.desktop
-
-    # docs
-    # - docs_2.2.0: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-installers/modorganizer2_skyrim.README
+    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/proton-launcher.sh
+    - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/wine-launcher.sh
+    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-broker.sh
+    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-handler.desktop
 
     # modding tools
-    - openjdk_8u252: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jre_x64_windows_8u252b09.zip
+    - openjdk: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jre_x64_windows_8u252b09.zip
 
-    - nvse_5.1b4: http://nvse.silverlock.org/download/nvse_5_1_beta4.7z
-    - skse_1.7.3: https://skse.silverlock.org/beta/skse_1_07_03.7z
-    - skse64_2.0.17: https://skse.silverlock.org/beta/skse64_2_00_17.7z
+    - nvse: http://nvse.silverlock.org/download/nvse_5_1_beta4.7z
+    - skse: https://skse.silverlock.org/beta/skse_1_07_03.7z
+    - skse64: https://skse.silverlock.org/beta/skse64_2_00_17.7z
 
     # mod organizer
-    - mo_archive_2.2.2.1: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.2.1/Mod.Organizer-2.2.2.1.7z
+    - mo_archive: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.2.1/Mod.Organizer-2.2.2.1.7z
 
     game:
         exe: $GAMEDIR/run.sh
@@ -45,8 +42,6 @@ script:
             This installer only allows Mod Organizer 2 to manage a single game.
             Install one instance of Mod Organizer 2 for each game you want to manage.
             It is recommended to configure a cache path in "Lutris > Preferences > Lutris Preferences" to avoid re-downloading files.
-
-            Remember that you can find instructions and information in "$HOME/.local/share/modorganizer2/docs/README.md" if you have already installed Mod Organizer 2 before.
 
             Which game would you like to manage with this installation?
 
@@ -68,42 +63,42 @@ script:
             - wine: No, I use pure Wine
         preselect: proton
 
-    ###    install utils    ###
+    ###    prepare utils    ###
     - copy:
-        src: dialog_2.2.0
-        dst: $HOME/.local/share/modorganizer2/
-    - chmodx: $HOME/.local/share/modorganizer2/dialog.sh
+        src: dialog
+        dst: $CACHE/utils/
+    - chmodx: $CACHE/utils/dialog.sh
 
     - copy:
-        src: find_library_for_appid_2.2.0
-        dst: $HOME/.local/share/modorganizer2/
-    - chmodx: $HOME/.local/share/modorganizer2/find-library-for-appid.sh
-    ###    install utils    ###
+        src: find_library_for_appid
+        dst: $CACHE/utils/
+    - chmodx: $CACHE/utils/find-library-for-appid.sh
+    ###    prepare utils    ###
 
-    ###    install games info    ###
+    ###    extract games info    ###
     - extract:
-        file: gamesinfo_2.2.0
-        dst: $HOME/.local/share/modorganizer2/gamesinfo/
-    ###    install games info    ###
+        file: gamesinfo
+        dst: $CACHE/gamesinfo/
+    ###    extract games info    ###
 
     ###    install runners    ###
     - copy:
-        src: wine_launcher_2.2.0
+        src: wine_launcher
         dst: $HOME/.local/share/modorganizer2/
     - chmodx: $HOME/.local/share/modorganizer2/wine-launcher.sh
 
     - copy:
-        src: proton_launcher_2.2.0
+        src: proton_launcher
         dst: $HOME/.local/share/modorganizer2/
     - chmodx: $HOME/.local/share/modorganizer2/proton-launcher.sh
 
     - copy:
-        src: nxm_broker_2.2.0
+        src: nxm_broker
         dst: $HOME/.local/bin
     - chmodx: $HOME/.local/bin/modorganizer2-nxm-broker.sh
 
     - copy:
-        src: nxm_mime_handler_2.2.0
+        src: nxm_mime_handler
         dst: $HOME/.local/share/applications
     - execute:
         command: xdg-mime default modorganizer2-nxm-handler.desktop x-scheme-handler/nxm
@@ -111,19 +106,19 @@ script:
 
     ###    decompress external resources    ###
     - extract:
-        file: openjdk_8u252
+        file: openjdk
         dst: $CACHE/extracted-openjdk/
 
     - extract:
-        file: nvse_5.1b4
+        file: nvse
         dst: $CACHE/newvegas-script-extender/
 
     - extract:
-        file: skse_1.7.3
+        file: skse
         dst: $CACHE/skyrim-script-extender/
 
     - extract:
-        file: skse64_2.0.17
+        file: skse64
         dst: $CACHE/skyrimspecialedition-script-extender/
     ###    decompress external resources    ###
 
@@ -135,14 +130,12 @@ script:
             nexus_game_id=$INPUT_NEXUS_GAME_ID
             runner=$INPUT_RUNNER
 
-            shared="$HOME/.local/share/modorganizer2"
-
             if [ "$runner" == "proton" ]; then
-                source "$shared/gamesinfo/$nexus_game_id.sh"
-                steam_library=$("$shared/find-library-for-appid.sh" $game_appid)
+                source "$CACHE/gamesinfo/$nexus_game_id.sh"
+                steam_library=$("$CACHE/utils/find-library-for-appid.sh" $game_appid)
 
                 if [ ! -d "$steam_library" ]; then
-                    "$shared/dialog.sh" errorbox \
+                    "$CACHE/utils/dialog.sh" errorbox \
                         "Could not find '$game_steam_subdirectory' in your Steam library"
                     exit 1
                 fi
@@ -159,7 +152,7 @@ script:
                         "$game_installation/" 2>&1 \
                     )
                     if [ "$?" != "0" ]; then
-                        "$shared/dialog.sh" errorbox \
+                        "$CACHE/utils/dialog.sh" errorbox \
                             "Error while installing script extender: $output"
                         exit 1
                     fi
@@ -172,7 +165,7 @@ script:
                     "$game_prefix/drive_c/java/" 2>&1 \
                 )
                 if [ "$?" != "0" ]; then
-                    "$shared/dialog.sh" errorbox \
+                    "$CACHE/utils/dialog.sh" errorbox \
                         "Error while installing OpenJDK: $output"
                     exit 1
                 fi
@@ -180,10 +173,12 @@ script:
                 WINEPREFIX="$game_prefix" \
                 "$HOME/.local/share/lutris/runtime/winetricks/winetricks" -q $mo2_protontricks $game_protontricks
                 if [ "$?" != "0" ]; then
-                    "$shared/dialog.sh" errorbox \
+                    "$CACHE/utils/dialog.sh" errorbox \
                         "Error while installing winetricks, please run Lutris from a terminal and check the logs"
                     exit 1
                 fi
+
+                shared="$HOME/.local/share/modorganizer2"
 
                 echo -e \
                 "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
@@ -195,7 +190,7 @@ script:
 
 
             elif [ "$runner" == "wine" ]; then
-                "$shared/dialog.sh" errorbox \
+                "$CACHE/utils/dialog.sh" errorbox \
                     "Installation for custom Wine prefixes not yet supported"
                 exit 1
             fi
@@ -216,7 +211,7 @@ script:
     ###    prepare prefix    ###
 
     - extract:
-        file: mo_archive_2.2.2.1
+        file: mo_archive
         dst: $GAMEDIR/ModOrganizer2/
 
     - execute:
@@ -224,4 +219,25 @@ script:
             mkdir -p '$HOME/.config/modorganizer2/instances'
             rm -f "$HOME/.config/modorganizer2/instances/$INPUT_NEXUS_GAME_ID"
             ln -s '$GAMEDIR/' '$HOME/.config/modorganizer2/instances/$INPUT_NEXUS_GAME_ID'
+
+    - write_file:
+        file: $HOME/.local/share/modorganizer2/installer_major_version.txt
+        content: 2
+
+    install_complete_text: |
+        Installation completed successfully!
+
+        It is recommended to rename this instance so it's easier to tell which game it manages.
+        You can do so by right clicking it on Lutris > Configure > Game Info.
+
+        A few things to keep in mind before using Mod Organizer 2:
+
+        * Mod Organizer 2 cannot open a browser. In order to login to Nexus, you must manually
+          add the API key you generated at https://www.nexusmods.com/users/myaccount?tab=api
+
+        * The script extender for the game you selected is already installed and ready to use
+
+        * If you need to run Proc Patchers, a Java binary is available at C:\java\bin\java.exe
+
+        In case of questions or issues visit https://github.com/rockerbacon/lutris-skyrimse-installers
 
