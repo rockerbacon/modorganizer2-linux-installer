@@ -17,6 +17,10 @@ EXECUTABLE:		path to the .exe file to execute
 EXECUTABLE_ARGS:	arguments to pass to EXECUTABLE
 
 OPTIONS:
+	--customver	specify a custom version of proton to use
+			specified version must be a path within
+			\$HOME/.steam/steam/steamapps/common
+
 	--d9vk		use DXVK instead of wined3d on DirectX9 apps
 			obsolete on Proton 5.0 or newer
 
@@ -88,6 +92,7 @@ protonver='*'
 proton_extra_envs=()
 proton_libdir="$HOME/.steam/steam"
 restart_pulse=false
+customver=""
 ###    DEFAULTS    ###
 
 ###    PARSE NAMED ARGS    ###
@@ -95,6 +100,10 @@ parsing_args=true
 while [ "$parsing_args" == "true" ]; do
 	argname=$1
 	case "$argname" in
+		--customver)
+			customver="$2"; shift 2
+			;;
+
 		--d9vk)
 			proton_extra_envs+=("PROTON_USE_D9VK=1"); shift 1
 			;;
@@ -244,13 +253,18 @@ fi
 ###    FIND GAME LIBRARY    ####
 
 ###    FIND PROTON EXECUTABLE    ###
+if [ -n "$customver" ]; then
+	proton_match="$customver"
+else
+	proton_match="Proton $protonver"
+fi
 proton_dir=$(find "$proton_libdir/steamapps/common/" \
-		-maxdepth 1 -path "*/Proton $protonver" \
+		-maxdepth 1 -path "*/$proton_match" \
 	|	sort -rV \
 	|	head -n 1
 )
 if [ ! -d "$proton_dir" ]; then
-	$errorbox "Could not find proton version matching '$protonver' in directory '$proton_libdir/steamapps/common/'"
+	$errorbox "Could not find Proton version matching '$proton_match' in directory '$proton_libdir/steamapps/common/'"
 	print_help >&2
 	exit 1
 fi
