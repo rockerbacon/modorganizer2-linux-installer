@@ -16,8 +16,8 @@ script:
     - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.3.0-gamesinfo/gamesinfo.tar.gz
 
     # mo2/game runners
-    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/proton-launcher.sh
-    - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/wine-launcher.sh
+    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.5.0-runners/proton-launcher.sh
+    - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.5.0-runners/wine-launcher.sh
     - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-broker.sh
     - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-handler.desktop
 
