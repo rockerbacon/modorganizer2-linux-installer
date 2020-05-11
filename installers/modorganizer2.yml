@@ -52,7 +52,7 @@ script:
         id: NEXUS_GAME_ID
         options:
             - fallout3: Fallout 3
-            - fallou4: Fallout 4
+            - fallout4: Fallout 4
             - newvegas: Fallout New Vegas
             - morrowind: Morrowind
             - oblivion: Oblivion
