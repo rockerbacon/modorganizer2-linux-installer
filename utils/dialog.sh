@@ -15,17 +15,6 @@ else
 	exit 1
 fi
 
-xtermbox() {
-	action_on_exit=$1
-	msg=$2
-	xterm -e bash -c "
-		echo '$msg'
-		echo
-		echo Press enter to $action_on_exit
-		read
-	"
-}
-
 errorbox() {
 	message=$1; shift
 	case "$interface" in
@@ -33,11 +22,11 @@ errorbox() {
 			zenity --ok-label=Exit --ellipsize --error --text "$message"
 			;;
 		xmessage)
-			xmessage -buttons exit:1 "$message"
+			xmessage -buttons exit:1 "ERROR: $message"
 			;;
 		xterm)
 			xterm -e bash -c "
-				echo '$message'
+				echo 'ERROR: $message'
 				echo
 				echo -n 'Press enter to exit. '
 				read
@@ -68,6 +57,26 @@ infobox() {
 	esac
 
 	return 0
+}
+
+warnbox() {
+	message=$1; shift
+	case "$interface" in
+		zenity)
+			zenity --ok-label=Continue --ellipsize --warning --text "$message"
+			;;
+		xmessage)
+			xmessage -buttons continue:0 "WARNING: $message"
+			;;
+		xterm)
+			xterm -e bash -c "
+				echo 'WARNING: $message'
+				echo
+				echo -n 'Press enter to continue. '
+				read
+			"
+			;;
+	esac
 }
 
 directorypicker() {

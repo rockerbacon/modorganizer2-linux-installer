@@ -9,8 +9,8 @@ script:
 
     files:
     # utils
-    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.4.0-utils/dialog.sh
-    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.4.0-utils/find-library-for-appid.sh
+    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-utils/dialog.sh
+    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-utils/find-library-for-appid.sh
 
     # supported games info
     - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.4.0-gamesinfo/gamesinfo.tar.gz
@@ -181,6 +181,7 @@ script:
             case "$runner" in
                 proton)
                     mo2_tricks="vcrun2019"
+                    mo2_options=""
 
                     steam_library=$("$CACHE/utils/find-library-for-appid.sh" $game_appid)
 
@@ -195,16 +196,20 @@ script:
                     game_tricks="$game_protontricks"
 
                     echo -e \
-                    "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_proton_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
+                    "#!/bin/bash\n\n'$shared/proton-launcher.sh' $mo2_options $game_proton_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
                     > "$GAMEDIR/run.sh"
 
                     echo -e \
-                    "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_proton_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' \"\$1\"" \
+                    "#!/bin/bash\n\n'$shared/proton-launcher.sh' $mo2_options $game_proton_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' \"\$1\"" \
                     > "$GAMEDIR/download.sh"
                     ;;
 
                 wine)
                     mo2_tricks="vcrun2019 dotnet40"
+                    mo2_options="--proton-wine --winever 5.*"
+
+                    "$CACHE/utils/dialog.sh" warnbox \
+                        "As of version 5.7, Wine still does not fully support Mod Organizer 2.2.1 and later.\nFor this reason this installer uses the Wine version bundled with Proton 5.0.\nMake sure you have Steam and Proton 5.0 installed on your system"
 
                     game_prefix=$( \
                         "$CACHE/utils/dialog.sh" directorypicker \
@@ -253,22 +258,23 @@ script:
                         fi
                     fi
 
-                    winever=$( \
-                        "$CACHE/utils/dialog.sh" textentry \
-                            "Inform which version of Wine you're using\nLeave as * to use the latest version available on Lutris" \
-                            "*" \
-                    )
-                    if [ -z "$winever" ]; then
-                        echo "ERROR: Installation canceled by user" >&2
-                        exit 1
-                    fi
+                    # TODO: uncomment once Wine fixes issues with VC2019
+                    # winever=$( \
+                    #     "$CACHE/utils/dialog.sh" textentry \
+                    #         "Inform which version of Wine you're using\nLeave as * to use the latest version available on Lutris" \
+                    #         "*" \
+                    # )
+                    # if [ -z "$winever" ]; then
+                    #     echo "ERROR: Installation canceled by user" >&2
+                    #     exit 1
+                    # fi
 
                     echo -e \
-                    "#!/bin/bash\n\nWINEPREFIX='$game_prefix' '$shared/wine-launcher.sh' --winever '$winever' $game_wine_options \"\$@\" '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
+                    "#!/bin/bash\n\nWINEPREFIX='$game_prefix' '$shared/wine-launcher.sh' $mo2_options $game_wine_options \"\$@\" '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
                     > "$GAMEDIR/run.sh"
 
                     echo -e \
-                    "#!/bin/bash\n\nWINEPREFIX='$game_prefix' '$shared/wine-launcher.sh' --winever '$winever' $game_wine_options \"\$@\" '$GAMEDIR/ModOrganizer2/nxmhandler.exe'" \
+                    "#!/bin/bash\n\nWINEPREFIX='$game_prefix' '$shared/wine-launcher.sh' $mo2_options $game_wine_options \"\$@\" '$GAMEDIR/ModOrganizer2/nxmhandler.exe'" \
                     > "$GAMEDIR/download.sh"
                     ;;
             esac
