@@ -228,11 +228,11 @@ script:
                 shared="$HOME/.local/share/modorganizer2"
 
                 echo -e \
-                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid \"\$@\" '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
+                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
                 > "$GAMEDIR/run.sh"
 
                 echo -e \
-                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options $game_appid \"\$@\" '$GAMEDIR/ModOrganizer2/nxmhandler.exe' \"\$1\"" \
+                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' \"\$1\"" \
                 > "$GAMEDIR/download.sh"
 
 
