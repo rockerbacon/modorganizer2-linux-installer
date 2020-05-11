@@ -26,25 +26,27 @@ OPTIONS:
 			should be a quoted space-separated list
 			eg.: -n 'xaudio2_7 d3d9'
 
-	-p,--winever	specify Proton version to use
-			defaults to the latest installed version
-			can be a Pearl regex
-			if a regex, the latest matching version is used
-
-	--wine-libdir	specify Steam library where to look for Proton
-			default is \$HOME/.steam/steam
+	--proton-wine	use a Wine version supplied by Proton
+			causes '--winever' to match against Proton versions
 
 	--restart-pulse	restart pulseaudio right before running EXECUTABLE
 
 	--system-libs	prefer system libraries over
 			libraries supplied by Steam
 
-	--system-wine	use wine installed on the system
+	--system-wine	use Wine installed on the system
 			instead of versions supplied by Lutris
 
 	-w,--workdir	specify working directory for the entire script
 			the script switches to this directory
 			right after parsing all arguments
+
+	--winever	specify Wine version to use
+			defaults to the latest lutris version available
+			can be a Pearl regex
+			if a regex, the latest matching version is used
+			search is made in the directory
+			\$HOME/.local/share/lutris/runners/wine
 
 	-h,--help	print this help message and exit
 
@@ -81,6 +83,7 @@ winever='*'
 wine_extra_envs=()
 wine_libdir="$HOME/.steam/steam"
 restart_pulse=false
+bin_supplier="lutris"
 ###    DEFAULTS    ###
 
 ###    PARSE NAMED ARGS    ###
@@ -106,12 +109,8 @@ while [ "$parsing_args" == "true" ]; do
 			wine_extra_envs+=("WINEDLLOVERRIDES='$dll_overrides'")
 			;;
 
-		-p|--winever)
-			winever=$2; shift 2
-			;;
-
-		--wine-libdir)
-			wine_libdir=$2; shift 2
+		--proton-wine)
+			bin_supplier="proton"; shift 1
 			;;
 
 		--restart-pulse)
@@ -119,7 +118,7 @@ while [ "$parsing_args" == "true" ]; do
 			;;
 
 		--system-libs)
-			prefer_system_libs=true; shift 1
+			bin_supplier="system"; shift 1
 			;;
 
 		--system-wine)
@@ -128,6 +127,10 @@ while [ "$parsing_args" == "true" ]; do
 
 		-w|--workdir)
 			workdir=$2; shift 2
+			;;
+
+		--winever)
+			winever=$2; shift 2
 			;;
 
 		-h|--help)
@@ -175,32 +178,51 @@ fi
 ###    ASSERT PATHS    ###
 
 ###    FIND WINE EXECUTABLE    ###
-if [ "$force_system_wine" == "true" ]; then
-	wine_dir=$(realpath $(dirname $(readlink "/usr/bin/wine"))/..)
-	if [ ! -d "$wine_dir" ]; then
-		$errorbox "Could not locate Wine in your system"
-		print_help >&2
-		exit 1
-	fi
-else
-	if [ "$winever" == "*" ]; then
-		version_match="/lutris-$winever"
-	else
-		version_match="$winever"
-	fi
+case "$bin_supplier" in
+	lutris)
+		if [ "$winever" == "*" ]; then
+			version_match="/lutris-$winever"
+		else
+			version_match="$winever"
+		fi
 
-	wine_dir=$(find "$HOME/.local/share/lutris/runners/wine/" \
-			-maxdepth 1 -path "*$version_match*" \
-		|	sort -rV \
-		|	head -n 1
-	)
+		wine_dir=$(find "$HOME/.local/share/lutris/runners/wine/" \
+				-maxdepth 1 -path "*$version_match*" \
+			|	sort -rV \
+			|	head -n 1 \
+		)
+		if [ ! -d "$wine_dir" ]; then
+			$errorbox "Could not find wine version matching '$winever' in directory '$HOME/.local/share/lutris/runners/wine/'"
+			print_help >&2
+			exit 1
+		fi
+		;;
 
-	if [ ! -d "$wine_dir" ]; then
-		$errorbox "Could not find wine version matching '$winever' in directory '$HOME/.local/share/lutris/runners/wine/'"
-		print_help >&2
-		exit 1
-	fi
-fi
+	proton)
+		proton_dir=$(find "$HOME/.steam/steam/steamapps/common/" \
+				-maxdepth 1 -path "*Proton*$winever*" \
+			|	sort -rV \
+			| head -n 1 \
+		)
+
+		if [ ! -d "$proton_dir" ]; then
+			$errorbox "Could not find Proton version matching '$winever' in directory '$HOME/.steam/steam/steamapps/common/'"
+			print_help >&2
+			exit 1
+		fi
+
+		wine_dir="$proton_dir/dist"
+		;;
+
+	system)
+		wine_dir=$(realpath $(dirname $(readlink "/usr/bin/wine"))/..)
+		if [ ! -d "$wine_dir" ]; then
+			$errorbox "Could not locate Wine in your system"
+			print_help >&2
+			exit 1
+		fi
+		;;
+esac
 ###    FIND WINE EXECUTABLE    ###
 
 ###    BUILD LD_LIBRARY_PATH    ###
@@ -220,10 +242,14 @@ if [ -d "$steam_dir" ]; then
 	steam_32libs="$steam_rundir/i386/lib/i368-linux-gnu:$steam_rundir/i386/lib:$steam_rundir/i386/usr/lib/i386-linux-gnu:$steam_rundir/i386/usr/lib"
 	steam_64libs="$steam_rundir/amd64/lib/x86_64-linux-gnu:$steam_rundir/amd64/lib:$steam_rundir/amd64/usr/lib/x86_64-linux-gnu:$steam_rundir/amd64/usr/lib"
 
+	if [ "$bin_supplier" == "proton" ]; then
+		proton_libs="$proton_dir/lib64:$proton_dir/lib:"
+	fi
+
 	if [ "$prefer_system_libs" == "true" ]; then
-		library_path="$system_libs:$steam_pinned_libs:$steam_32libs:$steam_64libs"
+		library_path="$system_libs:${proton_libs}$steam_pinned_libs:$steam_32libs:$steam_64libs"
 	else
-		library_path="$steam_pinned_libs:$system_libs:$steam_32libs:$steam_64libs"
+		library_path="${proton_libs}$steam_pinned_libs:$system_libs:$steam_32libs:$steam_64libs"
 	fi
 else
 	library_path=""
