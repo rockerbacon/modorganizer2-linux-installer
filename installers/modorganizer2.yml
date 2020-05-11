@@ -9,17 +9,17 @@ script:
 
     files:
     # utils
-    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-utils/dialog.sh
-    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-utils/find-library-for-appid.sh
+    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-utils/dialog.sh
+    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-utils/find-library-for-appid.sh
 
     # supported games info
-    - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.3.0-gamesinfo/gamesinfo.tar.gz
+    - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.4.0-gamesinfo/gamesinfo.tar.gz
 
     # mo2/game runners
-    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.5.0-runners/proton-launcher.sh
-    - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.5.0-runners/wine-launcher.sh
-    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-broker.sh
-    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.2.0-runners/modorganizer2-nxm-handler.desktop
+    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-runners/proton-launcher.sh
+    - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-runners/wine-launcher.sh
+    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-runners/modorganizer2-nxm-broker.sh
+    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-runners/modorganizer2-nxm-handler.desktop
 
     # modding tools
     - openjdk: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jre_x64_windows_8u252b09.zip
@@ -52,7 +52,7 @@ script:
         id: NEXUS_GAME_ID
         options:
             - fallout3: Fallout 3
-            - fallout4: Fallout 4
+            - fallou4: Fallout 4
             - newvegas: Fallout New Vegas
             - morrowind: Morrowind
             - oblivion: Oblivion
@@ -157,88 +157,160 @@ script:
     ###    prepare prefix    ###
     - execute:
         command: |
-            mo2_protontricks="vcrun2019"
-
             nexus_game_id=$INPUT_NEXUS_GAME_ID
             runner=$INPUT_RUNNER
 
-            if [ "$runner" == "proton" ]; then
-                if [ ! -f "$CACHE/gamesinfo/$nexus_game_id.sh" ]; then
-                    "$CACHE/utils/dialog.sh" errorbox \
-                        "Could not find gameinfo for '$nexus_game_id', remove Lutris cache and try again"
-                    exit 1
-                fi
+            if [ ! -f "$CACHE/gamesinfo/$nexus_game_id.sh" ]; then
+                "$CACHE/utils/dialog.sh" errorbox \
+                    "Could not find gameinfo for '$nexus_game_id', remove Lutris cache and try again"
+                exit 1
+            fi
 
-                source "$CACHE/gamesinfo/$nexus_game_id.sh"
+            source "$CACHE/gamesinfo/$nexus_game_id.sh"
 
-                if [ -z "$game_appid" ]; then
-                    echo "ERROR: empty game_appid" >&2
-                    exit 1
-                elif [ -z "$game_steam_subdirectory" ]; then
-                    echo "ERROR: empty steam_subdirectory" >&2
-                    exit 1
-                fi
+            if [ -z "$game_appid" ]; then
+                echo "ERROR: empty game_appid" >&2
+                exit 1
+            elif [ -z "$game_steam_subdirectory" ]; then
+                echo "ERROR: empty steam_subdirectory" >&2
+                exit 1
+            fi
 
-                steam_library=$("$CACHE/utils/find-library-for-appid.sh" $game_appid)
+            shared="$HOME/.local/share/modorganizer2"
 
-                if [ ! -d "$steam_library" ]; then
-                    "$CACHE/utils/dialog.sh" errorbox \
-                        "Could not find '$game_steam_subdirectory' in your Steam library"
-                    exit 1
-                fi
+            case "$runner" in
+                proton)
+                    mo2_tricks="vcrun2019"
+                    mo2_options=""
 
-                game_prefix="$steam_library/steamapps/compatdata/$game_appid/pfx"
-                game_installation="$steam_library/steamapps/common/$game_steam_subdirectory"
+                    steam_library=$("$CACHE/utils/find-library-for-appid.sh" $game_appid)
 
-                if [ -d "$CACHE/${nexus_game_id}-script-extender" ]; then
-                    echo "Installing script extender..."
-
-                    output=$( \
-                        cp -af \
-                        "$CACHE/${nexus_game_id}-script-extender/." \
-                        "$game_installation/" 2>&1 \
-                    )
-                    if [ "$?" != "0" ]; then
+                    if [ ! -d "$steam_library" ]; then
                         "$CACHE/utils/dialog.sh" errorbox \
-                            "Error while installing script extender: $output"
+                            "Could not find '$game_steam_subdirectory' in your Steam library"
                         exit 1
                     fi
-                fi
 
-                mkdir -p "$game_prefix/drive_c/java"
+                    game_prefix="$steam_library/steamapps/compatdata/$game_appid/pfx"
+                    game_installation="$steam_library/steamapps/common/$game_steam_subdirectory"
+                    game_tricks="$game_protontricks"
+
+                    echo -e \
+                    "#!/bin/bash\n\n'$shared/proton-launcher.sh' $mo2_options $game_proton_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
+                    > "$GAMEDIR/run.sh"
+
+                    echo -e \
+                    "#!/bin/bash\n\n'$shared/proton-launcher.sh' $mo2_options $game_proton_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' \"\$1\"" \
+                    > "$GAMEDIR/download.sh"
+                    ;;
+
+                wine)
+                    mo2_tricks="vcrun2019 dotnet40"
+                    mo2_options="--proton-wine --winever 5.*"
+
+                    "$CACHE/utils/dialog.sh" warnbox \
+                        "As of version 5.7, Wine still does not fully support Mod Organizer 2.2.1 and later.\nFor this reason this installer uses the Wine version bundled with Proton 5.0.\nMake sure you have Steam and Proton 5.0 installed on your system"
+
+                    game_prefix=$( \
+                        "$CACHE/utils/dialog.sh" directorypicker \
+                            "Inform the path to your wineprefix" \
+                    )
+                    if [ -z "$game_prefix" ]; then
+                        echo "ERROR: Installation canceled by user" >&2
+                        exit 1
+                    fi
+
+                    game_tricks="$game_winetricks"
+
+                    install_path_candidates=( \
+                        "$game_prefix/drive_c/Program Files (x86)/Steam/steamapps/common/$game_steam_subdirectory" \
+                        "$game_prefix/drive_c/GOG Games/$game_steam_subdirectory" \
+                    )
+                    if [ -n "$game_gog_subdirectory" ]; then
+                        install_path_candidates+=( \
+                            "$game_prefix/drive_c/GOG Games/$game_gog_subdirectory" \
+                        )
+                    fi
+                    if [ "$nexus_game_id" == "fallout3" ]; then
+                        install_path_candidates+=( \
+                            "$game_prefix/drive_c/Program Files (x86)/Steam/steamapps/common/Fallout 3" \
+                            "$game_prefix/drive_c/GOG Games/Fallout 3" \
+                        )
+                    fi
+
+                    for path in "${install_path_candidates[@]}"; do
+                        echo "Searching for game at '$path'"
+                        if [ -d "$path" ]; then
+                            echo "Found game"
+                            game_installation="$path"
+                            break
+                        fi
+                    done
+
+                    if [ -z "$game_installation" ]; then
+                        game_installation=$( \
+                            "$CACHE/utils/dialog.sh" directorypicker \
+                                "Could not automatically find the game.\nPlease inform the path where the game is installed" \
+                        )
+                        if [ -z "$game_installation" ]; then
+                            echo "ERROR: installation canceled by user" >&2
+                            exit 1
+                        fi
+                    fi
+
+                    # TODO: uncomment once Wine fixes issues with VC2019
+                    # winever=$( \
+                    #     "$CACHE/utils/dialog.sh" textentry \
+                    #         "Inform which version of Wine you're using\nLeave as * to use the latest version available on Lutris" \
+                    #         "*" \
+                    # )
+                    # if [ -z "$winever" ]; then
+                    #     echo "ERROR: Installation canceled by user" >&2
+                    #     exit 1
+                    # fi
+
+                    echo -e \
+                    "#!/bin/bash\n\nWINEPREFIX='$game_prefix' '$shared/wine-launcher.sh' $mo2_options $game_wine_options \"\$@\" '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
+                    > "$GAMEDIR/run.sh"
+
+                    echo -e \
+                    "#!/bin/bash\n\nWINEPREFIX='$game_prefix' '$shared/wine-launcher.sh' $mo2_options $game_wine_options \"\$@\" '$GAMEDIR/ModOrganizer2/nxmhandler.exe'" \
+                    > "$GAMEDIR/download.sh"
+                    ;;
+            esac
+
+            if [ -d "$CACHE/${nexus_game_id}-script-extender" ]; then
+                echo "Installing script extender..."
+
                 output=$( \
                     cp -af \
-                    "$CACHE/extracted-openjdk/." \
-                    "$game_prefix/drive_c/java/" 2>&1 \
+                    "$CACHE/${nexus_game_id}-script-extender/." \
+                    "$game_installation/" 2>&1 \
                 )
                 if [ "$?" != "0" ]; then
                     "$CACHE/utils/dialog.sh" errorbox \
-                        "Error while installing OpenJDK: $output"
+                        "Error while installing script extender: $output"
                     exit 1
                 fi
+            fi
 
-                WINEPREFIX="$game_prefix" \
-                "$HOME/.local/share/lutris/runtime/winetricks/winetricks" -q $mo2_protontricks $game_protontricks
-                if [ "$?" != "0" ]; then
-                    "$CACHE/utils/dialog.sh" errorbox \
-                        "Error while installing winetricks, please run Lutris from a terminal and check the logs"
-                    exit 1
-                fi
-
-                shared="$HOME/.local/share/modorganizer2"
-
-                echo -e \
-                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/ModOrganizer.exe'" \
-                > "$GAMEDIR/run.sh"
-
-                echo -e \
-                "#!/bin/bash\n\n'$shared/proton-launcher.sh' $game_launcher_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' \"\$1\"" \
-                > "$GAMEDIR/download.sh"
-
-
-            elif [ "$runner" == "wine" ]; then
+            mkdir -p "$game_prefix/drive_c/java"
+            output=$( \
+                cp -af \
+                "$CACHE/extracted-openjdk/." \
+                "$game_prefix/drive_c/java/" 2>&1 \
+            )
+            if [ "$?" != "0" ]; then
                 "$CACHE/utils/dialog.sh" errorbox \
-                    "Installation for custom Wine prefixes not yet supported"
+                    "Error while installing OpenJDK: $output"
+                exit 1
+            fi
+
+            WINEPREFIX="$game_prefix" \
+            "$HOME/.local/share/lutris/runtime/winetricks/winetricks" -q $mo2_tricks $game_tricks
+            if [ "$?" != "0" ]; then
+                "$CACHE/utils/dialog.sh" errorbox \
+                    "Error while installing winetricks, please run Lutris from a terminal and check the logs"
                 exit 1
             fi
 
