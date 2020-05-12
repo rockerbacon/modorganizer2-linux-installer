@@ -199,11 +199,21 @@ case "$bin_supplier" in
 		;;
 
 	proton)
-		proton_dir=$(find "$HOME/.steam/steam/steamapps/common/" \
-				-maxdepth 1 -path "*Proton*$winever*" \
-			|	sort -rV \
-			| head -n 1 \
+		candidate_paths=( \
+			"$HOME/.steam/steam/steamapps/common/" \
+			"$HOME/.steam/compatibilitytools.d/" \
 		)
+		for search_path in "${candidate_paths[@]}"; do
+			proton_dir=$(find "$search_path" \
+					-maxdepth 1 -path "*Proton*$winever*" \
+				|	sort -rV \
+				|	head -n 1 \
+			)
+
+			if [ -d "$proton_dir" ]; then
+				break
+			fi
+		done
 
 		if [ ! -d "$proton_dir" ]; then
 			$errorbox "Could not find Proton version matching '$winever' in directory '$HOME/.steam/steam/steamapps/common/'"
