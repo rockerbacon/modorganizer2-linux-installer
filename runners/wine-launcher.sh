@@ -22,6 +22,8 @@ OPTIONS:
 
 	--int-scaling	enable integer scaling
 
+	--keep-pulse	do not restart pulseaudio (default)
+
 	-n,--native	specify dlls which should prefer native versions
 			should be a quoted space-separated list
 			eg.: -n 'xaudio2_7 d3d9'
@@ -97,6 +99,10 @@ while [ "$parsing_args" == "true" ]; do
 
 		--int-scaling)
 			wine_extra_evs+=("WINE_FULLSCREEN_INTEGER_SCALING=1"); shift 1
+			;;
+
+		--keep-pulse)
+			restart_pulse=false; shift 1
 			;;
 
 		-n|--native)
