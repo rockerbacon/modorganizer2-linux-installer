@@ -44,7 +44,7 @@ Here is what you need to do in order to update:
   ```bash
   rm -rf <cache path>/mod-organizer-2
   ```
-5. Use the newest installer to install Mod Organizer 2 on the same location of the old installation
+5. Use the newest installer to install Mod Organizer 2 in the path to the old installation
 
 ## Installing Vortex
 
