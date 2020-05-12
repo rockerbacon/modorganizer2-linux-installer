@@ -19,7 +19,7 @@ EXECUTABLE_ARGS:	arguments to pass to EXECUTABLE
 OPTIONS:
 	--customver	specify a custom version of proton to use
 			specified version must be a path within
-			\$HOME/.steam/steam/steamapps/common
+			\$HOME/.steam/compatibilitytools.d
 
 	--d9vk		use DXVK instead of wined3d on DirectX9 apps
 			obsolete on Proton 5.0 or newer
@@ -254,11 +254,13 @@ fi
 
 ###    FIND PROTON EXECUTABLE    ###
 if [ -n "$customver" ]; then
+	proton_search_path="$HOME/.steam/compatibilitytools.d/"
 	proton_match="$customver"
 else
+	proton_search_path="$proton_libdir/steamapps/common/"
 	proton_match="Proton $protonver"
 fi
-proton_dir=$(find "$proton_libdir/steamapps/common/" \
+proton_dir=$(find "$proton_search_path" \
 		-maxdepth 1 -path "*/$proton_match" \
 	|	sort -rV \
 	|	head -n 1
