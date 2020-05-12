@@ -1,13 +1,28 @@
-# lutris-skyrimse-installers
-Installers to make Skyrim Special Edition plug and play on Lutris
+## Introduction
 
-## Installing
+This project aims to make modding and playing Bethesda games on Linux as easy as possible. It does that by providing Lutris installers which automatically setup a working experience for the user.
 
-These installers are not available on Lutris.net. In order to used them you have to download the .yml file for the app you want from the [latest stable release](https://github.com/rockerbacon/lutris-skyrimse-installers/releases) and install it with the command:
-```
-lutris -i /path/to/downloaded/file.yml
-```
-IMPORTANT: If Lutris is already open the path to the file must be absolute, since the working directory for Lutris will not be the same as the terminal's. If in doubt just make sure Lutris is not running before executing the install command.
+Note that while these installers may be available on Lutris.net, users are always recommended to use the latest stable version available on this repository. The testers and maintainers of this project have little control over the content on Lutris and cannot assure that the installers available there are up to date nor that they haven't been wrongly modified.
+
+## Installing Mod Organizer 2
+
+All you need to use Mod Organizer 2 is to first install the game you want to play and then grab the latest stable release of the installer [here](https://github.com/rockerbacon/lutris-skyrimse-installers/releases). Prefer to get your games directly from Steam as that is the most tested use case.
+
+The installer will automatically configure game-specific workarounds and install the script extender for your game of choice.
+
+The following is a small overview of the current state of each supported game:
+
+| GAME                   | GAMEPLAY      | SCRIPT EXTENDER           | ENB           |
+| :--------------------- | :------------ | :------------------------ | :------------ |
+| Fallout 3              | not tested    | not tested                | not tested    |
+| Fallout 4              | under testing | under testing             | not supported |
+| Fallout New Vegas      | working       | working (limited testing) | under testing |
+| Morrowind              | not tested    | not tested                | not tested    |
+| Oblivion               | under testing | under testing             | under testing |
+| Skyrim                 | working       | working                   | working       |
+| Skyrim Special Edition | working       | working                   | not supported |
+
+For known bugs and necessary workarounds, please refer to the [bugs page](https://github.com/rockerbacon/lutris-skyrimse-installers/issues?q=is:issue+is:open+label:bug+)
 
 ## Vortex
 
