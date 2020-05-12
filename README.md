@@ -8,7 +8,7 @@ While these installers may be available on Lutris.net, users are always recommen
 
 All you need to use Mod Organizer 2 is to first install the game you want to play and then grab the latest stable release of the installer [here](https://github.com/rockerbacon/lutris-skyrimse-installers/releases). Prefer to get your games directly from Steam as that is the most tested use case.
 
-The installer will automatically configure game-specific workarounds and install the script extender for your game of choice.
+The installer will automatically configure game-specific workarounds and install the script extender for your game of choice. Java binaries are also made available at `C:\java` for running Proc Patchers.
 
 You can use the installer with the following terminal command, remember to change the path if the file was downloaded to another location:
 ```bash
@@ -22,14 +22,16 @@ The following is a small overview of the current state of each supported game:
 | GAME                   | GAMEPLAY      | SCRIPT EXTENDER           | ENB           |
 | :--------------------- | :------------ | :------------------------ | :------------ |
 | Fallout 3              | not tested    | not tested                | not tested    |
-| Fallout 4              | under testing | under testing             | not supported |
+| Fallout 4              | under testing | [some plugins may not work](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/32) | not supported |
 | Fallout New Vegas      | working       | working (limited testing) | under testing |
 | Morrowind              | not tested    | not tested                | not tested    |
-| Oblivion               | under testing | under testing             | under testing |
+| Oblivion               | not tested    | not tested                | not tested    |
 | Skyrim                 | working       | working                   | working       |
 | Skyrim Special Edition | working       | working                   | not supported |
 
 For known bugs and necessary workarounds, please refer to the [issues page](https://github.com/rockerbacon/lutris-skyrimse-installers/issues?q=is:issue+is:open+label:bug+)
+
+Please, help to keep this table up to date by [opening issues](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/new/choose) on any successes or problems you have experienced.
 
 ## Updating Mod Organizer 2
 
