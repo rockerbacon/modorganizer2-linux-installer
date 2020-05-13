@@ -200,7 +200,7 @@ script:
                     > "$GAMEDIR/run.sh"
 
                     echo -e \
-                    "#!/bin/bash\n\n'$shared/proton-launcher.sh' $mo2_options $game_proton_options \"\$@\" $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' \"\$1\"" \
+                    "#!/bin/bash\n\n'$shared/proton-launcher.sh' $mo2_options $game_proton_options $game_appid '$GAMEDIR/ModOrganizer2/nxmhandler.exe' \"\$1\"" \
                     > "$GAMEDIR/download.sh"
                     ;;
 
@@ -274,7 +274,7 @@ script:
                     > "$GAMEDIR/run.sh"
 
                     echo -e \
-                    "#!/bin/bash\n\nWINEPREFIX='$game_prefix' '$shared/wine-launcher.sh' $mo2_options $game_wine_options \"\$@\" '$GAMEDIR/ModOrganizer2/nxmhandler.exe'" \
+                    "#!/bin/bash\n\nWINEPREFIX='$game_prefix' '$shared/wine-launcher.sh' $mo2_options $game_wine_options '$GAMEDIR/ModOrganizer2/nxmhandler.exe'" \
                     > "$GAMEDIR/download.sh"
                     ;;
             esac
