@@ -160,6 +160,9 @@ script:
     ###    prepare prefix    ###
     - execute:
         command: |
+            # clear envs set by Lutris
+            export LD_LIBRARY_PATH=""
+
             nexus_game_id=$INPUT_NEXUS_GAME_ID
             runner=$INPUT_RUNNER
 
