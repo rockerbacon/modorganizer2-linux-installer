@@ -38,6 +38,9 @@ script:
     game:
         exe: $GAMEDIR/run.sh
 
+    system:
+        disable_runtime: true
+
     installer:
     - input_menu:
         description: |-
