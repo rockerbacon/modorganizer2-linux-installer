@@ -13,7 +13,7 @@ script:
     - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-utils/find-library-for-appid.sh
 
     # supported games info
-    - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.4-gamesinfo/gamesinfo.tar.gz
+    - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.5-gamesinfo/gamesinfo.tar.gz
 
     # mo2/game runners
     - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.2-runners/proton-launcher.sh
@@ -183,7 +183,9 @@ script:
                     mo2_tricks="vcrun2019"
                     mo2_options=""
 
-                    steam_library=$("$CACHE/utils/find-library-for-appid.sh" $game_appid)
+                    if [ -z "$steam_library" ]; then
+                        steam_library=$("$CACHE/utils/find-library-for-appid.sh" $game_appid)
+                    fi
 
                     if [ ! -d "$steam_library" ]; then
                         "$CACHE/utils/dialog.sh" errorbox \

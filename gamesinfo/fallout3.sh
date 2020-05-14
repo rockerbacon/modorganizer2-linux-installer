@@ -4,6 +4,7 @@ fo3_possible_appids=(22300 22370)
 for fo3_appid in "${fo3_possible_appids[@]}"; do
 	fo3_library=$("$CACHE/utils/find-library-for-appid.sh" $fo3_appid)
 	if [ -d "$fo3_library" ]; then
+		steam_library="$fo3_library"
 		break
 	fi
 done
