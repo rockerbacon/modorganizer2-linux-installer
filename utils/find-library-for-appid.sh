@@ -2,11 +2,28 @@
 
 appid=$1; shift
 
+steam_install_candidates=( \
+	"$HOME/.steam" \
+	"$HOME/.local/share/flatpak/app/com.valvesoftware.Steam" \
+)
+for steam_install in "${steam_install_candidates[@]}"; do
+	echo "Searching for Steam in '$steam_install'" >&2
+	if [ -d "$steam_install" ]; then
+		echo "Found Steam" >&2
+		break
+	fi
+done
+if [ ! -d "$steam_install" ]; then
+	msg="could not find Steam"
+	echo "ERROR: $msg" >&2
+	exit 1
+fi
+
 restore_ifs=$IFS
 IFS=$'\n'
-	steam_libraries=("$HOME/.steam/steam")
+	steam_libraries=("$steam_install/steam")
 	steam_libraries+=($( \
-		grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
+		grep -oE '/[^"]+' "$steam_install/steam/steamapps/libraryfolders.vdf" \
 	))
 IFS=$restore_ifs
 
