@@ -45,8 +45,8 @@ OPTIONS:
 			can be a Pearl regex
 			if a regex, the latest matching version is used
 
-	--proton-libdir	specify Steam library where to look for Proton
-			default is \$HOME/.steam/steam
+	--proton-libdir	this argument does nothing
+			it's kept solely for compatibility purposes
 
 	--restart-pulse	restart pulseaudio right before running EXECUTABLE
 
@@ -179,7 +179,9 @@ while [ "$parsing_args" == "true" ]; do
 			;;
 
 		-*)
-			echo "ERROR: unknown option '$argname'" >&2
+			msg="unknown option '$argname'"
+			echo "ERROR: $msg" >&2
+			$errorbox "$msg"
 			print_help >&2
 			exit 1
 			;;
@@ -194,14 +196,18 @@ done
 ###    PARSE POSITIONAL ARGS    ###
 appid=$1; shift
 if [ -z "$appid" ]; then
-	echo "ERROR: please specify the APPID" >&2
+	msg="please specify the APPID"
+	echo "ERROR: $msg" >&2
+	$errorbox "$msg"
 	print_help >&2
 	exit 1
 fi
 
 executable=$1; shift
 if [ -z "$executable" ]; then
-	echo "ERROR: please specify the EXECUTABLE" >&2
+	msg="please specify the EXECUTABLE"
+	echo "ERROR: $msg" >&2
+	$errorbox "$msg"
 	print_help >&2
 	exit 1
 fi
@@ -214,7 +220,9 @@ if [ -n "$workdir" ]; then
 fi
 
 if [ ! -f "$executable" ]; then
-	echo "ERROR: could not find executable '$executable'" >&2
+	msg="could not find executable '$executable'"
+	echo "ERROR: $msg" >&2
+	$errorbox "$msg"
 	print_help >&2
 	exit 1
 fi
@@ -232,18 +240,20 @@ if [ -z "$(pidof steam)" ]; then
 fi
 ###    ASSERT STEAM RUNNING    ###
 
+###    LIST STEAM LIBRARIES    ###
+restore_ifs=$IFS
+IFS=$'\n'
+	steam_libraries=("$HOME/.steam/steam")
+	steam_libraries+=($( \
+		grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
+	))
+IFS=$restore_ifs
+###    LIST STEAM LIBRARIES    ###
+
 ###    FIND GAME LIBRARY    ####
 if [ -n "$STEAM_LIBRARY" ]; then
 	compat_data="$STEAM_LIBRARY/steamapps/compatdata/$appid"
 else
-	restore_ifs=$IFS
-	IFS=$'\n'
-		steam_libraries=("$HOME/.steam/steam")
-		steam_libraries+=($( \
-			grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
-		))
-	IFS=$restore_ifs
-
 	for libdir in "${steam_libraries[@]}"; do
 		echo "Searching for game in library '$libdir'"
 		compat_data="$libdir/steamapps/compatdata/$appid"
@@ -262,20 +272,30 @@ fi
 ###    FIND GAME LIBRARY    ####
 
 ###    FIND PROTON EXECUTABLE    ###
+match_proton() {
+	echo $(find "$1" \
+			-maxdepth 1 -path "*/$2" \
+		|	sort -rV \
+		|	head -n 1
+	)
+}
+
 if [ -n "$customver" ]; then
-	proton_search_path="$HOME/.steam/compatibilitytools.d/"
-	proton_match="$customver"
+	echo "Searching for '$customver' in '$HOME/.steam/compatibilitytools.d/'"
+	proton_dir=$(match_proton "$HOME/.steam/compatibilitytools.d/" "$customver")
 else
-	proton_search_path="$proton_libdir/steamapps/common/"
-	proton_match="Proton $protonver"
+	for libdir in "${steam_libraries[@]}"; do
+		echo "Searching for 'Proton $protonver' in library '$libdir'"
+		proton_dir=$(match_proton "$libdir/steamapps/common/" "Proton $protonver")
+		if [ -d "$proton_dir" ]; then
+			echo "Found Proton"
+			break
+		fi
+	done
 fi
-proton_dir=$(find "$proton_search_path" \
-		-maxdepth 1 -path "*/$proton_match" \
-	|	sort -rV \
-	|	head -n 1
-)
+
 if [ ! -d "$proton_dir" ]; then
-	$errorbox "Could not find Proton version matching '$proton_match' in directory '$proton_libdir/steamapps/common/'"
+	$errorbox "Could not find Proton. Check terminal output for details"
 	print_help >&2
 	exit 1
 fi

@@ -205,10 +205,22 @@ case "$bin_supplier" in
 		;;
 
 	proton)
-		candidate_paths=( \
-			"$HOME/.steam/steam/steamapps/common/" \
+		restore_ifs=$IFS
+		IFS=$'\n'
+			steam_libraries=("$HOME/.steam/steam")
+			steam_libraries+=($( \
+				grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
+			))
+		IFS=$restore_ifs
+
+		candidate_paths=()
+		for libdir in "${steam_libraries[@]}"; do
+			candidate_paths+=("$libdir/steamapps/common/")
+		done
+		candidate_paths+=( \
 			"$HOME/.steam/compatibilitytools.d/" \
 		)
+
 		for search_path in "${candidate_paths[@]}"; do
 			proton_dir=$(find "$search_path" \
 					-maxdepth 1 -path "*Proton*$winever*" \
