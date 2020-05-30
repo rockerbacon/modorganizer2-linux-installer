@@ -9,17 +9,17 @@ script:
 
     files:
     # utils
-    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-utils/dialog.sh
-    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.0-utils/find-library-for-appid.sh
+    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.0-utils/dialog.sh
+    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.0-utils/find-library-for-appid.sh
 
     # supported games info
     - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.5-gamesinfo/gamesinfo.tar.gz
 
     # mo2/game runners
-    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.2-runners/proton-launcher.sh
-    - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.2-runners/wine-launcher.sh
-    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.2-runners/modorganizer2-nxm-broker.sh
-    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.6.2-runners/modorganizer2-nxm-handler.desktop
+    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.0-runners/proton-launcher.sh
+    - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.0-runners/wine-launcher.sh
+    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.0-runners/modorganizer2-nxm-broker.sh
+    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.0-runners/modorganizer2-nxm-handler.desktop
 
     # modding tools
     - openjdk: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jre_x64_windows_8u252b09.zip

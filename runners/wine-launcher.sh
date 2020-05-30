@@ -205,10 +205,40 @@ case "$bin_supplier" in
 		;;
 
 	proton)
-		candidate_paths=( \
-			"$HOME/.steam/steam/steamapps/common/" \
+		steam_install_candidates=( \
+			"$HOME/.steam" \
+			"$HOME/.local/share/flatpak/app/com.valvesoftware.Steam" \
+		)
+		for steam_install in "${steam_install_candidates[@]}"; do
+			echo "Searching for Steam in '$steam_install'"
+			if [ -d "$steam_install" ]; then
+				echo "Found Steam"
+				break
+			fi
+		done
+		if [ ! -d "$steam_install" ]; then
+			msg="could not find Steam"
+			echo "ERROR: $msg" >&2
+			$errorbox "$msg"
+			exit 1
+		fi
+
+		restore_ifs=$IFS
+		IFS=$'\n'
+			steam_libraries=("$steam_install/steam")
+			steam_libraries+=($( \
+				grep -oE '/[^"]+' "$steam_install/steam/steamapps/libraryfolders.vdf" \
+			))
+		IFS=$restore_ifs
+
+		candidate_paths=()
+		for libdir in "${steam_libraries[@]}"; do
+			candidate_paths+=("$libdir/steamapps/common/")
+		done
+		candidate_paths+=( \
 			"$HOME/.steam/compatibilitytools.d/" \
 		)
+
 		for search_path in "${candidate_paths[@]}"; do
 			proton_dir=$(find "$search_path" \
 					-maxdepth 1 -path "*Proton*$winever*" \
