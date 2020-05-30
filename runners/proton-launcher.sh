@@ -179,7 +179,9 @@ while [ "$parsing_args" == "true" ]; do
 			;;
 
 		-*)
-			echo "ERROR: unknown option '$argname'" >&2
+			msg="unknown option '$argname'"
+			echo "ERROR: $msg" >&2
+			$errorbox "$msg"
 			print_help >&2
 			exit 1
 			;;
@@ -194,14 +196,18 @@ done
 ###    PARSE POSITIONAL ARGS    ###
 appid=$1; shift
 if [ -z "$appid" ]; then
-	echo "ERROR: please specify the APPID" >&2
+	msg="please specify the APPID"
+	echo "ERROR: $msg" >&2
+	$errorbox "$msg"
 	print_help >&2
 	exit 1
 fi
 
 executable=$1; shift
 if [ -z "$executable" ]; then
-	echo "ERROR: please specify the EXECUTABLE" >&2
+	msg="please specify the EXECUTABLE"
+	echo "ERROR: $msg" >&2
+	$errorbox "$msg"
 	print_help >&2
 	exit 1
 fi
@@ -214,7 +220,9 @@ if [ -n "$workdir" ]; then
 fi
 
 if [ ! -f "$executable" ]; then
-	echo "ERROR: could not find executable '$executable'" >&2
+	msg="could not find executable '$executable'"
+	echo "ERROR: $msg" >&2
+	$errorbox "$msg"
 	print_help >&2
 	exit 1
 fi
