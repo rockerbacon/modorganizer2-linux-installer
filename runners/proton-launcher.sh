@@ -236,12 +236,15 @@ fi
 if [ -n "$STEAM_LIBRARY" ]; then
 	compat_data="$STEAM_LIBRARY/steamapps/compatdata/$appid"
 else
-	steam_libraries=$( \
-		grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
-	)
-	steam_libraries=$(echo -e "$HOME/.steam/steam\n$steam_libraries")
+	restore_ifs=$IFS
+	IFS=$'\n'
+		steam_libraries=("$HOME/.steam/steam")
+		steam_libraries+=($( \
+			grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
+		))
+	IFS=$restore_ifs
 
-	for libdir in $steam_libraries; do
+	for libdir in "${steam_libraries[@]}"; do
 		echo "Searching for game in library '$libdir'"
 		compat_data="$libdir/steamapps/compatdata/$appid"
 		if [ -d "$compat_data" ]; then

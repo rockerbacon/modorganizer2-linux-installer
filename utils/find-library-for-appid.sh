@@ -2,12 +2,15 @@
 
 appid=$1; shift
 
-steam_libraries=$( \
-	grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
-)
-steam_libraries=$(echo -e "$HOME/.steam/steam\n$steam_libraries")
+restore_ifs=$IFS
+IFS=$'\n'
+	steam_libraries=("$HOME/.steam/steam")
+	steam_libraries+=($( \
+		grep -oE '/[^"]+' "$HOME/.steam/steam/steamapps/libraryfolders.vdf" \
+	))
+IFS=$restore_ifs
 
-for libdir in $steam_libraries; do
+for libdir in "${steam_libraries[@]}"; do
 	echo "Searching for game in library '$libdir'" >&2
 	if [ -d "$libdir/steamapps/compatdata/$appid" ]; then
 		echo "Found game" >&2
