@@ -22,10 +22,10 @@ The following is a small overview of the current state of each supported game:
 | GAME                   | GAMEPLAY      | SCRIPT EXTENDER           | ENB           |
 | :--------------------- | :------------ | :------------------------ | :------------ |
 | Fallout 3              | not tested    | not tested                | not tested    |
-| Fallout 4              | under testing | [some plugins may not work](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/32) | not supported |
-| Fallout New Vegas      | working       | working (limited testing) | under testing |
+| Fallout 4              | working | [some plugins might not work](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/32) | ENB v0.393 or older |
+| Fallout New Vegas      | working       | working (limited testing) | not tested    |
 | Morrowind              | not tested    | not tested                | not tested    |
-| Oblivion               | not tested    | not tested                | not tested    |
+| Oblivion               | [unstable](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/63)    | not tested                | not tested    |
 | Skyrim                 | working       | working                   | working       |
 | Skyrim Special Edition | working       | working                   | not supported |
 
