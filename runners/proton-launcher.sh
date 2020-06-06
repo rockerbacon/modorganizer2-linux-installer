@@ -325,7 +325,14 @@ steam_rundir=$(readlink -f "$steam_dir/bin32")/steam-runtime
 
 library_path=$LD_LIBRARY_PATH
 if [ -d "$steam_rundir" ] && [ -z "$library_path" ]; then
+	proton_libs="$proton_dir/dist/lib64:$proton_dir/dist/lib"
+
 	steam_pinned_libs="$steam_rundir/pinned_libs_32:$steam_rundir/pinned_libs_64"
+
+	steam_32libs="$steam_rundir/i386/lib/i368-linux-gnu:$steam_rundir/i386/lib:$steam_rundir/i386/usr/lib/i386-linux-gnu:$steam_rundir/i386/usr/lib"
+	steam_64libs="$steam_rundir/amd64/lib/x86_64-linux-gnu:$steam_rundir/amd64/lib:$steam_rundir/amd64/usr/lib/x86_64-linux-gnu:$steam_rundir/amd64/usr/lib"
+
+	steam_libs="$proton_libs:$steam_pinned_libs:$steam_32libs:$steam_64libs"
 
 	system_libs=$( \
 				ldconfig -N -v 2>/dev/null \
@@ -334,13 +341,10 @@ if [ -d "$steam_rundir" ] && [ -z "$library_path" ]; then
 			| sed 's/:$//' \
 	)
 
-	steam_32libs="$steam_rundir/i386/lib/i368-linux-gnu:$steam_rundir/i386/lib:$steam_rundir/i386/usr/lib/i386-linux-gnu:$steam_rundir/i386/usr/lib"
-	steam_64libs="$steam_rundir/amd64/lib/x86_64-linux-gnu:$steam_rundir/amd64/lib:$steam_rundir/amd64/usr/lib/x86_64-linux-gnu:$steam_rundir/amd64/usr/lib"
-
 	if [ "$prefer_system_libs" == "true" ]; then
-		library_path="$system_libs:$steam_pinned_libs:$steam_32libs:$steam_64libs"
+		library_path="$system_libs:$steam_libs"
 	else
-		library_path="$steam_pinned_libs:$system_libs:$steam_32libs:$steam_64libs"
+		library_path="$steam_libs:$system_libs"
 	fi
 else
 	echo "WARN: could not find Steam runtime, you might experience problems" >&2
