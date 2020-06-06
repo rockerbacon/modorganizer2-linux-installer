@@ -81,9 +81,10 @@ else
 fi
 
 ###    DEFAULTS    ###
+steam_dir=$(readlink -f "$HOME/.steam/root")
 winever='*'
 wine_extra_envs=()
-wine_libdir="$HOME/.steam/steam"
+wine_libdir="$steam_dir/steam"
 restart_pulse=false
 bin_supplier="lutris"
 ###    DEFAULTS    ###
@@ -206,7 +207,7 @@ case "$bin_supplier" in
 
 	proton)
 		steam_install_candidates=( \
-			"$HOME/.steam" \
+			"$steam_dir" \
 			"$HOME/.local/share/flatpak/app/com.valvesoftware.Steam" \
 		)
 		for steam_install in "${steam_install_candidates[@]}"; do
@@ -236,7 +237,7 @@ case "$bin_supplier" in
 			candidate_paths+=("$libdir/steamapps/common/")
 		done
 		candidate_paths+=( \
-			"$HOME/.steam/compatibilitytools.d/" \
+			"$steam_dir/compatibilitytools.d/" \
 		)
 
 		for search_path in "${candidate_paths[@]}"; do
@@ -252,7 +253,7 @@ case "$bin_supplier" in
 		done
 
 		if [ ! -d "$proton_dir" ]; then
-			$errorbox "Could not find Proton version matching '$winever' in directory '$HOME/.steam/steam/steamapps/common/'"
+			$errorbox "Could not find Proton version matching '$winever'"
 			print_help >&2
 			exit 1
 		fi
@@ -272,8 +273,8 @@ esac
 ###    FIND WINE EXECUTABLE    ###
 
 ###    BUILD LD_LIBRARY_PATH    ###
-steam_dir="$HOME/.steam"
-if [ -d "$steam_dir" ]; then
+library_path=$LD_LIBRARY_PATH
+if [ -d "$steam_dir" ] && [ -z "$library_path" ]; then
 	steam_rundir=$(readlink "$steam_dir/bin32")/steam-runtime
 
 	steam_pinned_libs="$steam_rundir/pinned_libs_32:$steam_rundir/pinned_libs_64"
@@ -297,8 +298,6 @@ if [ -d "$steam_dir" ]; then
 	else
 		library_path="${proton_libs}$steam_pinned_libs:$system_libs:$steam_32libs:$steam_64libs"
 	fi
-else
-	library_path=""
 fi
 ###    BUILD LD_LIBRARY_PATH    ###
 

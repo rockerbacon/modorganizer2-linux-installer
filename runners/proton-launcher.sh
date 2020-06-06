@@ -19,7 +19,7 @@ EXECUTABLE_ARGS:	arguments to pass to EXECUTABLE
 OPTIONS:
 	--customver	specify a custom version of proton to use
 			specified version must be a path within
-			\$HOME/.steam/compatibilitytools.d
+			\$HOME/.steam/root/compatibilitytools.d
 
 	--d9vk		use DXVK instead of wined3d on DirectX9 apps
 			obsolete on Proton 5.0 or newer
@@ -90,9 +90,10 @@ else
 fi
 
 ###    DEFAULTS    ###
+steam_dir=$(readlink -f "$HOME/.steam/root")
 protonver='*'
 proton_extra_envs=()
-proton_libdir="$HOME/.steam/steam"
+proton_libdir="$steam_dir/steam"
 restart_pulse=false
 customver=""
 ###    DEFAULTS    ###
@@ -242,7 +243,7 @@ fi
 
 ###    LIST STEAM LIBRARIES    ###
 steam_install_candidates=( \
-	"$HOME/.steam" \
+	"$steam_dir" \
 	"$HOME/.local/share/flatpak/app/com.valvesoftware.Steam" \
 )
 for steam_install in "${steam_install_candidates[@]}"; do
@@ -299,8 +300,8 @@ match_proton() {
 }
 
 if [ -n "$customver" ]; then
-	echo "Searching for '$customver' in '$HOME/.steam/compatibilitytools.d/'"
-	proton_dir=$(match_proton "$HOME/.steam/compatibilitytools.d/" "$customver")
+	echo "Searching for '$customver' in '$steam_dir/compatibilitytools.d/'"
+	proton_dir=$(match_proton "$steam_dir/compatibilitytools.d/" "$customver")
 else
 	for libdir in "${steam_libraries[@]}"; do
 		echo "Searching for 'Proton $protonver' in library '$libdir'"
@@ -320,26 +321,35 @@ fi
 ###    FIND PROTON EXECUTABLE    ###
 
 ###    BUILD LD_LIBRARY_PATH    ###
-steam_dir=$(dirname "$proton_libdir")
-steam_rundir=$(readlink "$steam_dir/bin32")/steam-runtime
+steam_rundir=$(readlink -f "$steam_dir/bin32")/steam-runtime
 
-steam_pinned_libs="$steam_rundir/pinned_libs_32:$steam_rundir/pinned_libs_64"
+library_path=$LD_LIBRARY_PATH
+if [ -d "$steam_rundir" ] && [ -z "$library_path" ]; then
+	proton_libs="$proton_dir/dist/lib64:$proton_dir/dist/lib"
 
-system_libs=$( \
-			ldconfig -N -v 2>/dev/null \
-		|	grep -oE '^/[^:]+' \
-		| tr '\n' ':' \
-		| sed 's/:$//' \
-)
+	steam_pinned_libs="$steam_rundir/pinned_libs_32:$steam_rundir/pinned_libs_64"
 
-steam_32libs="$steam_rundir/i386/lib/i368-linux-gnu:$steam_rundir/i386/lib:$steam_rundir/i386/usr/lib/i386-linux-gnu:$steam_rundir/i386/usr/lib"
-steam_64libs="$steam_rundir/amd64/lib/x86_64-linux-gnu:$steam_rundir/amd64/lib:$steam_rundir/amd64/usr/lib/x86_64-linux-gnu:$steam_rundir/amd64/usr/lib"
+	steam_32libs="$steam_rundir/i386/lib/i368-linux-gnu:$steam_rundir/i386/lib:$steam_rundir/i386/usr/lib/i386-linux-gnu:$steam_rundir/i386/usr/lib"
+	steam_64libs="$steam_rundir/amd64/lib/x86_64-linux-gnu:$steam_rundir/amd64/lib:$steam_rundir/amd64/usr/lib/x86_64-linux-gnu:$steam_rundir/amd64/usr/lib"
 
-if [ "$prefer_system_libs" == "true" ]; then
-	library_path="$system_libs:$steam_pinned_libs:$steam_32libs:$steam_64libs"
+	steam_libs="$proton_libs:$steam_pinned_libs:$steam_32libs:$steam_64libs"
+
+	system_libs=$( \
+				ldconfig -N -v 2>/dev/null \
+			|	grep -oE '^/[^:]+' \
+			| tr '\n' ':' \
+			| sed 's/:$//' \
+	)
+
+	if [ "$prefer_system_libs" == "true" ]; then
+		library_path="$system_libs:$steam_libs"
+	else
+		library_path="$steam_libs:$system_libs"
+	fi
 else
-	library_path="$steam_pinned_libs:$system_libs:$steam_32libs:$steam_64libs"
+	echo "WARN: could not find Steam runtime, you might experience problems" >&2
 fi
+
 ###    BUILD LD_LIBRARY_PATH    ###
 
 ###    RESET PULSEAUDIO    ###

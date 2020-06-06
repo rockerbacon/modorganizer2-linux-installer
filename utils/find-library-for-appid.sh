@@ -2,8 +2,10 @@
 
 appid=$1; shift
 
+steam_dir=$(readlink -f "$HOME/.steam/root")
+
 steam_install_candidates=( \
-	"$HOME/.steam" \
+	"$steam_dir" \
 	"$HOME/.local/share/flatpak/app/com.valvesoftware.Steam" \
 )
 for steam_install in "${steam_install_candidates[@]}"; do
