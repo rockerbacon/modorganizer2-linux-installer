@@ -23,9 +23,14 @@ fi
 
 restore_ifs=$IFS
 IFS=$'\n'
-	steam_libraries=("$steam_install/steam")
+	main_library="$steam_install/steam"
+	if [ ! -d "$main_library" ]; then
+		main_library="$steam_install"
+	fi
+
+	steam_libraries=("$main_library")
 	steam_libraries+=($( \
-		grep -oE '/[^"]+' "$steam_install/steam/steamapps/libraryfolders.vdf" \
+		grep -oE '/[^"]+' "$main_library/steamapps/libraryfolders.vdf" \
 	))
 IFS=$restore_ifs
 
