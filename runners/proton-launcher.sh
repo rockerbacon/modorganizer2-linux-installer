@@ -262,9 +262,9 @@ fi
 
 restore_ifs=$IFS
 IFS=$'\n'
-	main_library="$steam_install/steam"
-	if [ ! -d "$main_library" ]; then
-		main_library="$steam_install"
+	main_library="$steam_install"
+	if [ ! -d "$main_library/steamapps" ]; then
+		main_library="$steam_install/steam"
 	fi
 
 	steam_libraries=("$main_library")
