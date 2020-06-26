@@ -89,7 +89,7 @@ find_current_game_paths () {
     else
 		for steam_path in $STEAM_PROTON_PATHS; do
     		if [ -d "$steam_path/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
-        		CURRENT_INSTALL="$steam_park/steamapps/common/$CURRENT_GAMEDIR"
+        		CURRENT_INSTALL="$steam_path/steamapps/common/$CURRENT_GAMEDIR"
 	        	CURRENT_PREFIX="$steam_path/steamapps/compatdata/$CURRENT_APPID/pfx"
 		        CURRENT_GAME_USER="steamuser"
 			fi
