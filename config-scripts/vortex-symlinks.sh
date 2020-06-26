@@ -53,7 +53,7 @@ fi
 
 ############### PATH CANDIDATES #######################
 
-STEAM_PROTON_PATH="$HOME/.steam/steam $HOME/.local/share/Steam $STEAM_CUSTOM_PATHS"
+STEAM_PROTON_PATHS="$HOME/.steam/steam $HOME/.local/share/Steam $STEAM_CUSTOM_PATHS"
 WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 
 #######################################################
