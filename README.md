@@ -63,6 +63,11 @@ You can use the installer with the following terminal command, remember to chang
 lutris -i "$HOME/Downloads/vortex.yml"
 ```
 
+If you've installed your games to locations other than the defaults, you can specify those locations by setting the STEAM\_CUSTOM\_PATHS environment variable. For example:
+```bash
+env STEAM_CUSTOM_PATHS="/my/custom/path/1 /my/custom/path/2" lutrix -i "$HOME/Downloads/vortex.yml"
+```
+
 Remember to follow all instructions during installation, some manual steps are required for Vortex to work properly.
 
 After installing Vortex and following all instructions, manually add the game you want to mod.

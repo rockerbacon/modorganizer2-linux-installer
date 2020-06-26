@@ -34,10 +34,26 @@ VSL_MORROWIND_APPID="22320"
 
 #######################################################
 
+############### PATH ARG CHECKS #######################
+
+if ! [ -z $STEAM_CUSTOM_PATHS ]; then
+	for path in $STEAM_CUSTOM_PATHS; do
+		if ! [ -d "$path" ]; then
+			echo "ERROR: Custom path $path does not exist"
+			exit -1
+		else
+			echo "INFO: Custom path $path found"
+		fi
+	done
+else
+	STEAM_CUSTOM_PATHS=""
+fi
+
+#######################################################
+
 ############### PATH CANDIDATES #######################
 
-STEAM_PROTON1_PATH="$HOME/.steam/steam"
-STEAM_PROTON2_PATH="$HOME/.local/share/Steam"
+STEAM_PROTON_PATH="$HOME/.steam/steam $HOME/.local/share/Steam $STEAM_CUSTOM_PATHS"
 WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 
 #######################################################
@@ -65,22 +81,20 @@ find_current_game_paths () {
     CURRENT_INSTALL=""
     CURRENT_PREFIX=""
 
-    if [ -d "$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
-        CURRENT_INSTALL="$STEAM_PROTON1_PATH/steamapps/common/$CURRENT_GAMEDIR"
-        CURRENT_PREFIX="$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_APPID/pfx"
-        CURRENT_GAME_USER="steamuser"
-
-    elif [ -d "$STEAM_PROTON2_PATH/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
-        CURRENT_INSTALL="$STEAM_PROTON2_PATH/steamapps/common/$CURRENT_GAMEDIR"
-        CURRENT_PREFIX="$STEAM_PROTON2_PATH/steamapps/compatdata/$CURRENT_APPID/pfx"
-        CURRENT_GAME_USER="steamuser"
-
-    elif [ -d "$WINESTEAM_PATH/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAMEDIR" ]; then
+    if [ -d "$WINESTEAM_PATH/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAMEDIR" ]; then
         CURRENT_INSTALL="$WINESTEAM_PATH/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAMEDIR"
         CURRENT_PREFIX="$WINESTEAM_PATH/prefix64"
         CURRENT_GAME_USER=$USER
 
-    fi
+    else
+		for steam_path in $STEAM_PROTON_PATHS; do
+    		if [ -d "$steam_path/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
+        		CURRENT_INSTALL="$steam_park/steamapps/common/$CURRENT_GAMEDIR"
+	        	CURRENT_PREFIX="$steam_path/steamapps/compatdata/$CURRENT_APPID/pfx"
+		        CURRENT_GAME_USER="steamuser"
+			fi
+		done
+	fi
 
     if [ ! -d "$CURRENT_INSTALL" ]; then
         echo "WARN: Could not find $CURRENT_GAME installation"
