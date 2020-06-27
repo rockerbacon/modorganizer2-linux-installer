@@ -34,26 +34,8 @@ VSL_MORROWIND_APPID="22320"
 
 #######################################################
 
-############### PATH ARG CHECKS #######################
-
-if ! [ -z $STEAM_CUSTOM_PATHS ]; then
-	for path in $STEAM_CUSTOM_PATHS; do
-		if ! [ -d "$path" ]; then
-			echo "ERROR: Custom path $path does not exist"
-			exit -1
-		else
-			echo "INFO: Custom path $path found"
-		fi
-	done
-else
-	STEAM_CUSTOM_PATHS=""
-fi
-
-#######################################################
-
 ############### PATH CANDIDATES #######################
 
-STEAM_PROTON_PATHS="$HOME/.steam/steam $HOME/.local/share/Steam $STEAM_CUSTOM_PATHS"
 WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 
 #######################################################
@@ -61,7 +43,7 @@ WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 ############### VORTEX PREFIX #########################
 if [ "$VORTEX_PREFIX" == "" ]; then
     SOURCE_FILE_PATH=$(dirname "$0")
-	VORTEX_PREFIX=$(realpath "$SOURCE_FILE_PATH/..")
+    VORTEX_PREFIX=$(realpath "$SOURCE_FILE_PATH/..")
 fi
 if [ ! -d "$VORTEX_PREFIX" ]; then
     echo "ERROR: Invalid Vortex prefix \"$VORTEX_PREFIX\""
@@ -87,14 +69,13 @@ find_current_game_paths () {
         CURRENT_GAME_USER=$USER
 
     else
-		for steam_path in $STEAM_PROTON_PATHS; do
-    		if [ -d "$steam_path/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
-        		CURRENT_INSTALL="$steam_path/steamapps/common/$CURRENT_GAMEDIR"
-	        	CURRENT_PREFIX="$steam_path/steamapps/compatdata/$CURRENT_APPID/pfx"
-		        CURRENT_GAME_USER="steamuser"
-			fi
-		done
-	fi
+		LIBRARY_PATH=$(${0%/*}/../utils/find-library-for-appid.sh $CURRENT_APPID)
+		if [ -d $LIBRARY_PATH ]; then
+            CURRENT_INSTALL="$LIBRARY_PATH/steamapps/common/$CURRENT_GAMEDIR"
+            CURRENT_PREFIX="$LIBRARY_PATH/steamapps/compatdata/$CURRENT_APPID/pfx"
+    	    CURRENT_GAME_USER="steamuser"
+        fi
+    fi
 
     if [ ! -d "$CURRENT_INSTALL" ]; then
         echo "WARN: Could not find $CURRENT_GAME installation"
