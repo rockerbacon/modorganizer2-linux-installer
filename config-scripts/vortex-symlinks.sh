@@ -36,8 +36,6 @@ VSL_MORROWIND_APPID="22320"
 
 ############### PATH CANDIDATES #######################
 
-STEAM_PROTON1_PATH="$HOME/.steam/steam"
-STEAM_PROTON2_PATH="$HOME/.local/share/Steam"
 WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 
 #######################################################
@@ -45,7 +43,7 @@ WINESTEAM_PATH="$HOME/.local/share/lutris/runners/winesteam"
 ############### VORTEX PREFIX #########################
 if [ "$VORTEX_PREFIX" == "" ]; then
     SOURCE_FILE_PATH=$(dirname "$0")
-	VORTEX_PREFIX=$(realpath "$SOURCE_FILE_PATH/..")
+    VORTEX_PREFIX=$(realpath "$SOURCE_FILE_PATH/..")
 fi
 if [ ! -d "$VORTEX_PREFIX" ]; then
     echo "ERROR: Invalid Vortex prefix \"$VORTEX_PREFIX\""
@@ -65,21 +63,18 @@ find_current_game_paths () {
     CURRENT_INSTALL=""
     CURRENT_PREFIX=""
 
-    if [ -d "$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
-        CURRENT_INSTALL="$STEAM_PROTON1_PATH/steamapps/common/$CURRENT_GAMEDIR"
-        CURRENT_PREFIX="$STEAM_PROTON1_PATH/steamapps/compatdata/$CURRENT_APPID/pfx"
-        CURRENT_GAME_USER="steamuser"
-
-    elif [ -d "$STEAM_PROTON2_PATH/steamapps/compatdata/$CURRENT_APPID/pfx" ]; then
-        CURRENT_INSTALL="$STEAM_PROTON2_PATH/steamapps/common/$CURRENT_GAMEDIR"
-        CURRENT_PREFIX="$STEAM_PROTON2_PATH/steamapps/compatdata/$CURRENT_APPID/pfx"
-        CURRENT_GAME_USER="steamuser"
-
-    elif [ -d "$WINESTEAM_PATH/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAMEDIR" ]; then
+    if [ -d "$WINESTEAM_PATH/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAMEDIR" ]; then
         CURRENT_INSTALL="$WINESTEAM_PATH/prefix64/drive_c/Program Files (x86)/Steam/steamapps/common/$CURRENT_GAMEDIR"
         CURRENT_PREFIX="$WINESTEAM_PATH/prefix64"
         CURRENT_GAME_USER=$USER
 
+    else
+    	LIBRARY_PATH=$($VORTEX_PREFIX/utils/find-library-for-appid.sh $CURRENT_APPID)
+    	if [ -d "$LIBRARY_PATH" ]; then
+            CURRENT_INSTALL="$LIBRARY_PATH/steamapps/common/$CURRENT_GAMEDIR"
+            CURRENT_PREFIX="$LIBRARY_PATH/steamapps/compatdata/$CURRENT_APPID/pfx"
+            CURRENT_GAME_USER="steamuser"
+        fi
     fi
 
     if [ ! -d "$CURRENT_INSTALL" ]; then
