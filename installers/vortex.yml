@@ -8,7 +8,7 @@ script:
     files:
     - setup: https://github.com/Nexus-Mods/Vortex/releases/download/v1.1.15/vortex-setup-1.1.15.exe
     - symlinks_setup: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/vortex-symlinks.sh
-    - find_library: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/find-library-for-appid.sh
+    - find_library: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.3-utils/find-library-for-appid.sh
     - downloads_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.0/vortex-downloads-handler.desktop
 
     game:

@@ -69,8 +69,8 @@ find_current_game_paths () {
         CURRENT_GAME_USER=$USER
 
     else
-    	LIBRARY_PATH=$(${0%/*}/../utils/find-library-for-appid.sh $CURRENT_APPID)
-    	if [ -d $LIBRARY_PATH ]; then
+    	LIBRARY_PATH=$($VORTEX_PREFIX/utils/find-library-for-appid.sh $CURRENT_APPID)
+    	if [ -d "$LIBRARY_PATH" ]; then
             CURRENT_INSTALL="$LIBRARY_PATH/steamapps/common/$CURRENT_GAMEDIR"
             CURRENT_PREFIX="$LIBRARY_PATH/steamapps/compatdata/$CURRENT_APPID/pfx"
             CURRENT_GAME_USER="steamuser"
