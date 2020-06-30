@@ -186,7 +186,7 @@ script:
 
             case "$runner" in
                 proton)
-                    mo2_tricks="vcrun2019"
+                    mo2_tricks="vcrun2019 dotnet48"
                     mo2_options=""
 
                     if [ -z "$steam_library" ]; then
@@ -213,7 +213,7 @@ script:
                     ;;
 
                 wine)
-                    mo2_tricks="vcrun2019 dotnet40"
+                    mo2_tricks="vcrun2019 dotnet48"
                     mo2_options="--proton-wine --winever 5.*"
 
                     "$CACHE/utils/dialog.sh" warnbox \
