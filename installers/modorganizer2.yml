@@ -16,10 +16,10 @@ script:
     - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.4-gamesinfo/gamesinfo.tar.gz
 
     # mo2/game runners
-    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.3-runners/proton-launcher.sh
-    - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.3-runners/wine-launcher.sh
-    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.3-runners/modorganizer2-nxm-broker.sh
-    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.3-runners/modorganizer2-nxm-handler.desktop
+    - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.5-runners/proton-launcher.sh
+    - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.5-runners/wine-launcher.sh
+    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.5-runners/modorganizer2-nxm-broker.sh
+    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.5-runners/modorganizer2-nxm-handler.desktop
 
     # modding tools
     - openjdk: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jre_x64_windows_8u252b09.zip
