@@ -275,7 +275,7 @@ esac
 ###    BUILD LD_LIBRARY_PATH    ###
 library_path=$LD_LIBRARY_PATH
 if [ -d "$steam_dir" ] && [ -z "$library_path" ]; then
-	steam_rundir=$(readlink "$steam_dir/bin32")/steam-runtime
+	steam_rundir="$steam_dir/ubuntu12_32/steam-runtime"
 
 	steam_pinned_libs="$steam_rundir/pinned_libs_32:$steam_rundir/pinned_libs_64"
 

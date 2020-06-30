@@ -326,7 +326,7 @@ fi
 ###    FIND PROTON EXECUTABLE    ###
 
 ###    BUILD LD_LIBRARY_PATH    ###
-steam_rundir=$(readlink -f "$steam_dir/bin32")/steam-runtime
+steam_rundir="$steam_dir/ubuntu12_32/steam-runtime"
 
 library_path=$LD_LIBRARY_PATH
 if [ -d "$steam_rundir" ] && [ -z "$library_path" ]; then
