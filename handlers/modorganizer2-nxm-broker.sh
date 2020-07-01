@@ -8,10 +8,11 @@ if [ -z "$nxm_link" ]; then
 	exit 1
 fi
 
-nexus_game_id=$(echo $nxm_link | grep -oE 'nxm://[^/]+' | sed 's/nxm:\/\///')
+nexus_game_id=${nxm_link#nxm://}
+nexus_game_id=${nexus_game_id%%/*}
 ###    PARSE POSITIONAL ARGS    ###
 
-instance_link="$HOME/.config/modorganizer2/instances/$nexus_game_id"
+instance_link="$HOME/.config/modorganizer2/instances/${nexus_game_id:?}"
 instance_dir=$(readlink -f  "$instance_link")
 if [ ! -d "$instance_dir" ]; then
 	[ -L "$instance_link"] && rm "$instance_link"
