@@ -22,10 +22,10 @@ The following is a small overview of the current state of each supported game:
 | GAME                   | GAMEPLAY      | SCRIPT EXTENDER           | ENB           |
 | :--------------------- | :------------ | :------------------------ | :------------ |
 | Fallout 3              | not tested    | not tested                | not tested    |
-| Fallout 4              | working | [some plugins might not work](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/32) | ENB v0.393 or older |
-| Fallout New Vegas      | working       | working | working    |
+| Fallout 4              | working | [some plugins might not work](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/32) | ENB v0.393 or older, disabling "EnablePostPassShader" might be necessary |
+| Fallout New Vegas      | fullscreen only       | working | working    |
 | Morrowind              | not tested    | not tested                | not tested    |
-| Oblivion               | working    | [some plugins might reguire manual setup](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/63)                 | not tested    |
+| Oblivion               | working    | [some plugins might require manual setup](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/63#issuecomment-643690247)                 | not tested    |
 | Skyrim                 | working       | working                   | working       |
 | Skyrim Special Edition | working       | working                   | not tested |
 
@@ -42,7 +42,7 @@ Here is what you need to do in order to update:
 1. Download the newest installer containing the update;
 2. Remove Mod Organizer 2 from Lutris WITHOUT REMOVING ANY DATA: right click > Remove > uncheck option to remove data > Apply;
 3. Find your Lutris cache path in Preferences > Lutris Preferences;
-4. Clear the Lutris cache for Mod Organizer 2 (if it exists) with this terminal command: 
+4. Clear the Lutris cache for Mod Organizer 2 (if it exists) with this terminal command:
   ```bash
   rm -rf <cache path>/mod-organizer-2
   ```
