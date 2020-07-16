@@ -9,7 +9,11 @@ for newvegas_appid in "${newvegas_possible_appids[@]}"; do
 	fi
 done
 
-game_steam_subdirectory="Fallout New Vegas"
+if [ "$newvegas_appid" == "22380" ]; then
+	game_steam_subdirectory="Fallout New Vegas"
+else
+	game_steam_subdirectory="Fallout New Vegas enplczru"
+fi
 game_appid=$newvegas_appid
 game_proton_options="--protonver 5.*"
 game_wine_options=""

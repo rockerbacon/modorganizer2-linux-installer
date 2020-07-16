@@ -13,7 +13,7 @@ script:
     - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.3-utils/find-library-for-appid.sh
 
     # supported games info
-    - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.4-gamesinfo/gamesinfo.tar.gz
+    - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.3-gamesinfo/gamesinfo.tar.gz
 
     # mo2/game runners
     - proton_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.5-runners/proton-launcher.sh
