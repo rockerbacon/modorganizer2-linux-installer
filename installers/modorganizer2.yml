@@ -9,8 +9,8 @@ script:
 
     files:
     # utils
-    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.3-utils/dialog.sh
-    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.7.3-utils/find-library-for-appid.sh
+    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.4-utils/dialog.sh
+    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.4-utils/find-library-for-appid.sh
 
     # supported games info
     - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.3-gamesinfo/gamesinfo.tar.gz
