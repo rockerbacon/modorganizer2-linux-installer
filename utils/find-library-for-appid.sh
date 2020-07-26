@@ -13,35 +13,35 @@ for steam_install in "${steam_install_candidates[@]}"; do
 	if [ -d "$steam_install" ]; then
 		echo "Found Steam" >&2
 
-        restore_ifs=$IFS
-        IFS=$'\n'
-            main_library="$steam_install"
-            if [ ! -d "$main_library/steamapps" ]; then
-                main_library="$steam_install/steam"
-            fi
+		restore_ifs=$IFS
+		IFS=$'\n'
+			main_library="$steam_install"
+			if [ ! -d "$main_library/steamapps" ]; then
+				main_library="$steam_install/steam"
+			fi
 
-            steam_libraries=("$main_library")
-            steam_libraries+=($( \
-                grep -oE '/[^"]+' "$main_library/steamapps/libraryfolders.vdf" \
-            ))
-        IFS=$restore_ifs
+			steam_libraries=("$main_library")
+			steam_libraries+=($( \
+				grep -oE '/[^"]+' "$main_library/steamapps/libraryfolders.vdf" \
+			))
+		IFS=$restore_ifs
 
-        for libdir in "${steam_libraries[@]}"; do
-            echo "Searching for game in library '$libdir'" >&2
-            if [ -d "$libdir/steamapps/compatdata/$appid" ]; then
-                echo "Found game" >&2
-                break
-            fi
-        done
+		for libdir in "${steam_libraries[@]}"; do
+			echo "Searching for game in library '$libdir'" >&2
+			if [ -d "$libdir/steamapps/compatdata/$appid" ]; then
+				echo "Found game" >&2
+				break
+			fi
+		done
 
-        if [ ! -d "$libdir/steamapps/compatdata/$appid" ]; then
-            echo "ERROR: could not find game with APPID '$appid'" >&2
-            continue
-        fi
+		if [ ! -d "$libdir/steamapps/compatdata/$appid" ]; then
+			echo "ERROR: could not find game with APPID '$appid'" >&2
+			continue
+		fi
 
-        # we found the game, so we print the libdir and exit
-        echo "$libdir"
-        exit 0
+		# we found the game, so we print the libdir and exit
+		echo "$libdir"
+		exit 0
 	fi
 done
 
