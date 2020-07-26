@@ -208,7 +208,7 @@ case "$bin_supplier" in
 	proton)
 		steam_install_candidates=( \
 			"$steam_dir" \
-			"$HOME/.local/share/flatpak/app/com.valvesoftware.Steam" \
+			"$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam" \
 		)
 		for steam_install in "${steam_install_candidates[@]}"; do
 			echo "Searching for Steam in '$steam_install'"
@@ -277,27 +277,44 @@ library_path=$LD_LIBRARY_PATH
 if [ -d "$steam_dir" ] && [ -z "$library_path" ]; then
 	steam_rundir="$steam_dir/ubuntu12_32/steam-runtime"
 
-	steam_pinned_libs="$steam_rundir/pinned_libs_32:$steam_rundir/pinned_libs_64"
+	if [ "$bin_supplier" == "proton" ]; then
+		proton_libs=("$proton_dir/dist/lib64" "$proton_dir/dist/lib")
+	else
+		proton_libs=()
+	fi
 
-	system_libs=$( \
-				ldconfig -N -v 2>/dev/null \
-			|	grep -oE '^/[^:]+' \
-			| tr '\n' ':' \
-			| sed 's/:$//' \
+	steam_pinned_libs=("$steam_rundir/pinned_libs_32" "$steam_rundir/pinned_libs_64")
+
+	steam_supplementary_libs=( \
+		"$steam_rundir/lib/i368-linux-gnu" \
+		"$steam_rundir/usr/lib/i386-linux-gnu" \
+		"$steam_rundir/lib/x86_64-linux-gnu" \
+		"$steam_rundir/usr/lib/x86_64-linux-gnu" \
+		"$steam_rundir/lib" \
+		"$steam_rundir/usr/lib" \
 	)
 
-	steam_32libs="$steam_rundir/i386/lib/i368-linux-gnu:$steam_rundir/i386/lib:$steam_rundir/i386/usr/lib/i386-linux-gnu:$steam_rundir/i386/usr/lib"
-	steam_64libs="$steam_rundir/amd64/lib/x86_64-linux-gnu:$steam_rundir/amd64/lib:$steam_rundir/amd64/usr/lib/x86_64-linux-gnu:$steam_rundir/amd64/usr/lib"
-
-	if [ "$bin_supplier" == "proton" ]; then
-		proton_libs="$proton_dir/lib64:$proton_dir/lib:"
-	fi
+	system_libs=($( \
+		ldconfig -N -v 2>/dev/null | grep -oE '^/[^:]+' \
+	))
 
 	if [ "$prefer_system_libs" == "true" ]; then
-		library_path="$system_libs:${proton_libs}$steam_pinned_libs:$steam_32libs:$steam_64libs"
+		libs=( \
+			"${system_libs[@]}" \
+			"${proton_libs[@]}" \
+			"${steam_pinned_libs[@]}" \
+			"${steam_supplementary_libs[@]}" \
+		)
 	else
-		library_path="${proton_libs}$steam_pinned_libs:$system_libs:$steam_32libs:$steam_64libs"
+		libs=( \
+			"${proton_libs[@]}" \
+			"${steam_pinned_libs[@]}" \
+			"${system_libs[@]}" \
+			"${steam_supplementary_libs[@]}" \
+		)
 	fi
+
+	library_path=$(IFS=: ; echo "${libs[*]}")
 fi
 ###    BUILD LD_LIBRARY_PATH    ###
 

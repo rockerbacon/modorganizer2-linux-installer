@@ -242,36 +242,38 @@ fi
 ###    ASSERT STEAM RUNNING    ###
 
 ###    LIST STEAM LIBRARIES    ###
+steam_dir=$(readlink -f "$HOME/.steam/root")
+steam_libraries=()
+
 steam_install_candidates=( \
 	"$steam_dir" \
-	"$HOME/.local/share/flatpak/app/com.valvesoftware.Steam" \
+	"$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam" \
 )
 for steam_install in "${steam_install_candidates[@]}"; do
 	echo "Searching for Steam in '$steam_install'"
 	if [ -d "$steam_install" ]; then
 		echo "Found Steam"
-		break
+
+		restore_ifs=$IFS
+		IFS=$'\n'
+			main_library="$steam_install"
+			if [ ! -d "$main_library/steamapps" ]; then
+				main_library="$steam_install/steam"
+			fi
+
+			steam_libraries+=("$main_library")
+			steam_libraries+=($( \
+				grep -oE '/[^"]+' "$main_library/steamapps/libraryfolders.vdf" \
+			))
+		IFS=$restore_ifs
 	fi
 done
-if [ ! -d "$steam_install" ]; then
-	msg="could not find Steam"
+if [ -z "$steam_libraries" ]; then
+	msg="could not find a single Steam library"
 	echo "ERROR: $msg" >&2
 	$errorbox "$msg"
 	exit 1
 fi
-
-restore_ifs=$IFS
-IFS=$'\n'
-	main_library="$steam_install"
-	if [ ! -d "$main_library/steamapps" ]; then
-		main_library="$steam_install/steam"
-	fi
-
-	steam_libraries=("$main_library")
-	steam_libraries+=($( \
-		grep -oE '/[^"]+' "$main_library/steamapps/libraryfolders.vdf" \
-	))
-IFS=$restore_ifs
 ###    LIST STEAM LIBRARIES    ###
 
 ###    FIND GAME LIBRARY    ####
@@ -330,27 +332,39 @@ steam_rundir="$steam_dir/ubuntu12_32/steam-runtime"
 
 library_path=$LD_LIBRARY_PATH
 if [ -d "$steam_rundir" ] && [ -z "$library_path" ]; then
-	proton_libs="$proton_dir/dist/lib64:$proton_dir/dist/lib"
+	# these will be added by proton, no need to specify them manually
+	# proton_libs=("$proton_dir/dist/lib64" "$proton_dir/dist/lib")
 
-	steam_pinned_libs="$steam_rundir/pinned_libs_32:$steam_rundir/pinned_libs_64"
+	steam_pinned_libs=("$steam_rundir/pinned_libs_32" "$steam_rundir/pinned_libs_64")
 
-	steam_32libs="$steam_rundir/i386/lib/i368-linux-gnu:$steam_rundir/i386/lib:$steam_rundir/i386/usr/lib/i386-linux-gnu:$steam_rundir/i386/usr/lib"
-	steam_64libs="$steam_rundir/amd64/lib/x86_64-linux-gnu:$steam_rundir/amd64/lib:$steam_rundir/amd64/usr/lib/x86_64-linux-gnu:$steam_rundir/amd64/usr/lib"
-
-	steam_libs="$proton_libs:$steam_pinned_libs:$steam_32libs:$steam_64libs"
-
-	system_libs=$( \
-				ldconfig -N -v 2>/dev/null \
-			|	grep -oE '^/[^:]+' \
-			| tr '\n' ':' \
-			| sed 's/:$//' \
+	steam_supplementary_libs=( \
+		"$steam_rundir/lib/i368-linux-gnu" \
+		"$steam_rundir/usr/lib/i386-linux-gnu" \
+		"$steam_rundir/lib/x86_64-linux-gnu" \
+		"$steam_rundir/usr/lib/x86_64-linux-gnu" \
+		"$steam_rundir/lib" \
+		"$steam_rundir/usr/lib" \
 	)
 
+	system_libs=($( \
+		ldconfig -N -v 2>/dev/null | grep -oE '^/[^:]+' \
+	))
+
 	if [ "$prefer_system_libs" == "true" ]; then
-		library_path="$system_libs:$steam_libs"
+		libs=( \
+			"${system_libs[@]}" \
+			"${steam_pinned_libs[@]}" \
+			"${steam_supplementary_libs[@]}" \
+		)
 	else
-		library_path="$steam_libs:$system_libs"
+		libs=( \
+			"${steam_pinned_libs[@]}" \
+			"${system_libs[@]}" \
+			"${steam_supplementary_libs[@]}" \
+		)
 	fi
+
+	library_path=$(IFS=: ; echo "${libs[*]}")
 else
 	echo "WARN: could not find Steam runtime, you might experience problems" >&2
 fi
