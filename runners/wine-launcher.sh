@@ -208,7 +208,7 @@ case "$bin_supplier" in
 	proton)
 		steam_install_candidates=( \
 			"$steam_dir" \
-			"$HOME/.local/share/flatpak/app/com.valvesoftware.Steam" \
+			"$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam" \
 		)
 		for steam_install in "${steam_install_candidates[@]}"; do
 			echo "Searching for Steam in '$steam_install'"
