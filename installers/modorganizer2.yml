@@ -1,7 +1,7 @@
 name: Mod Organizer 2
 game_slug: mod-organizer-2
 slug: mod-organizer-2
-version: 2.2.2.1 Unified Package
+version: 2.3.1 Unified Package
 runner: linux
 
 script:
@@ -9,8 +9,8 @@ script:
 
     files:
     # utils
-    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.4-utils/dialog.sh
-    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.4-utils/find-library-for-appid.sh
+    - dialog: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.9.0-utils/dialog.sh
+    - find_library_for_appid: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.9.0-utils/find-library-for-appid.sh
 
     # supported games info
     - gamesinfo: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.3-gamesinfo/gamesinfo.tar.gz
@@ -35,7 +35,7 @@ script:
     - skse64: https://skse.silverlock.org/beta/skse64_2_00_17.7z
 
     # mod organizer
-    - mo_archive: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.2.1/Mod.Organizer-2.2.2.1.7z
+    - mo_archive: https://github.com/ModOrganizer2/modorganizer/releases/download/v2.3.1/Mod.Organizer-2.3.1.7z
 
     game:
         exe: $GAMEDIR/run.sh
