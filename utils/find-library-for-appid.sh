@@ -41,10 +41,10 @@ for libdir in "${steam_libraries[@]}"; do
 	if [ -d "$compat_data" ]; then
 		echo "Found game" >&2
 		echo "$libdir"
-		return 0
+		exit 0
 	fi
 done
 
 echo "ERROR: could not find game with APPID '$appid'" >&2
-return 1
+exit 1
 
