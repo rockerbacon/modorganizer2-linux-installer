@@ -15,7 +15,7 @@ else
 	game_steam_subdirectory="Fallout 3 goty"
 fi
 game_appid=$fo3_appid
-game_proton_options="--protonver 5.*"
+game_proton_options="--protonver 5.0"
 game_wine_options=""
 game_protontricks="d3dcompiler_43 d3dx9"
 game_winetricks="d3dcompiler_43 d3dx9"
