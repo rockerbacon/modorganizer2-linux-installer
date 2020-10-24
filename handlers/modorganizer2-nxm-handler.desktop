@@ -3,6 +3,6 @@ Type=Application
 Categories=Game;
 Exec=modorganizer2-nxm-broker.sh '%u'
 Name=Mod Organizer 2 NXM Handler
-MimeType=x-scheme-handler/nxm;x-scheme-handler/nxm-protocol
+MimeType=x-scheme-handler/nxm;
 NoDisplay=true
 
