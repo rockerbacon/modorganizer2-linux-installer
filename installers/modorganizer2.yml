@@ -20,8 +20,8 @@ script:
     - wine_launcher: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.4-runners/wine-launcher.sh
 
     # download handlers
-    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.2-handlers/modorganizer2-nxm-broker.sh
-    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.2-handlers/modorganizer2-nxm-handler.desktop
+    - nxm_broker: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.6-handlers/modorganizer2-nxm-broker.sh
+    - nxm_mime_handler: https://github.com/rockerbacon/lutris-skyrimse-installers/releases/download/2.8.6-handlers/modorganizer2-nxm-handler.desktop
 
     # modding tools
     - openjdk: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jre_x64_windows_8u252b09.zip
