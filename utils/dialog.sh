@@ -81,10 +81,11 @@ warnbox() {
 
 directorypicker() {
 	message=$1; shift
+	default_directory=$1; shift
 	case "$interface" in
 		zenity)
 			finish_selection="false"
-			selection_entry=""
+			selection_entry="$default_directory"
 			while [ "$finish_selection" != "true" ]; do
 				raw_entry=$(zenity --entry --entry-text="$selection_entry" --extra-button="Browse" --text "$message"); confirm=$?
 				eval selection_entry="$raw_entry"
