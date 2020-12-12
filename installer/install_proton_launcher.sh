@@ -19,6 +19,10 @@ fi
 game_prefix="$steam_library/steamapps/compatdata/$game_appid/pfx"
 game_installation="$steam_library/steamapps/common/$game_steam_subdirectory"
 game_tricks="$game_protontricks"
+
+cp "$launchers/proton-launcher.sh" "$shared/"
+chmod +x "$launchers/proton-launcher.sh"
+
 echo -e \
 "#!/bin/bash\n\n'$shared/proton-launcher.sh' $mo2_options $game_proton_options \"\$@\" $game_appid '$install_dir/ModOrganizer2/ModOrganizer.exe'" \
 > "$install_dir/run.sh"

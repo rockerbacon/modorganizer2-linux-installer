@@ -16,9 +16,12 @@ cd "$script_root/installer" || exit 1
 
 source check_dependencies.sh
 
-utils=$(realpath "../utils")
+root_dir=$(realpath "..")
+utils="$root_dir/utils"
 dialog="$utils/dialog.sh"
-gamesinfo=$(realpath "../gamesinfo")
+gamesinfo="$root_dir/gamesinfo"
+handlers="$root_dir/handlers"
+launchers="$root_dir/launchers"
 
 nexus_game_id=$(source select_game.sh)
 echo "INFO: selected game '$nexus_game_id'"
@@ -30,18 +33,21 @@ install_dir=$(source select_install_dir.sh)
 echo "INFO: selected install directory '$install_dir'"
 
 source load_gameinfo.sh
-# source download_files.sh
+source download_external_resources.sh
+source install_external_resources.sh
+source install_nxm_handler.sh
 
 case "$runner" in
 	proton)
 		source install_proton_launcher.sh
+		source configure_steam_wineprefix.sh
 	;;
 	wine)
-		echo "ERROR: wine installation not yet implemented" >&2
-		exit 1
+		source install_wine_launcher.sh
 	;;
 esac
 
-echo "ERROR: no implementation beyond this" >&2
-exit 1
+source register_installation.sh
+
+echo "INFO: installation completed successfully"
 
