@@ -29,6 +29,9 @@ echo "INFO: selected runner '$runner'"
 install_dir=$(source select_install_dir.sh)
 echo "INFO: selected install directory '$install_dir'"
 
+source load_gameinfo.sh
+# source download_files.sh
+
 case "$runner" in
 	proton)
 		source install_proton_launcher.sh

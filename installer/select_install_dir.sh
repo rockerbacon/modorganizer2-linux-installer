@@ -6,11 +6,12 @@ Select where you would like to install Mod Organizer 2
 EOF
 )
 
+# TODO change default directory
 directory=$( \
 	"$dialog" \
 		directorypicker \
 		"$picker_text" \
-		"$HOME/Games/mod-organizer-2-${nexus_game_id}" \
+		"$HOME/Games/mod-organizer-2-test" \
 )
 
 if [ -z "$directory" ]; then

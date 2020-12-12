@@ -11,6 +11,7 @@ If yes, ensure the following before continuing:
 EOF
 )
 
+# TODO change to a radio
 runner=$( \
 	"$dialog" \
 		textentry \

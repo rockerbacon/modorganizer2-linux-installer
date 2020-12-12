@@ -11,6 +11,7 @@ Which game would you like to manage with this installation?
 EOF
 )
 
+# TODO change to a radio or dropbox
 nexus_game_id=$( \
 	"$dialog" \
 		textentry \
