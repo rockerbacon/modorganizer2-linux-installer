@@ -69,6 +69,19 @@ textentry() {
 	return $confirm
 }
 
+radio() {
+	title=$1; shift
+	selected_option=$(zenity --list --radiolist --column="option_value" --column="option_text" --hide-header --text="$title" "$@")
+
+	if [ -z "$selected_option" ]; then
+		return 1
+	fi
+
+	echo "$selected_option"
+
+	return 0
+}
+
 $dialogtype "$@"
 exit $?
 
