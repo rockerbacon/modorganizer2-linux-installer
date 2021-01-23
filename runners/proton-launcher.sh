@@ -84,10 +84,10 @@ elif [ -n "$(command -v xmessage)" ]; then
 elif [ -n "$(command -v xterm)" ]; then
 	infobox="xtermbox continue"
 	errorbox="xtermbox exit"
-#else
+else
 	infobox="echo"
 	errorbox="echo"
-#fi
+fi
 
 ###    DEFAULTS    ###
 steam_dir=$(readlink -f "$HOME/.steam/root")
