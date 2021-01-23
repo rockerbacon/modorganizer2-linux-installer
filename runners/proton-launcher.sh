@@ -84,10 +84,10 @@ elif [ -n "$(command -v xmessage)" ]; then
 elif [ -n "$(command -v xterm)" ]; then
 	infobox="xtermbox continue"
 	errorbox="xtermbox exit"
-else
+#else
 	infobox="echo"
 	errorbox="echo"
-fi
+#fi
 
 ###    DEFAULTS    ###
 steam_dir=$(readlink -f "$HOME/.steam/root")
@@ -183,7 +183,6 @@ while [ "$parsing_args" == "true" ]; do
 			msg="unknown option '$argname'"
 			echo "ERROR: $msg" >&2
 			$errorbox "$msg"
-			print_help >&2
 			exit 1
 			;;
 
@@ -200,7 +199,6 @@ if [ -z "$appid" ]; then
 	msg="please specify the APPID"
 	echo "ERROR: $msg" >&2
 	$errorbox "$msg"
-	print_help >&2
 	exit 1
 fi
 
@@ -209,7 +207,6 @@ if [ -z "$executable" ]; then
 	msg="please specify the EXECUTABLE"
 	echo "ERROR: $msg" >&2
 	$errorbox "$msg"
-	print_help >&2
 	exit 1
 fi
 ###    PARSE POSITIONAL ARGS    ###
@@ -224,7 +221,6 @@ if [ ! -f "$executable" ]; then
 	msg="could not find executable '$executable'"
 	echo "ERROR: $msg" >&2
 	$errorbox "$msg"
-	print_help >&2
 	exit 1
 fi
 ###    ASSERT PATHS    ###
@@ -292,7 +288,6 @@ fi
 
 if [ ! -d "$compat_data" ]; then
 	$errorbox "Could not find a game with APPID '$appid'"
-	print_help >&2
 	exit 1
 fi
 ###    FIND GAME LIBRARY    ####
@@ -312,7 +307,11 @@ if [ -n "$customver" ]; then
 else
 	for libdir in "${steam_libraries[@]}"; do
 		echo "Searching for 'Proton $protonver' in library '$libdir'"
-		proton_dir=$(match_proton "$libdir/steamapps/common/" "Proton $protonver")
+			if [ $protonver == "Experimental" ] || [ $protonver == "experimental" ]; then
+			proton_dir=$(match_proton "$libdir/steamapps/common/" "Proton - Experimental")
+			else
+			proton_dir=$(match_proton "$libdir/steamapps/common/" "Proton $protonver")
+			fi
 		if [ -d "$proton_dir" ]; then
 			echo "Found Proton"
 			break
@@ -322,7 +321,6 @@ fi
 
 if [ ! -d "$proton_dir" ]; then
 	$errorbox "Could not find Proton. Check terminal output for details"
-	print_help >&2
 	exit 1
 fi
 ###    FIND PROTON EXECUTABLE    ###
@@ -396,4 +394,3 @@ echo -e "\n$run_proton\n"
 
 bash -c "$run_proton"
 ###    RUN EXECUTABLE    ###
-
