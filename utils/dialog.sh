@@ -71,8 +71,25 @@ textentry() {
 }
 
 radio() {
-	title=$1; shift
-	selected_option=$(zenity --list --radiolist --column="option_value" --column="option_text" --hide-header --text="$title" "$@")
+	height=$1
+	title=$2
+	shift 2
+
+	local rows=()
+	while [ "$#" -gt "0" ]; do
+		rows+=('' "$1" "$2")
+		shift 2
+	done
+
+	echo "ROWS: ${rows[@]}" >&2
+	selected_option=$( \
+		zenity --height="$height" --list --radiolist \
+		--text="$title" \
+		--hide-header \
+		--column="checkbox" --column="option_value" --column="option_text" \
+		--hide-column=2 \
+		"${rows[@]}" \
+	)
 
 	if [ -z "$selected_option" ]; then
 		return 1
