@@ -5,7 +5,7 @@ set -e
 function treat_error() {
 	"../utils/dialog.sh" \
 		errorbox \
-		"Unexpected error occurred, check the terminal for details"
+		"Operation canceled. Check the terminal for details"
 }
 
 trap treat_error EXIT

@@ -22,6 +22,21 @@ warnbox() {
 	return 0
 }
 
+question() {
+	zenity --text="$1"
+	return $?
+}
+
+question() {
+	zenity --question --ellipsize --text="$1"
+	return $?
+}
+
+dangerquestion() {
+	zenity --question --ellipsize --icon-name=dialog-warning --text="$1"
+	return $?
+}
+
 directorypicker() {
 	message=$1; shift
 	default_directory=$1; shift
@@ -34,8 +49,17 @@ directorypicker() {
 
 		case "$confirm" in
 			0)
-				if [ ! -d "$selection_entry" ]; then
-					zenity --error --ellipsize --text="Directory '$selection_entry' does not exist"
+				if [ ! -e "$selection_entry" ]; then
+					question "Directory '$selection_entry' does not exist. Would you like to create it?"
+					if [ "$?" == "0" ]; then
+						mkdir -p "$selection_entry"
+						finish_selection=true
+					fi
+				elif [ -n "$(ls -A "$selection_entry/")" ]; then
+					dangerquestion "Directory '$selection_entry' is not empty. Would you like to continue anyway?"
+					if [ "$?" == "0" ]; then
+						finish_selection=true
+					fi
 				else
 					finish_selection=true
 				fi
