@@ -4,4 +4,5 @@ game_proton_options="--noesync --native 'xaudio2_7' --protonver 5.0 -e 'PULSE_LA
 game_wine_options="--native 'xaudio2_7'"
 game_protontricks=""
 game_winetricks=""
+game_scriptextender_url="https://f4se.silverlock.org/beta/f4se_0_06_21.7z"
 
