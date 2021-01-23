@@ -11,12 +11,17 @@ Which game would you like to manage with this installation?
 EOF
 )
 
-# TODO change to a radio or dropbox
 nexus_game_id=$( \
 	"$dialog" \
-		textentry \
-		"$screen_text" \
-		"skyrim"
+		radio \
+		450 "$screen_text" \
+		"fallout3" "Fallout 3" \
+		"fallout4" "Fallout 4" \
+		"newvegas" "Fallout New Vegas" \
+		"morrowind" "Morrowind" \
+		"oblivion" "Oblivion" \
+		"skyrim" "Skyrim" \
+		"skyrimspecialedition" "Skyrim Special Edition" \
 )
 
 if [ -z "$nexus_game_id" ]; then

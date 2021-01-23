@@ -14,9 +14,10 @@ EOF
 # TODO change to a radio
 runner=$( \
 	"$dialog" \
-		textentry \
-		"$screen_text" \
-		"proton"
+		radio \
+		200 "$screen_text" \
+		"" "No, cancel installation" \
+		"proton" "Yes, I use Steam Play and everything is setup" \
 )
 
 if [ -z "$runner" ]; then
