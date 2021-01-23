@@ -19,7 +19,9 @@ fi
 # We default to wget because it seems like a better choice for this sort of work -
 # doesn't overwrite files by default, better progress bar, downloads resources that
 # don't have a name e.g. https://example.com/.
-if command -v wget >& /dev/null; then
+if [ -n "$DOWNLOAD_BACKEND" ]; then
+	use="$DOWNLOAD_BACKEND"
+elif command -v wget >& /dev/null; then
 	use="wget"
 elif command -v curl >& /dev/null; then
 	use="curl"
@@ -33,13 +35,24 @@ echo "download.sh: fetching remote resource at '$1'"
 
 case "$use" in
 	"wget")
-		if ! wget "$url" --progress=bar --no-verbose --show-progress; then
+		wget "$url" --progress=dot --no-verbose --show-progress 2>&1 \
+			| grep --line-buffered --color=never -oE '[0-9]+%' \
+			| zenity --progress --auto-kill --auto-close --text="Downloading '${url##*/}'"
+		if [ "$?" != "0" ]; then
 			echoerr "could not fetch '$url'"
 			exit 1
 		fi
 		;;
 	"curl")
-		if ! curl "$url" -O -# 1> /dev/null; then
+		file_name=${url##*/}
+		redirected_url=$(curl -ILs -o /dev/null -w '%{url_effective}' "$url")
+
+		curl "$redirected_url" -o "$file_name" -# 2>&1 \
+			| tr '\r' '\n' \
+			| grep --line-buffered --color=never -oE '[0-9]+,[0-9]+%' \
+			| zenity --progress --auto-kill --auto-close --text="Downloading '${url##*/}'"
+
+		if [ "$?" != "0" ]; then
 			echoerr "could not fetch '$url'"
 			exit 1
 		fi
