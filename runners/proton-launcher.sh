@@ -385,6 +385,7 @@ run_proton="
 	PATH='$steam_rundir/amd64/usr/bin:$steam_rundir/usr/bin:$PATH' \\
 	LD_LIBRARY_PATH='$library_path' \\
 	STEAM_COMPAT_DATA_PATH='$compat_data' \\
+	STEAM_COMPAT_CLIENT_INSTALL_PATH='$steam_dir' \\
 	SteamGameId=$appid \\
 	SteamAppId=$appid \\
 	${proton_extra_envs[*]} \\
