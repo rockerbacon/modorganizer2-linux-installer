@@ -390,7 +390,7 @@ run_proton="
 	SteamAppId=$appid \\
 	${proton_extra_envs[*]} \\
 	\\
-	'$proton_dir/proton' run '$executable' $([ -n "$1" ] && printf " '%s'" "$@")
+	'$proton_dir/proton' runinprefix '$executable' $([ -n "$1" ] && printf " '%s'" "$@")
 "
 
 echo -e "\n$run_proton\n"
