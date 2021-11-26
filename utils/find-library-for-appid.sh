@@ -12,6 +12,7 @@ fi
 steam_install_candidates=( \
 	"$steam_dir" \
 	"$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam" \
+	"$HOME/.local/share/Steam" \
 )
 for steam_install in "${steam_install_candidates[@]}"; do
 	echo "Searching for Steam in '$steam_install'" >&2
