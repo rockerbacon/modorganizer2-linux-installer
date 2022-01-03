@@ -41,7 +41,9 @@ fi
 
 log_info "fetching remote resource at '$1'"
 
-progress_text="Downloading '$url' into '$out_file'"
+progress_text="Downloading '${out_file##*/}'"
+
+log_info "downloading '$url' to '$out_file'"
 
 case "$download_backend" in
 	"wget")

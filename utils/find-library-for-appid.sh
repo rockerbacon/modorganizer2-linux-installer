@@ -8,7 +8,7 @@ if [ -n "$STEAM_LIBRARY" ]; then
 fi
 
 function log_info() {
-	echo "INFO: $1" >&2
+	echo "INFO:" "$@" >&2
 }
 
 steam_dir=$(readlink -f "$HOME/.steam/root")

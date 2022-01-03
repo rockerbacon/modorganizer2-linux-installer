@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cache_enabled="${CACHE:-1}"
+
 set -eu
 
 script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
@@ -10,28 +12,42 @@ gamesinfo="$script_root/gamesinfo"
 handlers="$script_root/handlers"
 launchers="$script_root/launchers"
 step="$script_root/step"
+downloads_cache=/tmp/mo2-linux-installer-cache
+
+started_download_step=0
+expect_exit=0
+
+mkdir -p "$downloads_cache"
 
 function handle_error() {
-	"$dialog" \
-		errorbox \
-		"Operation canceled. Check the terminal for details"
+	if [ "$expect_exit" != "1" ]; then
+		if [ "$started_download_step" == "1" ]; then
+			purge_cache
+		fi
+
+		"$dialog" \
+			errorbox \
+			"Operation canceled. Check the terminal for details"
+	fi
 }
 
 function log_info() {
-	echo "INFO: $1"
+	echo "INFO:" "$@"
 }
 
 function log_warn() {
-	echo "WARN: $1" >&2
+	echo "WARN:" "$@" >&2
 }
 
 function log_error() {
-	echo "ERROR: $1" >&2
+	echo "ERROR:" "$@" >&2
 }
 
 trap handle_error EXIT
 
 source "$step/check_dependencies.sh"
+
+expect_exit=1
 
 nexus_game_id=$(source "$step/select_game.sh")
 log_info "selected game '$nexus_game_id'"
@@ -41,6 +57,8 @@ log_info "selected runner '$runner'"
 
 install_dir=$(source "$step/select_install_dir.sh")
 log_info "selected install directory '$install_dir'"
+
+expect_exit=0
 
 source "$step/load_gameinfo.sh"
 source "$step/download_external_resources.sh"
@@ -60,4 +78,6 @@ esac
 source "$step/register_installation.sh"
 
 log_info "installation completed successfully"
+expect_exit=1
+"$dialog" infobox "Installation successful"
 
