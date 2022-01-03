@@ -3,7 +3,7 @@
 dialogtype=$1; shift
 
 if [ -z "$(command -v zenity)" ]; then
-	echo "ERROR: no interface available. Make sure zenity or xmessage or xterm are installed on the system"
+	echo "ERROR: no interface available, make sure zenity is installed on your system" >&2
 	exit 1
 fi
 
@@ -105,7 +105,6 @@ radio() {
 		shift 2
 	done
 
-	echo "ROWS: ${rows[@]}" >&2
 	selected_option=$( \
 		zenity --height="$height" --list --radiolist \
 		--text="$title" \

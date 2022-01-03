@@ -6,14 +6,13 @@ mkdir -p "$shared"
 mo2_tricks="vcrun2019"
 mo2_options=""
 
-if [ -z "$steam_library" ]; then
-		steam_library=$("$utils/find-library-for-appid.sh" $game_appid)
-fi
+steam_library=$("$utils/find-library-for-appid.sh" "$game_appid")
 
 if [ ! -d "$steam_library" ]; then
-		"$dialog" errorbox \
-				"Could not find '$game_steam_subdirectory' in your Steam library"
-		exit 1
+	log_error "could not find any Steam library containing a game with appid '$game_appid'. If you known exactly where the library is, you can specify it using the environment variable STEAM_LIBRARY"
+	"$dialog" errorbox \
+		"Could not find '$game_steam_subdirectory' in any of your Steam libraries\nMake sure the game is installed and that you've run it at least once"
+	exit 1
 fi
 
 game_prefix="$steam_library/steamapps/compatdata/$game_appid/pfx"

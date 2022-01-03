@@ -25,7 +25,7 @@ nexus_game_id=$( \
 )
 
 if [ -z "$nexus_game_id" ]; then
-	echo "ERROR: no game selected" >&2
+	log_error "no game selected"
 	exit 1
 fi
 

@@ -11,7 +11,6 @@ If yes, ensure the following before continuing:
 EOF
 )
 
-# TODO change to a radio
 runner=$( \
 	"$dialog" \
 		radio \
@@ -21,7 +20,7 @@ runner=$( \
 )
 
 if [ -z "$runner" ]; then
-	echo "ERROR: no runner selected"
+	log_error "no runner selected"
 	exit 1
 fi
 

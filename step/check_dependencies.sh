@@ -6,6 +6,7 @@ dependencies=( \
 
 for dependency in "${dependencies[@]}"; do
 	if [ -z "$(command -v "$dependency")" ]; then
+		log_error "missing dependency '$dependency'"
 		"$dialog" \
 			errorbox \
 			"Installer requires '$dependency' but it is not installed in your system"
@@ -14,5 +15,5 @@ for dependency in "${dependencies[@]}"; do
 	fi
 done
 
-echo "INFO: all dependencies met"
+log_info "all dependencies met"
 

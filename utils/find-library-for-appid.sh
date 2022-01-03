@@ -2,21 +2,24 @@
 
 appid=$1; shift
 
-steam_dir=$(readlink -f "$HOME/.steam/root")
-
 if [ -n "$STEAM_LIBRARY" ]; then
 	echo "$STEAM_LIBRARY/steamapps/compatdata/$appid"
 	exit 0
 fi
+
+function log_info() {
+	echo "INFO: $1" >&2
+}
+
+steam_dir=$(readlink -f "$HOME/.steam/root")
 
 steam_install_candidates=( \
 	"$steam_dir" \
 	"$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam" \
 )
 for steam_install in "${steam_install_candidates[@]}"; do
-	echo "Searching for Steam in '$steam_install'" >&2
 	if [ -d "$steam_install" ]; then
-		echo "Found Steam" >&2
+		log_info "found Steam in '$steam_install'"
 
 		restore_ifs=$IFS
 		IFS=$'\n'
@@ -31,20 +34,18 @@ for steam_install in "${steam_install_candidates[@]}"; do
 			))
 		IFS=$restore_ifs
 	else
-		echo "Steam not found in this install path" >&2
+		log_info "steam not found in '$steam_install'"
 	fi
 done
 
 for libdir in "${steam_libraries[@]}"; do
-	echo "Searching for game in library '$libdir'" >&2
 	compat_data="$libdir/steamapps/compatdata/$appid"
 	if [ -d "$compat_data" ]; then
-		echo "Found game" >&2
+		log_info "game found in '$libdir'"
 		echo "$libdir"
 		exit 0
+	else
+		log_info "game not found in '$libdir'"
 	fi
 done
-
-echo "ERROR: could not find game with APPID '$appid'" >&2
-exit 1
 

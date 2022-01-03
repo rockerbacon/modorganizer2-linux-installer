@@ -14,7 +14,7 @@ directory=$( \
 )
 
 if [ -z "$directory" ]; then
-	echo "ERROR: no install directory selected" >&2
+	log_error "no install directory selected"
 	exit 1
 fi
 
