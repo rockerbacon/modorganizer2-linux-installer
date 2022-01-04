@@ -1,19 +1,25 @@
 #!/bin/bash
 
-dependencies=( \
-	"zenity" \
-)
+missing_deps=()
 
-for dependency in "${dependencies[@]}"; do
-	if [ -z "$(command -v "$dependency")" ]; then
-		log_error "missing dependency '$dependency'"
-		"$dialog" \
-			errorbox \
-			"Installer requires '$dependency' but it is not installed in your system"
+if [ -z "$(command -v 7z)" ]; then
+	missing_deps+=(7z)
+fi
 
-		exit 1
-	fi
-done
+if [ -z "$(command -v curl)" ] && [ -z "$(command -v wget)" ]; then
+	missing_deps+=("curl or wget")
+fi
+
+if [ -z "$(command -v zenity)" ]; then
+	missing_deps+=(zenity)
+fi
+
+if [ -n "${missing_deps[*]}" ]; then
+	log_error "missing dependencies ${missing_deps[@]}"
+	"$dialog" errorbox \
+		"Your system is missing the following programs:\n$(printf '* %s\n' "${missing_deps[@]}")\n\nInstall them and try again"
+	exit 1
+fi
 
 log_info "all dependencies met"
 

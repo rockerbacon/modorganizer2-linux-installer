@@ -47,9 +47,9 @@ function log_error() {
 
 trap handle_error EXIT
 
-source "$step/check_dependencies.sh"
-
 expect_exit=1
+
+source "$step/check_dependencies.sh"
 
 nexus_game_id=$(source "$step/select_game.sh")
 log_info "selected game '$nexus_game_id'"
