@@ -3,7 +3,7 @@
 dialogtype=$1; shift
 
 if [ -z "$(command -v zenity)" ]; then
-	echo "ERROR: no interface available. Make sure zenity or xmessage or xterm are installed on the system"
+	echo "ERROR: no interface available, make sure zenity is installed on your system" >&2
 	exit 1
 fi
 
@@ -22,19 +22,39 @@ warnbox() {
 	return 0
 }
 
+question() {
+	zenity --question --ellipsize --text="$1"
+	return $?
+}
+
+dangerquestion() {
+	zenity --question --ellipsize --icon-name=dialog-warning --text="$1"
+	return $?
+}
+
 directorypicker() {
 	message=$1; shift
+	default_directory=$1; shift
 
 	finish_selection="false"
-	selection_entry=""
+	selection_entry="$default_directory"
 	while [ "$finish_selection" != "true" ]; do
 		raw_entry=$(zenity --entry --entry-text="$selection_entry" --extra-button="Browse" --text "$message"); confirm=$?
 		eval selection_entry="$raw_entry"
 
 		case "$confirm" in
 			0)
-				if [ ! -d "$selection_entry" ]; then
-					zenity --error --ellipsize --text="Directory '$selection_entry' does not exist"
+				if [ ! -e "$selection_entry" ]; then
+					question "Directory '$selection_entry' does not exist. Would you like to create it?"
+					if [ "$?" == "0" ]; then
+						mkdir -p "$selection_entry"
+						finish_selection=true
+					fi
+				elif [ -n "$(ls -A "$selection_entry/")" ]; then
+					dangerquestion "Directory '$selection_entry' is not empty. Would you like to continue anyway?"
+					if [ "$?" == "0" ]; then
+						finish_selection=true
+					fi
 				else
 					finish_selection=true
 				fi
@@ -70,8 +90,24 @@ textentry() {
 }
 
 radio() {
-	title=$1; shift
-	selected_option=$(zenity --list --radiolist --column="option_value" --column="option_text" --hide-header --text="$title" "$@")
+	height=$1
+	title=$2
+	shift 2
+
+	local rows=()
+	while [ "$#" -gt "0" ]; do
+		rows+=('' "$1" "$2")
+		shift 2
+	done
+
+	selected_option=$( \
+		zenity --height="$height" --list --radiolist \
+		--text="$title" \
+		--hide-header \
+		--column="checkbox" --column="option_value" --column="option_text" \
+		--hide-column=2 \
+		"${rows[@]}" \
+	)
 
 	if [ -z "$selected_option" ]; then
 		return 1
@@ -79,6 +115,11 @@ radio() {
 
 	echo "$selected_option"
 
+	return 0
+}
+
+loading() {
+	zenity --progress --auto-close --pulsate --no-cancel --text "$1"
 	return 0
 }
 
