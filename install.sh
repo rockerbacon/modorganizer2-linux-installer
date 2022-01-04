@@ -55,12 +55,13 @@ log_info "selected game '$nexus_game_id'"
 runner=$(source "$step/select_runner.sh")
 log_info "selected runner '$runner'"
 
+source "$step/load_gameinfo.sh"
+
 install_dir=$(source "$step/select_install_dir.sh")
 log_info "selected install directory '$install_dir'"
 
 expect_exit=0
 
-source "$step/load_gameinfo.sh"
 source "$step/download_external_resources.sh"
 source "$step/install_external_resources.sh"
 source "$step/install_nxm_handler.sh"
