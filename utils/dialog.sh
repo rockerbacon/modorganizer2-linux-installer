@@ -23,11 +23,6 @@ warnbox() {
 }
 
 question() {
-	zenity --text="$1"
-	return $?
-}
-
-question() {
 	zenity --question --ellipsize --text="$1"
 	return $?
 }
@@ -120,6 +115,11 @@ radio() {
 
 	echo "$selected_option"
 
+	return 0
+}
+
+loading() {
+	zenity --progress --auto-close --pulsate --no-cancel --text "$1"
 	return 0
 }
 
