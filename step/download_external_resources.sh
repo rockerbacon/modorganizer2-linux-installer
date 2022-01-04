@@ -7,8 +7,11 @@ jdk_url='https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/dow
 
 mo2_url='https://github.com/ModOrganizer2/modorganizer/releases/download/v2.2.2.1/Mod.Organizer-2.2.2.1.7z'
 
+winetricks_url='https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
+
 downloaded_jdk="$downloads_cache/${jdk_url##*/}"
 extracted_jdk="${downloaded_jdk%.*}"
+downloaded_winetricks="$downloads_cache/winetricks"
 
 downloaded_mo2="$downloads_cache/${mo2_url##*/}"
 extracted_mo2="${downloaded_mo2%.*}"
@@ -48,6 +51,11 @@ function purge_downloads_cache() {
 			rm -rf "$extracted_jdk"
 		fi
 	fi
+
+	if [ -f "$downloaded_winetricks" ]; then
+		log_info "removing '$downloaded_winetricks'"
+		rm "$downloaded_winetricks"
+	fi
 }
 
 if [ "$cache_enabled" == "0" ]; then
@@ -66,6 +74,11 @@ if [ ! -f "$downloaded_mo2" ]; then
 	"$download" "$mo2_url" "$downloaded_mo2"
 	mkdir "$extracted_mo2"
 	"$extract" "$downloaded_mo2" "$extracted_mo2"
+fi
+
+if [ ! -f "$downloaded_winetricks" ]; then
+	"$download" "$winetricks_url" "$downloaded_winetricks"
+	chmod u+x "$downloaded_winetricks"
 fi
 
 if [ -n "$downloaded_scriptextender" ] && [ ! -f "$downloaded_scriptextender" ]; then

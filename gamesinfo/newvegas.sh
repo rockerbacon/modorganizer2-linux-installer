@@ -15,7 +15,8 @@ else
 	game_steam_subdirectory="Fallout New Vegas enplczru"
 fi
 game_appid=$newvegas_appid
-game_proton_options="--protonver 5.0"
+game_protonver="5.0"
+game_proton_options=""
 game_wine_options=""
 game_protontricks="d3dcompiler_43 d3dx9"
 game_winetricks="d3dcompiler_43 d3dx9"
