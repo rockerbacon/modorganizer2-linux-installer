@@ -6,11 +6,11 @@ steam_dir=$(readlink -f "$HOME/.steam/root")
 customver=0
 
 function log_error() {
-	echo "ERROR:" "$@" &>2
+	echo "ERROR:" "$@" >&2
 }
 
 function log_info() {
-	echo "INFO:" "$@" &>2
+	echo "INFO:" "$@" >&2
 }
 
 ###     PARSE ARGS     ###
@@ -69,7 +69,6 @@ else
 	done
 fi
 
-log_info "$proton_dir"
 if [ ! -d "$proton_dir" ]; then
 	log_error "could not find Proton, check terminal output for details"
 	exit 1
