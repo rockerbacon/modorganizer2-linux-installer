@@ -13,11 +13,13 @@ handlers="$script_root/handlers"
 launchers="$script_root/launchers"
 step="$script_root/step"
 downloads_cache=/tmp/mo2-linux-installer-downloads-cache
+shared="$HOME/.local/share/modorganizer2"
 
 started_download_step=0
 expect_exit=0
 
 mkdir -p "$downloads_cache"
+mkdir -p "$shared"
 
 function handle_error() {
 	if [ "$expect_exit" != "1" ]; then
