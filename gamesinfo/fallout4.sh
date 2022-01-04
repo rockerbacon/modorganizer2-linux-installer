@@ -5,4 +5,5 @@ game_wine_options="--native 'xaudio2_7'"
 game_protontricks=""
 game_winetricks=""
 game_scriptextender_url="https://f4se.silverlock.org/beta/f4se_0_06_21.7z"
+game_scriptextender_files="*"
 

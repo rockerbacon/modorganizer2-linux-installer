@@ -72,5 +72,10 @@ if [ -n "$downloaded_scriptextender" ] && [ ! -f "$downloaded_scriptextender" ];
 	"$download" "$game_scriptextender_url" "$downloaded_scriptextender"
 	mkdir "$extracted_scriptextender"
 	"$extract" "$downloaded_scriptextender" "$extracted_scriptextender"
+
+	if [ "$nexus_game_id" == "oblivion" ]; then
+		# patch OBSE to not complain about running outside of Steam
+		printf '\x90\x90\x90' | dd conv=notrunc of="$extracted_scriptextender/obse_loader.exe" bs=1 seek=$((0x14cb))
+	fi
 fi
 

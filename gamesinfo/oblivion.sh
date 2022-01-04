@@ -5,4 +5,5 @@ game_wine_options=""
 game_protontricks="d3dcompiler_43 d3dx9"
 game_winetricks="d3dcompiler_43 d3dx9"
 game_scriptextender_url="http://obse.silverlock.org/download/obse_0021.zip"
+game_scriptextender_files="*"
 
