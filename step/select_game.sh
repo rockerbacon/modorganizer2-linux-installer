@@ -11,23 +11,25 @@ Which game would you like to manage with this installation?
 EOF
 )
 
-nexus_game_id=$( \
+selected_game=$( \
 	"$dialog" \
 		radio \
 		450 "$screen_text" \
 		"fallout3" "Fallout 3" \
+		"fallout3_goty" "Fallout 3 - Game of the Year Edition" \
 		"fallout4" "Fallout 4" \
-		"newvegas" "Fallout New Vegas" \
+		"newvegas" "Fallout: New Vegas" \
+		"newvegas_ru" "Fallout: New Vegas RU" \
 		"morrowind" "Morrowind" \
 		"oblivion" "Oblivion" \
 		"skyrim" "Skyrim" \
 		"skyrimspecialedition" "Skyrim Special Edition" \
 )
 
-if [ -z "$nexus_game_id" ]; then
+if [ -z "$selected_game" ]; then
 	log_error "no game selected"
 	exit 1
 fi
 
-echo "$nexus_game_id"
+echo "$selected_game"
 

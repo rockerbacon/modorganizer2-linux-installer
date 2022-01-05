@@ -1,11 +1,11 @@
 #!/bin/bash
 
-load_gameinfo="$gamesinfo/$nexus_game_id.sh"
+load_gameinfo="$gamesinfo/$selected_game.sh"
 
 if [ ! -f "$load_gameinfo" ]; then
-	log_error "no gameinfo for '$nexus_game_id'"
+	log_error "no gameinfo for '$selected_game'"
 	"$dialog" errorbox \
-		"Could not find information on '$nexus_game_id'"
+		"Could not find information on '$selected_game'"
 	exit 1
 fi
 

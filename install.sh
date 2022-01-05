@@ -51,8 +51,8 @@ expect_exit=1
 
 source "$step/check_dependencies.sh"
 
-nexus_game_id=$(source "$step/select_game.sh")
-log_info "selected game '$nexus_game_id'"
+selected_game=$(source "$step/select_game.sh")
+log_info "selected game '$selected_game'"
 
 runner=$(source "$step/select_runner.sh")
 log_info "selected runner '$runner'"

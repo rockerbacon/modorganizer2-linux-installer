@@ -1,4 +1,5 @@
 game_steam_subdirectory="Oblivion"
+game_nexusid="oblivion"
 game_appid=22330
 game_protonver="5.0"
 game_proton_options=""

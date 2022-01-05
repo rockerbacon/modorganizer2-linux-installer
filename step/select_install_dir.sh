@@ -10,7 +10,7 @@ directory=$( \
 	"$dialog" \
 		directorypicker \
 		"$picker_text" \
-		"$HOME/Games/mod-organizer-2-${nexus_game_id}" \
+		"$HOME/Games/mod-organizer-2-${game_nexusid}" \
 )
 
 if [ -z "$directory" ]; then

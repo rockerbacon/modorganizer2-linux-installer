@@ -1,4 +1,5 @@
 game_steam_subdirectory="Skyrim"
+game_nexusid="skyrim"
 game_appid=72850
 game_protonver="5.0"
 game_proton_options="-e 'PULSE_LATENCY_MSEC=90'"

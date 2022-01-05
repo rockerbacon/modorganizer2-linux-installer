@@ -1,4 +1,5 @@
 game_steam_subdirectory="Fallout 4"
+game_nexusid="fallout4"
 game_appid=377160
 game_protonver="5.0"
 game_proton_options="--noesync --native 'xaudio2_7' -e 'PULSE_LATENCY_MSEC=90'"

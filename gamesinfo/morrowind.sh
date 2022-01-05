@@ -1,4 +1,5 @@
 game_steam_subdirectory="Morrowind"
+game_nexusid="morrowind"
 game_appid=22320
 game_protonver="5.0"
 game_proton_options=""

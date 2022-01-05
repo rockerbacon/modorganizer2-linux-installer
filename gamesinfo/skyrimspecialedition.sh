@@ -1,4 +1,5 @@
 game_steam_subdirectory="Skyrim Special Edition"
+game_nexusid="skyrimspecialedition"
 game_appid=489830
 game_protonver="5.0"
 game_proton_options="--native 'xaudio2_7' -e 'PULSE_LATENCY_MSEC=90'"
