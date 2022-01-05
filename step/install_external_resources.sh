@@ -1,5 +1,11 @@
 #!/bin/bash
 
+function install_mo2() {
+	log_info "installing Mod Organizer 2 in '$mo2_installation'"
+	mkdir -p "$mo2_installation"
+	cp -af "$extracted_mo2/." "$mo2_installation"
+}
+
 function install_files() {
 	if [ -d "$extracted_jdk" ]; then
 		jdk_installation="$game_prefix/drive_c/java"
@@ -17,13 +23,21 @@ function install_files() {
 
 	if [ -d "$extracted_mo2" ]; then
 		mo2_installation="$install_dir/modorganizer2"
+
 		if [ -d "$mo2_installation" ]; then
-			# TODO give user the option to overwrite files in existing installation
-			log_info "Mod Organizer 2 already installed, skipping"
+			set +e
+			"$dialog" question \
+				"Mod Organizer 2 is already installed. Would you like to update?"
+			confirm_update=$?
+			set -e
+
+			if [ "$confirm_update" == "0" ]; then
+				install_mo2
+			else
+				log_info "skipping Mod Organizer 2 update"
+			fi
 		else
-			log_info "installing Mod Organizer 2 in '$mo2_installation'"
-			mkdir "$mo2_installation"
-			cp -a "$extracted_mo2/." "$mo2_installation"
+			install_mo2
 		fi
 	fi
 
@@ -38,6 +52,6 @@ function install_files() {
 	fi
 }
 
-install_files | \
-	"$dialog" loading "Installing necessary files\nThis shouldn't take long"
+install_files \
+	| "$dialog" loading "Installing necessary files\nThis shouldn't take long"
 

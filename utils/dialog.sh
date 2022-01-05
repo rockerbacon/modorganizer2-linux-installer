@@ -119,7 +119,8 @@ radio() {
 }
 
 loading() {
-	zenity --progress --auto-close --pulsate --no-cancel --text "$1"
+	tee /dev/tty <&0 \
+		| zenity --progress --auto-close --pulsate --no-cancel --text "$1"
 	return 0
 }
 

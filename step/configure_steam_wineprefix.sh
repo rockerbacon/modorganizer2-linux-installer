@@ -9,7 +9,6 @@ log_info "applying winetricks '$tricks'"
 WINETRICKS="$downloaded_winetricks" \
 PROTON_VERSION="Proton $game_protonver" \
 protontricks "$game_appid" -q $tricks \
-	| tee /dev/tty \
 	| "$dialog" loading "Configuring game prefix\nThis may take a while"
 
 # FIXME this check won't work properly because of the piping above
