@@ -1,19 +1,19 @@
 #!/bin/bash
 
-proton_dir=$("$utils/find-proton-dir.sh" "$game_protonver")
-
 mo2_tricks="vcrun2019"
 
 tricks="$mo2_tricks $game_protontricks"
 
 log_info "applying winetricks '$tricks'"
 
-WINEPREFIX="$game_prefix" \
-WINE="$proton_dir/dist/bin/wine64" \
-"$downloaded_winetricks" -q $tricks \
+WINETRICKS="$downloaded_winetricks" \
+PROTON_VERSION="Proton $game_protonver" \
+protontricks "$game_appid" -q $tricks \
 	| tee /dev/tty \
 	| "$dialog" loading "Configuring game prefix\nThis may take a while"
 
+# FIXME this check won't work properly because of the piping above
+# the installer entrypoint also sets -e so it shouldn't even be reached
 if [ "$?" != "0" ]; then
 	# TODO retry, passing option '--force' to winetricks, if issue #61 is detected
 	"$dialog" errorbox \
