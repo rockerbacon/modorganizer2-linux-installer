@@ -1,19 +1,20 @@
 ## Introduction
 
-This project aims to make modding and playing Bethesda games on Linux as easy as possible. It does that by providing Lutris installers which automatically setup a working experience for the user.
+This project aims to make modding and playing Bethesda games on Linux as easy as possible. It does that by providing installers which automatically setup a working experience for the user.
 
 While these installers may be available on Lutris.net, users are always recommended to use the latest stable release from this repository. The testers and maintainers of this project have little control over the content on Lutris and cannot assure that the installers available there are up to date nor that they haven't been incorrectly modified.
 
 ## Installing Mod Organizer 2
 
-All you need to use Mod Organizer 2 is to first install the game you want to play and then grab the latest stable release of the installer [here](https://github.com/rockerbacon/lutris-skyrimse-installers/releases). Prefer to get your games directly from Steam as that is the most tested use case.
+All you need to use Mod Organizer 2 is:
+
+1. Install the game you want to play. Prefer to get your games directly from Steam as that is the most tested use case;
+2. Download the source code of the latest stable release [here](https://github.com/rockerbacon/lutris-skyrimse-installers/releases);
+3. Extract the downloaded file;
+4. Open the extracted folder in a terminal and execute `./install.sh`;
+5. The installer will start and guide you through the rest of the process;
 
 The installer will automatically configure game-specific workarounds and install the script extender for your game of choice. Java binaries are also made available at `C:\java` for running Proc Patchers.
-
-You can use the installer with the following terminal command, remember to change the path if the file was downloaded to another location:
-```bash
-lutris -i "$HOME/Downloads/modorganizer2.yml"
-```
 
 ### Features
 
@@ -35,18 +36,7 @@ Please, help to keep this table up to date by [opening issues](https://github.co
 
 ## Updating Mod Organizer 2
 
-Updating Mod Organizer 2 is a simple process. For safety, you may want to backup your Mod Organizer 2 directory before updating.
-
-Here is what you need to do in order to update:
-
-1. Download the newest installer containing the update;
-2. Remove Mod Organizer 2 from Lutris WITHOUT REMOVING ANY DATA: right click > Remove > uncheck option to remove data > Apply;
-3. Find your Lutris cache path in Preferences > Lutris Preferences;
-4. Clear the Lutris cache for Mod Organizer 2 (if it exists) with this terminal command:
-  ```bash
-  rm -rf <cache path>/mod-organizer-2
-  ```
-5. Use the newest installer to install Mod Organizer 2 in the path to the old installation
+You can update by simply following the install instructions again. It is recommended to backup your existing installation before updating.
 
 ## Installing Vortex
 
