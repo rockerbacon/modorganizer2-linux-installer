@@ -47,7 +47,7 @@ function install_files() {
 		for scriptextender_file in "${game_scriptextender_files[@]}"; do
 			scriptextender_filepath="$extracted_scriptextender/$scriptextender_file"
 			log_info "copying '$scriptextender_filepath' into '$game_installation'"
-			cp -af "$scriptextender_filepath" "$game_installation"
+			cp -an "$scriptextender_filepath" "$game_installation"
 		done
 	fi
 }
