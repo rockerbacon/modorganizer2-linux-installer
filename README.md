@@ -51,7 +51,16 @@ Please, help to keep this table up to date by [opening issues](https://github.co
 
 ## Updating Mod Organizer 2
 
-You can update by simply following the install instructions again. It is recommended to backup your existing installation before updating.
+It is recommended to backup your existing installation before updating.
+
+#### From 3.0.0 and above
+
+You can update by simply following the install instructions again.
+
+#### From 2.8.6 and below (old Lutris installer)
+
+1. Go to where Mod Organizer was installed and rename the folder "ModOrganizer2" to "modorganizer2" (all lowercase);
+2. Follow the install instructions in this readme;
 
 ## Installing Vortex
 
