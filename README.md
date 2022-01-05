@@ -31,6 +31,8 @@ All requirements should be readily available in your distribution's package mana
 
 The installer will automatically configure game-specific workarounds and install the script extender for your game of choice. Java binaries are also made available at `C:\java` for running Proc Patchers.
 
+*Avoid using ENBoost* with Skyrim: DXVK and Wine have their own better working memory patches, both properly enabled with this installer.
+
 ### Features
 
 The following is a small overview of the current state of each supported game:
