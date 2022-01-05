@@ -1,6 +1,7 @@
 #!/bin/bash
 
 script=$0
+script_root=$(realpath "$(dirname "$script")")
 
 print_help() {
 cat << EOF
@@ -234,98 +235,35 @@ if [ -z "$(pidof steam)" ]; then
 	$infobox "Steam must be running before continuing. Please start Steam"
 
 	if [ -z "$(pidof steam)" ]; then
-		$errorbox "Steam was not started, aborting"
 		echo "ERROR: Steam not running" >&2
+		$errorbox "Steam was not started, aborting"
 		exit 1
 	fi
 fi
 ###    ASSERT STEAM RUNNING    ###
 
-###    LIST STEAM LIBRARIES    ###
-steam_dir=$(readlink -f "$HOME/.steam/root")
-steam_libraries=()
-
-steam_install_candidates=( \
-	"$steam_dir" \
-	"$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam" \
-)
-for steam_install in "${steam_install_candidates[@]}"; do
-	echo "Searching for Steam in '$steam_install'"
-	if [ -d "$steam_install" ]; then
-		echo "Found Steam"
-
-		restore_ifs=$IFS
-		IFS=$'\n'
-			main_library="$steam_install"
-			if [ ! -d "$main_library/steamapps" ]; then
-				main_library="$steam_install/steam"
-			fi
-
-			steam_libraries+=("$main_library")
-			steam_libraries+=($( \
-				grep -oE '/[^"]+' "$main_library/steamapps/libraryfolders.vdf" \
-			))
-		IFS=$restore_ifs
-	fi
-done
-if [ -z "$steam_libraries" ]; then
-	msg="could not find a single Steam library"
-	echo "ERROR: $msg" >&2
-	$errorbox "$msg"
-	exit 1
-fi
-###    LIST STEAM LIBRARIES    ###
-
-###    FIND GAME LIBRARY    ####
-if [ -n "$STEAM_LIBRARY" ]; then
-	compat_data="$STEAM_LIBRARY/steamapps/compatdata/$appid"
-else
-	for libdir in "${steam_libraries[@]}"; do
-		echo "Searching for game in library '$libdir'"
-		compat_data="$libdir/steamapps/compatdata/$appid"
-		if [ -d "$compat_data" ]; then
-			echo "Found game"
-			break
-		fi
-	done
-fi
+###    FIND PATHS    ###
+libdir=$("$script_root/find-library-for-appid.sh" "$appid")
+compat_data="$libdir/steamapps/compatdata/$appid"
 
 if [ ! -d "$compat_data" ]; then
+	echo "ERROR: could not find game with appid '$appid'" >&2
 	$errorbox "Could not find a game with APPID '$appid'"
-	print_help >&2
 	exit 1
 fi
-###    FIND GAME LIBRARY    ####
-
-###    FIND PROTON EXECUTABLE    ###
-match_proton() {
-	echo $(find "$1" \
-			-maxdepth 1 -path "*/$2" \
-		|	sort -rV \
-		|	head -n 1
-	)
-}
 
 if [ -n "$customver" ]; then
-	echo "Searching for '$customver' in '$steam_dir/compatibilitytools.d/'"
-	proton_dir=$(match_proton "$steam_dir/compatibilitytools.d/" "$customver")
+	proton_dir=$("$script_root/find-proton-dir.sh" --custom "$customver")
 else
-	for libdir in "${steam_libraries[@]}"; do
-		echo "Searching for 'Proton $protonver' in library '$libdir'"
-		proton_dir=$(match_proton "$libdir/steamapps/common/" "Proton $protonver")
-		if [ -d "$proton_dir" ]; then
-			echo "Found Proton"
-			break
-		fi
-	done
+	proton_dir=$("$script_root/find-proton-dir.sh" "$protonver")
 fi
 
 if [ ! -d "$proton_dir" ]; then
-	$errorbox "Could not find Proton. Check terminal output for details"
-	print_help >&2
+	echo "ERROR: could not find proton" >&2
+	$errorbox "Could not find proton"
 	exit 1
 fi
-###    FIND PROTON EXECUTABLE    ###
+###    FIND PATHS    ###
 
 ###    BUILD LD_LIBRARY_PATH    ###
 steam_rundir="$steam_dir/ubuntu12_32/steam-runtime"
@@ -368,7 +306,6 @@ if [ -d "$steam_rundir" ] && [ -z "$library_path" ]; then
 else
 	echo "WARN: could not find Steam runtime, you might experience problems" >&2
 fi
-
 ###    BUILD LD_LIBRARY_PATH    ###
 
 ###    RESET PULSEAUDIO    ###
