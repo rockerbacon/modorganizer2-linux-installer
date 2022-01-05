@@ -6,7 +6,22 @@ While these installers may be available on Lutris.net, users are always recommen
 
 ## Installing Mod Organizer 2
 
-All you need to use Mod Organizer 2 is:
+#### Requirements
+
+You may need to manually install the following programs:
+
+- _7z_
+- _protontricks_
+
+The following requirements should be available out-of-the-box in most systems:
+
+- _bash_
+- either _curl_ or _wget_
+- _zenity_
+
+All requirements should be readily available in your distribution's package manager.
+
+#### Installation steps
 
 1. Install the game you want to play. Prefer to get your games directly from Steam as that is the most tested use case;
 2. Download the source code of the latest stable release [here](https://github.com/rockerbacon/lutris-skyrimse-installers/releases);
