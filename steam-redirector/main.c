@@ -16,7 +16,7 @@
 
 #elif __unix__
 
-#include <unistd.h>
+#include "unix_utils.h"
 
 #define MO2_PATH_FILE "modorganizer2/instance_path.txt"
 
@@ -28,7 +28,7 @@ void start_mo2(const char* mo2_executable_path) {
 #ifdef _WIN32
 	_execv(mo2_executable_path, NULL);
 #elif __unix__
-	execv(mo2_executable_path, NULL);
+	execute(mo2_executable_path);
 #endif
 }
 
@@ -71,7 +71,7 @@ int check_file_access(const char* path) {
 #ifdef _WIN32
 	_access(path, 0);
 #elif __unix__
-	access(path, X_OK);
+	check_can_execute(path);
 #endif
 
 	if (errno == 0) {
