@@ -5,7 +5,7 @@ cat << EOF
 Do you play this game through Steam Play (Proton)?
 
 If yes, ensure the following before continuing:
-	* The game is configured to use Proton 5.0:
+	* The game is configured to use Proton 6.3:
 		On Steam: right click the game > Properties > tab "General" > Force the use of a specific Steam Play compatibility tool
 	* The game was run at least once on Steam
 EOF
