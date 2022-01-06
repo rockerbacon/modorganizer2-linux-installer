@@ -11,6 +11,7 @@ dialog="$utils/dialog.sh"
 gamesinfo="$script_root/gamesinfo"
 handlers="$script_root/handlers"
 launchers="$script_root/launchers"
+redirector="$script_root/steam-redirector"
 step="$script_root/step"
 downloads_cache=/tmp/mo2-linux-installer-downloads-cache
 shared="$HOME/.local/share/modorganizer2"
