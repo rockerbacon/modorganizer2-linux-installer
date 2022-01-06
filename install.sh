@@ -71,8 +71,8 @@ source "$step/install_nxm_handler.sh"
 
 case "$runner" in
 	proton)
-		source "$step/install_proton_launcher.sh"
 		source "$step/configure_steam_wineprefix.sh"
+		source "$step/install_steam_redirector.sh"
 	;;
 	wine)
 		source "$step/install_wine_launcher.sh"

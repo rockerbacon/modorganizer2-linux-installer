@@ -1,6 +1,7 @@
 game_steam_subdirectory="Skyrim"
 game_nexusid="skyrim"
 game_appid=72850
+game_executable="SkyrimLauncher.exe"
 game_protonver="5.0"
 game_proton_options="-e 'PULSE_LATENCY_MSEC=90'"
 game_wine_options=""

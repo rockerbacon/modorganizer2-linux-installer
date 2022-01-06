@@ -1,6 +1,7 @@
 game_steam_subdirectory="Fallout New Vegas enplczru"
 game_nexusid="newvegas"
 game_appid=22490
+game_executable="FalloutNVLauncher.exe"
 game_protonver="5.0"
 game_proton_options=""
 game_wine_options=""

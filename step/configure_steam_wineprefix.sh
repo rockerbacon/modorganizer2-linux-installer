@@ -7,7 +7,6 @@ tricks="$mo2_tricks $game_protontricks"
 log_info "applying winetricks '$tricks'"
 
 WINETRICKS="$downloaded_winetricks" \
-PROTON_VERSION="Proton $game_protonver" \
 protontricks "$game_appid" -q $tricks \
 	| "$dialog" loading "Configuring game prefix\nThis may take a while"
 

@@ -1,4 +1,5 @@
 game_appid=22300
+game_executable="FalloutLauncherSteam.exe"
 game_nexusid="fallout3"
 game_steam_subdirectory="Fallout 3"
 game_protonver="5.0"
