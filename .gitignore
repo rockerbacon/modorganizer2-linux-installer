@@ -3,7 +3,7 @@
 *.swo
 *.orig
 
-/steam-launcher/main
-/steam-launcher/main.exe
+/steam-redirector/main
+/steam-redirector/main.exe
 
 /gamesinfo/gamesinfo.tar.gz
