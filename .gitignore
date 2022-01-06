@@ -3,7 +3,6 @@
 *.swo
 *.orig
 
-/steam-redirector/*.o
 /steam-redirector/main
 /steam-redirector/main.exe
 

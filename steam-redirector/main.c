@@ -9,8 +9,7 @@
 
 #ifdef _WIN32
 
-#include <io.h>
-#include <process.h>
+#include "win32_utils.h"
 
 #define MO2_PATH_FILE "modorganizer2\\instance_path.txt"
 
@@ -24,12 +23,7 @@
 
 void start_mo2(const char* mo2_executable_path) {
 	fprintf(stdout, "Launching '%s'\n", mo2_executable_path);
-
-#ifdef _WIN32
-	_execv(mo2_executable_path, NULL);
-#elif __unix__
 	execute(mo2_executable_path);
-#endif
 }
 
 char* find_mo2_exec_path() {
@@ -68,11 +62,7 @@ char* find_mo2_exec_path() {
 
 int check_file_access(const char* path) {
 	errno = 0;
-#ifdef _WIN32
-	_access(path, 0);
-#elif __unix__
 	check_can_execute(path);
-#endif
 
 	if (errno == 0) {
 		return 1;
