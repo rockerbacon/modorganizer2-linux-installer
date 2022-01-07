@@ -55,9 +55,7 @@ source "$step/check_dependencies.sh"
 selected_game=$(source "$step/select_game.sh")
 log_info "selected game '$selected_game'"
 
-runner=$(source "$step/select_runner.sh")
-log_info "selected runner '$runner'"
-
+source "$step/confirm_initial_setup.sh"
 source "$step/load_gameinfo.sh"
 
 install_dir=$(source "$step/select_install_dir.sh")
@@ -68,17 +66,8 @@ expect_exit=0
 source "$step/download_external_resources.sh"
 source "$step/install_external_resources.sh"
 source "$step/install_nxm_handler.sh"
-
-case "$runner" in
-	proton)
-		source "$step/configure_steam_wineprefix.sh"
-		source "$step/install_steam_redirector.sh"
-	;;
-	wine)
-		source "$step/install_wine_launcher.sh"
-	;;
-esac
-
+source "$step/configure_steam_wineprefix.sh"
+source "$step/install_steam_redirector.sh"
 source "$step/register_installation.sh"
 
 log_info "installation completed successfully"

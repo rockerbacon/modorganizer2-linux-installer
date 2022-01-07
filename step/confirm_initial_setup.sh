@@ -11,18 +11,16 @@ If yes, ensure the following before continuing:
 EOF
 )
 
-runner=$( \
+confirmation=$( \
 	"$dialog" \
 		radio \
 		200 "$screen_text" \
-		"" "No, cancel installation" \
-		"proton" "Yes, I use Steam Play and everything is setup" \
+		"0" "No, cancel installation" \
+		"1" "Yes, I use Steam Play and everything is setup" \
 )
 
-if [ -z "$runner" ]; then
-	log_error "no runner selected"
+if [ "$confirmation" == "0" ]; then
+	log_error "installation cancelled by user"
 	exit 1
 fi
-
-echo "$runner"
 
