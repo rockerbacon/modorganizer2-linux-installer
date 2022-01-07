@@ -21,12 +21,12 @@
 
 #endif
 
-void start_mo2(const char* mo2_executable_path) {
+void start_mo2(const char_t* mo2_executable_path) {
 	fprintf(stdout, "Launching '%s'\n", mo2_executable_path);
 	execute(mo2_executable_path);
 }
 
-char* find_mo2_exec_path() {
+char_t* find_mo2_exec_path() {
 	errno = 0;
 	FILE* file = fopen(MO2_PATH_FILE, "r");
 
@@ -46,21 +46,27 @@ char* find_mo2_exec_path() {
 	char* path = (char*)malloc(estimated_path_length + 1);
 
 	fseek(file, 0L, SEEK_SET);
-	int read_char = fgetc(file);
-	size_t char_count = 0;
+	int current_byte = fgetc(file);
+	size_t byte_count = 0;
 	do {
-		path[char_count] = (char)read_char;
-		read_char = fgetc(file);
-		char_count++;
-	} while (read_char != EOF && read_char != '\n');
-	path[char_count] = '\0';
+		path[byte_count] = (char)current_byte;
+		current_byte = fgetc(file);
+		byte_count++;
+	} while (current_byte != EOF && current_byte != '\n');
+	path[byte_count] = '\0';
 
 	fclose(file);
 
+#ifdef REQUIRE_UNICODE_CONVERSION
+	char_t* converted_path = convert_from_unicode(path);
+	free(path);
+	return converted_path;
+#else
 	return path;
+#endif
 }
 
-int check_file_access(const char* path) {
+int check_file_access(const char_t* path) {
 	errno = 0;
 	check_can_execute(path);
 
@@ -72,23 +78,30 @@ int check_file_access(const char* path) {
 }
 
 int main() {
-	char* mo2_exec_path = find_mo2_exec_path();
+	int exit_status = 1;
+
+	char_t* mo2_exec_path = find_mo2_exec_path();
 
 	if (mo2_exec_path == NULL) {
 		fprintf(stderr, "ERROR: could not find Mod Organizer 2 executable, aborting\n");
-		return 1;
+		goto exit_point;
 	}
 
+	fprintf(stdout, "INFO: read Mod Organizer 2 location '%s'", mo2_exec_path);
 	int has_access = check_file_access(mo2_exec_path);
 
 	if (has_access == 0) {
 		fprintf(stderr, "ERROR: cannot execute '%s' - %s\n", mo2_exec_path, strerror(errno));
-		return 1;
+		goto exit_point;
 	}
 
 	start_mo2(mo2_exec_path);
+	exit_status = 0;
 
-	free(mo2_exec_path);
+exit_point:
+	if (mo2_exec_path != NULL) {
+		free(mo2_exec_path);
+	}
 
-	return 0;
+	return exit_status;
 }
