@@ -18,17 +18,18 @@ Note that the Windows binaries are statically linked. This is necessary for prop
 
 You'll need the following:
 - gcc
+- make
 - Mingw64
 - Mingw64 pthread static libraries
 
 #### Fedora 35
 ```
-sudo dnf install gcc mingw64-gcc mingw64-winpthreads-static
+sudo dnf install gcc make mingw64-gcc mingw64-winpthreads-static
 ```
 
 #### Arch
 ```
-sudo pacman -S gcc mingw-w64-gcc mingw-w64-winpthreads
+sudo pacman -S gcc make mingw-w64-gcc mingw-w64-winpthreads
 ```
 
 Check MinGW's [downloads page](https://www.mingw-w64.org/downloads/) for a more complete list of available packages.
