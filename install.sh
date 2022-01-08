@@ -3,6 +3,7 @@
 cache_enabled="${CACHE:-1}"
 
 set -eu
+set -o pipefail
 
 script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
