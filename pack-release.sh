@@ -27,7 +27,7 @@ cd "$script_root/steam-redirector" || exit 1
 make
 
 cd "$script_root" || exit 1
-tar -czvf "$script_root/release-$version.tar.gz" "${release_files[@]}"
+tar -czvf "$script_root/mo2installer-$version.tar.gz" "${release_files[@]}"
 
 cd "$original_workdir" || exit 1
 
