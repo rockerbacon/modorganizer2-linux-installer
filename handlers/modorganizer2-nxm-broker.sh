@@ -17,10 +17,12 @@ instance_dir=$(readlink -f  "$instance_link")
 if [ ! -d "$instance_dir" ]; then
 	[ -L "$instance_link"] && rm "$instance_link"
 
-	"$HOME/.local/share/modorganizer2/dialog.sh" errorbox \
+	zenity --ok-label=Exit --ellipsize --error --text \
 		"Could not download file because there is no Mod Organizer 2 instance for '$nexus_game_id'"
 	exit 1
 fi
 
-"$instance_dir/download.sh" "$nxm_link"
+game_appid=$(cat "$instance_dir/appid.txt")
+
+steam -applaunch "$game_appid" "$nxm_link"
 
