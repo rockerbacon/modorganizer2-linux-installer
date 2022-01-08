@@ -18,6 +18,7 @@ The following requirements should be available out-of-the-box in most systems:
 - _bash_
 - either _curl_ or _wget_
 - _zenity_
+- _protontricks-launcher_: should be available after installing `protontricks` already, if not see [this](https://github.com/Matoking/protontricks#desktop)
 
 All requirements should be readily available in your distribution's package manager.
 
