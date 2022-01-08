@@ -13,6 +13,7 @@ handlers="$script_root/handlers"
 launchers="$script_root/launchers"
 redirector="$script_root/steam-redirector"
 step="$script_root/step"
+workarounds="$script_root/workarounds"
 downloads_cache=/tmp/mo2-linux-installer-downloads-cache
 shared="$HOME/.local/share/modorganizer2"
 
@@ -69,6 +70,8 @@ source "$step/install_nxm_handler.sh"
 source "$step/configure_steam_wineprefix.sh"
 source "$step/install_steam_redirector.sh"
 source "$step/register_installation.sh"
+
+source "$step/apply_workarounds.sh"
 
 log_info "installation completed successfully"
 expect_exit=1
