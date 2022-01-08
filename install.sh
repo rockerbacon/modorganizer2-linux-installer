@@ -12,6 +12,7 @@ gamesinfo="$script_root/gamesinfo"
 handlers="$script_root/handlers"
 launchers="$script_root/launchers"
 step="$script_root/step"
+workarounds="$script_root/workarounds"
 downloads_cache=/tmp/mo2-linux-installer-downloads-cache
 shared="$HOME/.local/share/modorganizer2"
 
@@ -79,6 +80,8 @@ case "$runner" in
 esac
 
 source "$step/register_installation.sh"
+
+source "$step/apply_workarounds.sh"
 
 log_info "installation completed successfully"
 expect_exit=1
