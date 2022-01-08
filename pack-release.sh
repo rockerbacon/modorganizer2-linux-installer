@@ -1,6 +1,13 @@
 #!/bin/bash
 
+version="$1"
+
 set -eu
+
+if [ -z "$version" ]; then
+	echo "ERROR: specify a version for the release" >&2
+	exit 1
+fi
 
 script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
@@ -20,7 +27,7 @@ cd "$script_root/steam-redirector" || exit 1
 make
 
 cd "$script_root" || exit 1
-tar -czvf "$script_root/release.tar.gz" "${release_files[@]}"
+tar -czvf "$script_root/release-$version.tar.gz" "${release_files[@]}"
 
 cd "$original_workdir" || exit 1
 
