@@ -37,7 +37,7 @@ Check MinGW's [downloads page](https://www.mingw-w64.org/downloads/) for a more 
 
 A Makefile is provided for simplifying the whole process.
 
-- Running `make` will compile Windows binaries - these are the ones you want for the MO2 installer
-- Running `make main-linux` will compile Linux binaries
+- Running `make` or `make main.exe` will compile Windows binaries - these are the ones you want for the MO2 installer
+- Running `make main` will compile Linux binaries
 - Running `make all` will compile all binaries
 
