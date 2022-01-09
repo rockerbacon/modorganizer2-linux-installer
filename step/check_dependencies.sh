@@ -25,5 +25,10 @@ if [ -n "${missing_deps[*]}" ]; then
 	exit 1
 fi
 
+if [ ! -f "$redirector/main.exe" ]; then
+	log_error "redirector binaries not found"
+	exit 1
+fi
+
 log_info "all dependencies met"
 

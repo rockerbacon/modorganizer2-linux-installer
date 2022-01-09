@@ -3,4 +3,8 @@
 *.swo
 *.orig
 
-/gamesinfo/gamesinfo.tar.gz
+/steam-redirector/main
+/steam-redirector/main.exe
+
+/*.tar.gz
+

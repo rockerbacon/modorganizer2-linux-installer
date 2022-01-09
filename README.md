@@ -18,16 +18,19 @@ The following requirements should be available out-of-the-box in most systems:
 - _bash_
 - either _curl_ or _wget_
 - _zenity_
+- _protontricks-launcher_: should be available after installing `protontricks` already, if not see [this](https://github.com/Matoking/protontricks#desktop)
 
 All requirements should be readily available in your distribution's package manager.
 
 #### Installation steps
 
 1. Install the game you want to play. Prefer to get your games directly from Steam as that is the most tested use case;
-2. Download the source code of the latest stable release [here](https://github.com/rockerbacon/lutris-skyrimse-installers/releases);
+2. Download the the latest stable release [here](https://github.com/rockerbacon/modorganizer2-linux-installer/releases/tag/4.1.1/release-4_1_1.tar.gz);
 3. Extract the downloaded file;
 4. Open the extracted folder in a terminal and execute `./install.sh`;
 5. The installer will start and guide you through the rest of the process;
+6. Run the game on Steam and Mod Organizer 2 should start;
+7. Read the [post-install instructions](post-install.md) for recommended additional steps;
 
 The installer will automatically configure game-specific workarounds and install the script extender for your game of choice. Java binaries are also made available at `C:\java` for running Proc Patchers.
 
@@ -53,11 +56,17 @@ Please, help to keep this table up to date by [opening issues](https://github.co
 
 ## Updating Mod Organizer 2
 
-It is recommended to backup your existing installation before updating.
+It is highly recommended to backup your existing installation before updating.
 
-#### From 3.0.0 and above
+#### From 4.0.0 and above
 
 You can update by simply following the install instructions again.
+
+#### From 3.0.6 and below
+
+You can update by simply following the install instructions again.
+
+If you have multiple instances installed, you'll need to update all of them for Nexus integration to work in all of them.
 
 #### From 2.8.6 and below (old Lutris installer)
 
