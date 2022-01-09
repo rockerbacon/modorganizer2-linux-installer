@@ -6,15 +6,12 @@ This document provides information on additional steps you may want to take afte
 
 1. Open Mod Organizer 2;
 2. Click on the cogwheel in the top bar to configure executables;
+![topbar executables config](screenshots/topbar_executables_config.png?raw=true "Executables Configuration")
 3. Click on the launcher in the list to the left;
 4. In the "Binary" text box, add an underscore before the name of the .exe file;
 	- eg.: "Z:\\home\\joe\\Games\\steam-library\\steamapps\\common\\Skyrim Special Edition\\\_SkyrimSELauncher.exe"
-5. Now you should be able to run the launcher by selecting it in the executables dropdown;
-
-Some screenshots to help with visualization:
-
-![topbar executables config](screenshots/topbar_executables_config.png?raw=true "Executables Configuration")
 ![executables list](screenshots/executables_config_leftside_list.png?raw=true "Executables List")
+5. Now you should be able to run the launcher by selecting it in the executables dropdown;
 ![executables dropdown](screenshots/executables_dropdown.png?raw=true "Executables Dropdown")
 
 ### Using alternative proton versions
