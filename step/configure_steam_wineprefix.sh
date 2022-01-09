@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mo2_tricks="vcrun2019"
+mo2_tricks="vcrun2019 dotnet48"
 
 tricks="$mo2_tricks $game_protontricks"
 
