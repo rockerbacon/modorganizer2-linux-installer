@@ -1,8 +1,8 @@
-## Post install instructions
+# Post install instructions
 
-This document provides information on additional steps you may want to take after installing Mod Organizer 2
+This document provides information on additional steps you may want to take after installing Mod Organizer 2.
 
-### Running the original game launcher
+## Running the original game launcher
 
 1. Open Mod Organizer 2;
 2. Click on the cogwheel in the top bar to configure executables:
@@ -18,7 +18,7 @@ This document provides information on additional steps you may want to take afte
 
 ![executables dropdown](screenshots/executables_dropdown.png?raw=true "Executables Dropdown")
 
-### Using alternative proton versions
+## Using alternative proton versions
 
 **IMPORTANT:** Proton 6.3 is the most extensively tested version. The author of this document provides no guarantees that alternative versions will work well.
 
@@ -33,7 +33,7 @@ This document provides information on additional steps you may want to take afte
 
 \*Step 5 is for re-applying protontricks on the newly created prefix. Whether or not that is helpful depends on how well the Proton version you selected works out-of-the-box.
 
-### Launching Mod Organizer 2 outside of Steam
+## Launching Mod Organizer 2 outside of Steam
 
 **IMPORTANT:** the author of this document highly advises against this. Steam runs Proton within its own special environment and Mod Organizer 2 may not properly utilize this environment when executed from outside of Steam. You can read [this reddit comment](https://www.reddit.com/r/linux_gaming/comments/k2kyjt/is_it_a_good_idea_to_use_proton_for_non_steam/gdxz70m/) where GloriousEggroll talks about this in more detail.
 
