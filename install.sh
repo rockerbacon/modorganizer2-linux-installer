@@ -76,5 +76,5 @@ source "$step/apply_workarounds.sh"
 
 log_info "installation completed successfully"
 expect_exit=1
-"$dialog" infobox "Installation successful"
+"$dialog" infobox "Installation successful!\n\Launch the game on Steam to use Mod Organizer 2"
 
