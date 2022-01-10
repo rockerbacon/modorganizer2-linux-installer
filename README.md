@@ -62,7 +62,7 @@ It is highly recommended to backup your existing installation before updating.
 
 You can update by simply following the install instructions again.
 
-#### From 3.0.6 and below
+#### From 3.1.0 and below
 
 You can update by simply following the install instructions again.
 
