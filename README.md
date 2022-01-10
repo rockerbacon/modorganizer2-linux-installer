@@ -24,7 +24,7 @@ All requirements should be readily available in your distribution's package mana
 
 #### Installation steps
 
-1. Install the game you want to play. Prefer to get your games directly from Steam as that is the most tested use case;
+1. Install the game you want to play on Steam;
 2. Download the the latest stable release [here](https://github.com/rockerbacon/modorganizer2-linux-installer/releases/download/4.2.0/mo2installer-4_2_0.tar.gz);
 3. Extract the downloaded file;
 4. Open the extracted folder in a terminal and execute `./install.sh`;
