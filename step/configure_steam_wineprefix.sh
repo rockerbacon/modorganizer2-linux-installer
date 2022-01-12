@@ -2,12 +2,19 @@
 
 if [ -n "${game_protontricks[*]}" ]; then
 	log_info "applying protontricks ${game_protontricks[@]}"
-	WINETRICKS="$downloaded_winetricks" \
-	protontricks "$game_appid" -q "${game_protontricks[@]}" \
-		| "$dialog" loading "Configuring game prefix\nThis may take a while"
+	if [ "$using_flatpak_protontricks" == "0" ]; then
+		WINETRICKS="$downloaded_winetricks" \
+		protontricks "$game_appid" -q "${game_protontricks[@]}" \
+			| "$dialog" loading "Configuring game prefix\nThis may take a while"
+	else
+		flatpak run \
+			--env="WINETRICKS=$downloaded_winetricks" \
+			'com.github.Matoking.protontricks' \
+			"$game_appid" -q "${game_protontricks[@]}" \
+				| "$dialog" loading "Configuring game prefix\nThis may take a while"
+	fi
 
 	if [ "$?" != "0" ]; then
-		# TODO retry, passing option '--force' to winetricks, if issue #61 is detected
 		"$dialog" errorbox \
 			"Error while installing winetricks, check the terminal for more details"
 		exit 1
