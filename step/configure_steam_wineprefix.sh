@@ -7,9 +7,7 @@ if [ -n "${game_protontricks[*]}" ]; then
 		protontricks "$game_appid" -q "${game_protontricks[@]}" \
 			| "$dialog" loading "Configuring game prefix\nThis may take a while"
 	else
-		flatpak run \
-			--env="WINETRICKS=$downloaded_winetricks" \
-			'com.github.Matoking.protontricks' \
+		flatpak run 'com.github.Matoking.protontricks' \
 			"$game_appid" -q "${game_protontricks[@]}" \
 				| "$dialog" loading "Configuring game prefix\nThis may take a while"
 	fi
