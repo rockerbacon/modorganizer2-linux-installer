@@ -66,12 +66,13 @@ You can update by simply following the install instructions again.
 
 You can update by simply following the install instructions again.
 
-If you have multiple instances installed, you'll need to update all of them for Nexus integration to work in all of them.
+If you have multiple instances installed, you'll need to update all of them for Nexus integration to work.
 
 #### From 2.8.6 and below (old Lutris installer)
 
 1. Go to where Mod Organizer was installed and rename the folder "ModOrganizer2" to "modorganizer2" (all lowercase);
 2. Follow the install instructions in this readme;
+3. If you have multiple instances installed, you'll need to update all of them for Nexus integration to work;
 
 ## Installing Vortex
 
