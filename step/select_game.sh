@@ -15,6 +15,7 @@ selected_game=$( \
 	"$dialog" \
 		radio \
 		450 "$screen_text" \
+                "enderal" "Enderal: Forgotton Stories" \
 		"fallout3" "Fallout 3" \
 		"fallout3_goty" "Fallout 3 - Game of the Year Edition" \
 		"fallout4" "Fallout 4" \
@@ -24,7 +25,6 @@ selected_game=$( \
 		"oblivion" "Oblivion" \
 		"skyrim" "Skyrim" \
 		"skyrimspecialedition" "Skyrim Special Edition" \
-		"enderal" "Enderal: Forgotton Stories" \
 )
 
 if [ -z "$selected_game" ]; then
