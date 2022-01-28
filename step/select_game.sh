@@ -16,6 +16,7 @@ selected_game=$( \
 		radio \
 		450 "$screen_text" \
 		"enderal" "Enderal: Forgotten Stories" \
+		"enderal_se" "Enderal: Forgotten Stories (Special Edition)" \
 		"fallout3" "Fallout 3" \
 		"fallout3_goty" "Fallout 3 - Game of the Year Edition" \
 		"fallout4" "Fallout 4" \
