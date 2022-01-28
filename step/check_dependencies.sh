@@ -11,7 +11,17 @@ if [ -z "$(command -v curl)" ] && [ -z "$(command -v wget)" ]; then
 fi
 
 if [ -z "$(command -v protontricks)" ]; then
-	missing_deps+=(protontricks)
+	if [ -n "$(command -v flatpak)" ]; then
+		if flatpak info com.github.Matoking.protontricks > /dev/null; then
+			using_flatpak_protontricks=1
+		else
+			missing_deps+=(protontricks)
+		fi
+	else
+		missing_deps+=(protontricks)
+	fi
+else
+	using_flatpak_protontricks=0
 fi
 
 if [ -z "$(command -v zenity)" ]; then
