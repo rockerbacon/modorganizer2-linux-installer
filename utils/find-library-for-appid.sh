@@ -3,7 +3,7 @@
 appid=$1
 
 if [ -n "$STEAM_LIBRARY" ]; then
-	echo "$STEAM_LIBRARY/steamapps/compatdata/$appid"
+	echo "$STEAM_LIBRARY"
 	exit 0
 fi
 
