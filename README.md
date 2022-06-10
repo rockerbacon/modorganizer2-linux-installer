@@ -74,26 +74,27 @@ If you have multiple instances installed, you'll need to update all of them for 
 2. Follow the install instructions in this readme;
 3. If you have multiple instances installed, you'll need to update all of them for Nexus integration to work;
 
+#### Notes
+
+- The old Skyrim Special Edition and SKSE64 installers have been deprecated as the Mod Organizer 2 installer replaces both
+
 ## Installing Vortex
 
-The Vortex installer was created before Wine had builtin support for Mod Organizer 2. It should only be used for games which Mod Organizer 2 does not support.
+The Vortex installer was created before Wine had builtin support for Mod Organizer 2.
 
-The Vortex installer does not apply any configurations to the games themselves. Make sure they are working, using Lutris or another method, before modding. GAMES SHOULD NOT BE LAUNCHED FROM WITHIN VORTEX.
+The Vortex installer does not apply any configurations to the games themselves. Make sure they are working, using Lutris or another method, before modding.
+
+GAMES SHOULD NOT BE LAUNCHED FROM WITHIN VORTEX.
 
 The Vortex installer is not under active development/maintenance at the moment.
 
-To install Vortex, you first need the `vortex.yml` installer from the [latest release which included it](https://github.com/rockerbacon/lutris-skyrimse-installers/releases/tag/1.9.3).
+To install Vortex, you first need the `vortex.yml` installer from the [latest release which included it](https://github.com/rockerbacon/modorganizer2-linux-installer/releases/tag/2.0).
 
-You can use the installer with the following terminal command, remember to change the path if the file was downloaded to another location:
+You can run the installer in Lutris by clicking the 'Add Game' plus icon and selecting 'Install from a local install script' and selecting the `vortex.yml` file or with the following terminal command. Remember to change the path if the file was downloaded to another location:
 ```bash
 lutris -i "$HOME/Downloads/vortex.yml"
 ```
 
-Remember to follow all instructions during installation, some manual steps are required for Vortex to work properly.
+Remember to follow all instructions during installation. If not installing the latest version of Vortex, manually disconnect from the internet when prompted during installation to prevent Vortex from trying to automatically update.
 
-After installing Vortex and following all instructions, manually add the game you want to mod.
-
-#### Notes
-
-- The old Skyrim Special Edition and SKSE64 installers have been deprecated as the Mod Organizer 2 installer replaces both
-- Advanced instructions for using Vortex can be found on [older versions of this README](https://github.com/rockerbacon/lutris-skyrimse-installers/tree/0203cd1fdc9832152ae1d87c488c7492ea3ecc61). They were removed since they are only applicable to games supported by the Mod Organizer 2 installer
+After installation, select the game you want to mod from the games tab in the app to begin managing it with Vortex. The `vortex-downloads-handler.desktop` can be used to download files directly to the mod manager and/or launch Vortex without starting Lutris. Further instructions for using the Vortex installer can be found on [older versions of this README](https://github.com/rockerbacon/lutris-skyrimse-installers/tree/0203cd1fdc9832152ae1d87c488c7492ea3ecc61).
