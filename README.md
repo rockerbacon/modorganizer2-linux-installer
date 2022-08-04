@@ -42,7 +42,7 @@ The following is a small overview of the current state of each supported game:
 
 | GAME                   | GAMEPLAY      | SCRIPT EXTENDER           | ENB           |
 | :--------------------- | :------------ | :------------------------ | :------------ |
-| Fallout 3              | not tested    | not tested                | not tested    |
+| Fallout 3              | working | working                | not tested    |
 | Fallout 4              | working | [some plugins might not work](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/32) | ENB v0.393 or older, disabling "EnablePostPassShader" might be necessary |
 | Fallout New Vegas      | fullscreen only       | working | working    |
 | Morrowind              | not tested    | not tested                | not tested    |
