@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 missing_deps=()
 

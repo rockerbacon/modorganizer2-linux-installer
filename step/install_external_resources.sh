@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 function install_mo2() {
 	log_info "installing Mod Organizer 2 in '$mo2_installation'"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 screen_text=$( \
 cat << EOF

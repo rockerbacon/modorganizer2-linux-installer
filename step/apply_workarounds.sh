@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 game_workarounds="$workarounds/$selected_game.sh"
 

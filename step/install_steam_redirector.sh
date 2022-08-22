@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 mkdir -p "$game_installation/modorganizer2"
 

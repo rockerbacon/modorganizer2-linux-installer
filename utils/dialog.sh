@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 dialogtype=$1; shift
 

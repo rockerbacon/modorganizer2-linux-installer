@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 data="$game_installation/Data"
 proc_patchers="$data/SkyProc Patchers"

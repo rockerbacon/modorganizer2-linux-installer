@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 version="$1"
 
 set -eu

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 appid=$1
 

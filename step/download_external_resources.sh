@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 download="$utils/download.sh"
 extract="$utils/extract.sh"
