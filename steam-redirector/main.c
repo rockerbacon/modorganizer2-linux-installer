@@ -12,14 +12,12 @@
 #include "win32_utils.h"
 
 #define MO2_PATH_FILE "modorganizer2\\instance_path.txt"
-#define MO2_DOWNLOAD_PATH_FILE "modorganizer2\\instance_download_path.txt"
 
 #elif __unix__
 
 #include "unix_utils.h"
 
 #define MO2_PATH_FILE "modorganizer2/instance_path.txt"
-#define MO2_DOWNLOAD_PATH_FILE "modorganizer2/instance_download_path.txt"
 
 #endif
 
@@ -110,11 +108,12 @@ int main(int argc, char** argv) {
 #endif
 	int exit_status = 1;
 
+	char_t *arg = NULL;
 	if (argc > 1) {
-		exit_status = execute_from_path_file(MO2_DOWNLOAD_PATH_FILE, argv[1]);
-	} else {
-		exit_status = execute_from_path_file(MO2_PATH_FILE, NULL);
+		arg = argv[1];
 	}
+
+	exit_status = execute_from_path_file(MO2_PATH_FILE, arg);
 
 	return exit_status;
 }
