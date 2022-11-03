@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 picker_text=$( \
 cat << EOF

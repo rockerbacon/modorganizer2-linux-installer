@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 load_gameinfo="$gamesinfo/$selected_game.sh"
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function log_info() {
 	echo "INFO:" "$@" >&2

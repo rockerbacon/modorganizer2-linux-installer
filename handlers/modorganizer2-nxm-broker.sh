@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ###    PARSE POSITIONAL ARGS    ###
 nxm_link=$1; shift

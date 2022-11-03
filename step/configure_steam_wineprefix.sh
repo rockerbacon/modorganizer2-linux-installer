@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -n "${game_protontricks[*]}" ]; then
 	log_info "applying protontricks ${game_protontricks[@]}"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 log_info "installing nxm link broker in '$shared'"
 cp "$handlers/modorganizer2-nxm-broker.sh" "$shared"
