@@ -10,8 +10,8 @@ cp "$handlers/modorganizer2-nxm-handler.desktop" "$HOME/.local/share/application
 echo "$game_appid" > "$install_dir/appid.txt"
 
 if [ -n "$(command -v xdg-mime)" ]; then
-    xdg-mime default modorganizer2-nxm-handler.desktop x-scheme-handler/nxm
+	xdg-mime default modorganizer2-nxm-handler.desktop x-scheme-handler/nxm
 else
-    log_warn "xdg-mime not found, cannot register mimetype"
+	log_warn "xdg-mime not found, cannot register mimetype"
 fi
 
