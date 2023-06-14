@@ -46,12 +46,16 @@ function install_files() {
 
 		if [ "${game_scriptextender_files[*]}" == "*" ]; then
 			log_info "copying all files from '$extracted_scriptextender' into '$game_installation'"
-			cp -an "$extracted_scriptextender"/* "$game_installation"
+			if ! cp -an "$extracted_scriptextender"/* "$game_installation"; then
+                log_warn "failed to copy all files from '$extracted_scriptextender' into '$game_installation', files may already be present"
+            fi
 		else
 			for scriptextender_file in "${game_scriptextender_files[@]}"; do
 				scriptextender_filepath="$extracted_scriptextender/$scriptextender_file"
 				log_info "copying '$scriptextender_filepath' into '$game_installation'"
-				cp -an "$scriptextender_filepath" "$game_installation"
+                if ! cp -an "$scriptextender_filepath" "$game_installation"; then
+                    log_warn "failed to copy '$scriptextender_filepath' into '$game_installation', file may already be present"
+                fi
 			done
 		fi
 	fi
