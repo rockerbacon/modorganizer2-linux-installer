@@ -54,7 +54,7 @@ function install_files() {
 				scriptextender_filepath="$extracted_scriptextender/$scriptextender_file"
 				log_info "copying '$scriptextender_filepath' into '$game_installation'"
 				if ! cp -an "$scriptextender_filepath" "$game_installation"; then
-				    log_warn "failed to copy '$scriptextender_filepath' into '$game_installation', file may already be present"
+					log_warn "failed to copy '$scriptextender_filepath' into '$game_installation', file may already be present"
 				fi
 			done
 		fi
