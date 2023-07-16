@@ -7,12 +7,12 @@ Before continuing, we need to do a few things:
 1. Make sure the game has no launch options set
 	1.1. On Steam: right click the game > Properties > General > Launch Options
 
-2. Make sure the game is configured to use Proton 6.3
+2. Make sure the game is configured to use Proton 8.0
 	2.1. On Steam: right click the game > Properties > Compatibility
 	2.2. Check the option "Force the use of a specific Steam Play compatibility tool"
-	2.3. Select Proton 6.3 in the dropdown
+	2.3. Select Proton 8.0 in the dropdown
 
-3. Make sure the game ran at least once after selecting Proton 6.3
+3. Make sure the game ran at least once after selecting Proton 8.0
 
 4. Make sure the game is not running right now
 EOF
