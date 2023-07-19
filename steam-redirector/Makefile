@@ -12,3 +12,6 @@ main: main.c unix_utils.c
 main.exe: main.c win32_utils.c
 	$(WIN_C) -mwindows -municode -static -static-libgcc -Bstatic -lpthread -o main.exe win32_utils.c main.c
 
+main_debug.exe: main.c win32_utils.c
+	$(WIN_C) -municode -static -static-libgcc -Bstatic -lpthread -o main.exe win32_utils.c main.c
+
