@@ -47,3 +47,10 @@ WINEESYNC=1 WINEFSYNC=1 protontricks-launch --appid 489830 "$HOME/.config/modorg
 
 You can find the proper appid for the game you want [here](gamesinfo).
 
+## Pass argument to Mod Organizer 2
+
+The first launch option in game properties in Steam is passed as an argument to Mod Organizer 2. This allows to e.g. tell MO2 to launch an executable without having to open its UI and click the run button, like the shortcuts created by MO2 do on Windows.
+
+For example if you want MO2 to run an executable called `exe` directly, add the `moshortcut://exe` launch option in the Steam's game properties.
+
+Then MO2 will skip opening its UI and directly run `exe` when Steam launches the game.
