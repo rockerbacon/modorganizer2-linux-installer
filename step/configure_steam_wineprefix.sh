@@ -3,7 +3,7 @@
 if [ -n "${game_protontricks[*]}" ]; then
 	log_info "applying protontricks ${game_protontricks[@]}"
 	if [ "$using_flatpak_protontricks" == "0" ]; then
-		WINETRICKS="$downloaded_winetricks" \
+		WINETRICKS="$executable_winetricks" \
 		protontricks "$game_appid" -q "${game_protontricks[@]}" \
 			| "$dialog" loading "Configuring game prefix\nThis may take a while"
 	else
