@@ -19,7 +19,7 @@ elif [ -z "$game_steam_subdirectory" ]; then
 	exit 1
 fi
 
-steam_library=$("$utils/find-library-for-appid.sh" "$game_appid")
+steam_library=$("$utils/find-library-for-file.sh" "$game_steam_subdirectory/$game_executable")
 
 if [ ! -d "$steam_library" ]; then
 	log_error "could not find any Steam library containing a game with appid '$game_appid'. If you known exactly where the library is, you can specify it using the environment variable STEAM_LIBRARY"
