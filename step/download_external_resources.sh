@@ -12,6 +12,7 @@ winetricks_url='https://raw.githubusercontent.com/Winetricks/winetricks/master/s
 downloaded_jdk="$downloads_cache/${jdk_url##*/}"
 extracted_jdk="${downloaded_jdk%.*}"
 downloaded_winetricks="$downloads_cache/winetricks"
+executable_winetricks="$shared/winetricks"
 
 downloaded_mo2="$downloads_cache/${mo2_url##*/}"
 extracted_mo2="${downloaded_mo2%.*}"
@@ -78,8 +79,9 @@ fi
 
 if [ ! -f "$downloaded_winetricks" ]; then
 	"$download" "$winetricks_url" "$downloaded_winetricks"
-	chmod u+x "$downloaded_winetricks"
 fi
+cp "$downloaded_winetricks" "$executable_winetricks"
+chmod u+x "$executable_winetricks"
 
 if [ -n "$downloaded_scriptextender" ] && [ ! -f "$downloaded_scriptextender" ]; then
 	"$download" "$game_scriptextender_url" "$downloaded_scriptextender"
