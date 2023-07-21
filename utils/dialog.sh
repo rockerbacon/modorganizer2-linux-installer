@@ -28,7 +28,7 @@ question() {
 }
 
 dangerquestion() {
-	zenity --question --ellipsize --icon-name=dialog-warning --text="$1"
+	zenity --extra-button=No --ok-label=Yes --warning --text="$1" >/dev/null
 	return $?
 }
 
