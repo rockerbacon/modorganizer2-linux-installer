@@ -4,7 +4,7 @@
 *.orig
 
 /steam-redirector/main
-/steam-redirector/main.exe
+/steam-redirector/main*.exe
 
 /*.tar.gz
 
