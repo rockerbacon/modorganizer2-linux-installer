@@ -47,3 +47,19 @@ WINEESYNC=1 WINEFSYNC=1 protontricks-launch --appid 489830 "$HOME/.config/modorg
 
 You can find the proper appid for the game you want [here](gamesinfo).
 
+## Launching a modded game without opening Mod Organizer 2
+
+You can pass a single parameter to Mod Organizer 2 through the game's launch options on Steam. This allows you to tell Mod Organizer 2 to skip its UI and directly launch an executable.
+
+1. Open Steam;
+2. Right click the game you want to launch directly and click on "Properties";
+3. Scroll down to "Launch Options" within the "General" tab;
+4. Write `'moshortcut://"executable name"'` in the launch options textbox. eg.:
+   - `'moshortcut://"Fallout Launcher"'` will launch the original Fallout New Vegas launcher
+   - `'moshortcut://"SKSE"'` will directly launch Skyrim and Skyrim SE, with SKSE enabled
+
+![steam launch options](screenshots/steam_launch_options.png?raw=true "Steam launch options")
+
+5. Close the properties window and launch the game;
+
+**IMPORTANT:** pay attention to the usage of single and double quotes in the examples above, as they ensure executable names including spaces will still work. The entire launch option should be wrapped in single quotes and the executable name should be wrapped in double quotes.
