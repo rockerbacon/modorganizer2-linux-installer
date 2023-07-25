@@ -13,9 +13,8 @@ function log_info() {
 
 script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
-steam_libraries=($("$script_root/list-steam-libraries.sh"))
-
-for libdir in "${steam_libraries[@]}"; do
+"$script_root/list-steam-libraries.sh" | \
+while read -r libdir; do
 	full_path="$libdir/steamapps/common/$desired_file"
 	if [ -f "$full_path" ]; then
 		log_info "game found in '$libdir'"
