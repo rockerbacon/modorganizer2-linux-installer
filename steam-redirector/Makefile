@@ -1,5 +1,7 @@
 GNU_C=gcc
 WIN_C=x86_64-w64-mingw32-gcc
+WIN_FLAGS=-municode -static -static-libgcc -Bstatic -lpthread
+WIN_SRC=main.c win32_utils.c
 
 default: main.exe
 
@@ -9,6 +11,8 @@ all: main.exe main
 main: main.c unix_utils.c
 	$(GNU_C) -o main unix_utils.c main.c
 
-main.exe: main.c win32_utils.c
-	$(WIN_C) -municode -static -static-libgcc -Bstatic -lpthread -o main.exe win32_utils.c main.c
+main.exe: $(WIN_SRC)
+	$(WIN_C) $(WIN_FLAGS) -mwindows -o main.exe $^
 
+main_debug.exe: $(WIN_SRC)
+	$(WIN_C) $(WIN_FLAGS) -o main_debug.exe $^
