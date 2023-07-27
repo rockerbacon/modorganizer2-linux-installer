@@ -25,11 +25,12 @@ function install_files() {
 		mo2_installation="$install_dir/modorganizer2"
 
 		if [ -d "$mo2_installation" ]; then
-			set +e
-			"$dialog" question \
-				"Mod Organizer 2 is already installed. Would you like to update?"
-			confirm_update=$?
-			set -e
+			log_info "mo2 exists, asking about update"
+			confirm_update=$( \
+				"$dialog" question \
+					"Mod Organizer 2 is already installed. Would you like to update?" \
+			)
+			log_info "asked about update"
 
 			if [ "$confirm_update" == "0" ]; then
 				install_mo2

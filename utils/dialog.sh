@@ -9,7 +9,7 @@ fi
 
 errorbox() {
 	zenity --ok-label=Exit --ellipsize --error --text "$1"
-	return 1
+	return 0 
 }
 
 infobox() {
@@ -23,21 +23,23 @@ warnbox() {
 }
 
 question() {
-	zenity --question --ellipsize --text="$1"
-	return $?
+	zenity --question --ellipsize --text="$1" >/dev/null
+	echo "$?"
+	return 0
 }
 
 dangerquestion() {
 	zenity --extra-button=No --ok-label=Yes --warning --text="$1" >/dev/null
-	return $?
+	echo "$?"
+	return 0
 }
 
 directorypicker() {
-	message=$1; shift
-	default_directory=$1; shift
+	local message=$1; shift
+	local default_directory=$1; shift
 
-	finish_selection="false"
-	selection_entry="$default_directory"
+	local finish_selection="false"
+	local selection_entry="$default_directory"
 	while [ "$finish_selection" != "true" ]; do
 		raw_entry=$(zenity --entry --entry-text="$selection_entry" --extra-button="Browse" --text "$message"); confirm=$?
 		eval selection_entry="$raw_entry"
@@ -45,14 +47,22 @@ directorypicker() {
 		case "$confirm" in
 			0)
 				if [ ! -e "$selection_entry" ]; then
-					question "Directory '$selection_entry' does not exist. Would you like to create it?"
-					if [ "$?" == "0" ]; then
+					local confirm_create_dir=$( \
+						question \
+						"Directory '$selection_entry' does not exist. Would you like to create it?" \
+					)
+
+					if [ "$confirm_create_dir" == "0" ]; then
 						mkdir -p "$selection_entry"
 						finish_selection=true
 					fi
 				elif [ -n "$(ls -A "$selection_entry/")" ]; then
-					dangerquestion "Directory '$selection_entry' is not empty. Would you like to continue anyway?"
-					if [ "$?" == "0" ]; then
+					local confirm_overwrite=$( \
+						dangerquestion \
+						"Directory '$selection_entry' is not empty. Would you like to continue anyway?" \
+					)
+
+					if [ "$confirm_overwrite" == "0" ]; then
 						finish_selection=true
 					fi
 				else
