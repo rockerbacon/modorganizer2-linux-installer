@@ -37,7 +37,7 @@ function handle_error() {
 }
 
 function log_info() {
-	echo "INFO:" "$@"
+	echo "INFO:" "$@" >&2
 }
 
 function log_warn() {
@@ -57,8 +57,8 @@ source "$step/check_dependencies.sh"
 selected_game=$(source "$step/select_game.sh")
 log_info "selected game '$selected_game'"
 
-source "$step/confirm_initial_setup.sh"
 source "$step/load_gameinfo.sh"
+source "$step/clean_game_prefix.sh"
 
 install_dir=$(source "$step/select_install_dir.sh")
 log_info "selected install directory '$install_dir'"

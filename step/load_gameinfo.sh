@@ -28,6 +28,7 @@ if [ ! -d "$steam_library" ]; then
 	exit 1
 fi
 
-game_prefix="$steam_library/steamapps/compatdata/$game_appid/pfx"
+game_compatdata="$steam_library/steamapps/compatdata/$game_appid"
+game_prefix="$game_compatdata/pfx"
 game_installation="$steam_library/steamapps/common/$game_steam_subdirectory"
 
