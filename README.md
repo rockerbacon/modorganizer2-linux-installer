@@ -11,7 +11,7 @@ While these installers may be available on Lutris.net, users are always recommen
 You may need to manually install the following programs:
 
 - _7z_
-- _protontricks_
+- _protontricks_:
 
 The following requirements should be available out-of-the-box in most systems:
 
@@ -21,6 +21,8 @@ The following requirements should be available out-of-the-box in most systems:
 - _protontricks-launcher_: should be available after installing `protontricks` already, if not see [this](https://github.com/Matoking/protontricks#desktop)
 
 All requirements should be readily available in your distribution's package manager.
+
+**Steam Deck users**: Protontricks must be installed through the Discover app.
 
 #### Installation steps
 
