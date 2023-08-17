@@ -11,7 +11,7 @@ While these installers may be available on Lutris.net, users are always recommen
 You may need to manually install the following programs:
 
 - _7z_
-- _protontricks_:
+- _protontricks_
 
 The following requirements should be available out-of-the-box in most systems:
 
