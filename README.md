@@ -22,6 +22,8 @@ The following requirements should be available out-of-the-box in most systems:
 
 All requirements should be readily available in your distribution's package manager.
 
+**Steam Deck users**: Protontricks must be installed through the Discover app.
+
 #### Installation steps
 
 1. Install the game you want to play on Steam;

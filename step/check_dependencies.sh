@@ -40,5 +40,14 @@ if [ ! -f "$redirector/main.exe" ]; then
 	exit 1
 fi
 
+os_id=$("$utils/get_os_id.sh")
+
+if [ "$os_id" == "steamos" ] && [ "$using_flatpak_protontricks" == "0" ]; then
+	log_error "Using non-flatpak Protontricks on SteamOS"
+	"$dialog" errorbox \
+		"Only Flatpak releases of Protontricks are supported on SteamOS.\nPlease install Protontricks through the Discover app and try again."
+	exit 1
+fi
+
 log_info "all dependencies met"
 
