@@ -28,7 +28,7 @@ if [ ! -d "$steam_library" ]; then
 	exit 1
 fi
 
-game_compatdata="$steam_library/steamapps/compatdata/$game_appid"
-game_prefix="$game_compatdata/pfx"
+game_prefix=$("$utils/protontricks.sh" get-prefix "$game_appid")
+game_compatdata=$(dirname "$game_prefix")
 game_installation="$steam_library/steamapps/common/$game_steam_subdirectory"
 
