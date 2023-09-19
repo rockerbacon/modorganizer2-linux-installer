@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+warn_third_party="false"
 load_gameinfo="$gamesinfo/$selected_game.sh"
 
 if [ ! -f "$load_gameinfo" ]; then
@@ -26,6 +27,19 @@ if [ ! -d "$steam_library" ]; then
 	"$dialog" errorbox \
 		"Could not find '$game_steam_subdirectory' in any of your Steam libraries\nMake sure the game is installed and that you've run it at least once"
 	exit 1
+fi
+
+if [ "$warn_third_party" == "true" ]; then
+    should_continue=$( \
+        "$dialog" \
+            dangerquestion \
+            "This game needs to download third-party plugin to work properly. Use it at your own risk. Do you wish to continue?"
+    )
+
+    if [ "$should_continue" == "1" ]; then 
+        log_info "Exiting"
+        exit 1;
+    fi
 fi
 
 game_prefix=$("$utils/protontricks.sh" get-prefix "$game_appid")

@@ -20,6 +20,9 @@ extracted_mo2="${downloaded_mo2%.*}"
 if [ -n "$game_scriptextender_url" ]; then
 	downloaded_scriptextender="$downloads_cache/${game_nexusid}_${game_scriptextender_url##*/}"
 	extracted_scriptextender="${downloaded_scriptextender%.*}"
+else
+    downloaded_scriptextender=""
+    extracted_scriptextender=""
 fi
 
 function purge_downloads_cache() {
