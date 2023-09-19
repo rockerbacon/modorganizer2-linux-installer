@@ -22,7 +22,7 @@ if [ -n "$game_scriptextender_url" ]; then
 	extracted_scriptextender="${downloaded_scriptextender%.*}"
 else
 	downloaded_scriptextender=""
-    extracted_scriptextender=""
+	extracted_scriptextender=""
 fi
 
 function purge_downloads_cache() {
