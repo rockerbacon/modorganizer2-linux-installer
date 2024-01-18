@@ -1,7 +1,6 @@
 #!/bin/bash
 
-organizer="$game_prefix/users/steamuser/AppData/Local/ModOrganizer/"
-overwrite="$organizer/overwrite/SKSE"
+overwrite="$game_prefix/users/steamuser/AppData/Local/ModOrganizer/overwrite/SKSE"
 
 mkdir -p "$overwrite"
 
