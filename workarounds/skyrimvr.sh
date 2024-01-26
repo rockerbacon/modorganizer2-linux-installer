@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-overwrite="$game_prefix/users/steamuser/AppData/Local/ModOrganizer/overwrite/SKSE"
+skse_config_dir="$game_installation/Data/SKSE"
 
-mkdir -p "$overwrite"
+mkdir -p "$skse_config_dir"
 
-cat << EOT >> "$overwrite/SKSE.ini"
+cat << EOT >> "$skse_config_dir/SKSE.ini"
 [Loader]
 RuntimeName=_SkyrimVR.exe
 EOT
