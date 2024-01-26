@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 overwrite="$game_prefix/users/steamuser/AppData/Local/ModOrganizer/overwrite/SKSE"
 
