@@ -20,6 +20,7 @@ release_files=( \
 	"steam-redirector/main.exe" \
 	"step" \
 	"utils" \
+	"workarounds" \
 )
 
 original_workdir=$PWD
