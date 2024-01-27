@@ -28,7 +28,9 @@ if [ ! -d "$steam_library" ]; then
 	exit 1
 fi
 
-game_prefix=$("$utils/protontricks.sh" get-prefix "$game_appid")
-game_compatdata=$(dirname "$game_prefix")
 game_installation="$steam_library/steamapps/common/$game_steam_subdirectory"
+
+# defer loading these variables to step/clean_game_prefix.sh
+game_prefix=''
+game_compatdata=''
 
