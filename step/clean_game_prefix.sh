@@ -12,7 +12,7 @@ EOF
 
 create_clean_prefix_text=$( \
 cat << EOF
-Your existing prefix was deleted. Now you need to create a clean one:
+Now you need to create a clean prefix:
 
 1. On Steam: right click the game > Properties > Compatibility
 2. Check the option "Force the use of a specific Steam Play compatibility tool"
@@ -32,9 +32,7 @@ function delete_existing_prefix() {
 	fi
 }
 
-function clean_game_prefix() {
-	delete_existing_prefix
-
+function create_new_prefix() {
 	confirmation=$( \
 		"$dialog" \
 			radio \
@@ -46,23 +44,36 @@ function clean_game_prefix() {
 	echo "$confirmation"
 }
 
-confirm_cleaning=$("$dialog" question "$confirm_cleaning_text")
-if [ "$confirm_cleaning" == "0" ]; then
-	cleaning_status=$(clean_game_prefix)
-	if [ "$cleaning_status" != "0" ]; then
-		log_error "installation cancelled by the user"
-		exit 1
+function load_prefix_locations() {
+	game_prefix=$("$utils/protontricks.sh" get-prefix "$game_appid")
+	if [ -n "$game_prefix" ]; then
+		game_compatdata=$(dirname "$game_prefix")
 	fi
+}
 
-	log_info "user confirmed prefix setup"
-else
-	log_info "proceeding with existing prefix"
+load_prefix_locations
+if [ -n "$game_prefix" ]; then
+	confirm_cleaning=$("$dialog" question "$confirm_cleaning_text")
+	if [ "$confirm_cleaning" == "0" ]; then
+		delete_existing_prefix
+	else
+		log_info "proceeding with existing prefix"
+	fi
 fi
 
-if [ ! -d "$game_prefix" ]; then
+confirm_new_prefix=$(create_new_prefix)
+if [ "$confirm_new_prefix" != "0" ]; then
+	log_error "installation cancelled by the user"
+	exit 1
+fi
+log_info "user confirmed prefix setup"
+
+load_prefix_locations
+if [ -z "$game_prefix" ]; then
+	log_error "no prefix found"
 	"$dialog" \
 		errorbox \
-		"A prefix for the selected game could not be found.\nMake sure you have followed the instructions\non cleaning your prefix"
+		"A prefix for the selected game could not be found.\nMake sure you have followed the instructions\non creating a clean prefix"
 	exit 1
 fi
 

@@ -47,8 +47,13 @@ function apply() {
 }
 
 function get_prefix() {
-	do_protontricks -c 'echo $WINEPREFIX' "$1"
-	return $?
+	prefix=$( \
+		do_protontricks -c 'echo $WINEPREFIX' "$1" 2>/dev/null || \
+		true \
+	)
+	if [ -d "$prefix" ]; then
+		echo "$prefix"
+	fi
 }
 
 action=$1
