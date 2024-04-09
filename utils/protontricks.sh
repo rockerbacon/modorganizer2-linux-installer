@@ -56,6 +56,12 @@ function get_prefix() {
 	fi
 }
 
+function run_command() {
+	appid=$1; shift
+	do_protontricks -c "$@" $appid
+	return $?
+}
+
 action=$1
 shift
 
@@ -68,6 +74,9 @@ case "$action" in
 	;;
 	apply)
 		apply "$@"
+	;;
+	run-command)
+		run_command "$@"
 	;;
 	*)
 		log_error "invalid action '$action'"

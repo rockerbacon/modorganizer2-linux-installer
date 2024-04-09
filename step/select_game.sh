@@ -27,6 +27,7 @@ selected_game=$( \
 		"skyrim" "Skyrim" \
 		"skyrimspecialedition" "Skyrim Special Edition" \
 		"skyrimvr" "Skyrim VR" \
+		"stardewvalley" "Stardew Valley" \
 )
 
 if [ -z "$selected_game" ]; then
