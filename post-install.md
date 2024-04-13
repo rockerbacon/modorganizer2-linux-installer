@@ -63,3 +63,21 @@ You can pass a single parameter to Mod Organizer 2 through the game's launch opt
 5. Close the properties window and launch the game;
 
 **IMPORTANT:** pay attention to the usage of single and double quotes in the examples above, as they ensure executable names including spaces will still work. The entire launch option should be wrapped in single quotes and the executable name should be wrapped in double quotes.
+
+## Required post-install steps for Stardew Valley
+
+SMAPI requires a console window to run, so we need to make a small tweak to the SMAPI Shortcut.
+
+1. Open Mod Organizer 2;
+2. Click on the cogwheel in the top bar to configure executables:
+
+![topbar executables config](screenshots/topbar_executables_config.png?raw=true "Executables Configuration")
+
+3. Click on SMAPI in the list to the left;
+4. Move the text in the "Binary" box to the "Arguments" box;
+5. In the "Binary" text box, enter: "c:\windows\system32\wineconsole.exe"
+
+Your config should look similar to this:
+
+![SMAPI executables list](screenshots/executables_config_SMAPI.png?raw=true "SMAPI Executables List")
+
