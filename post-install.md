@@ -81,3 +81,6 @@ Your config should look similar to this:
 
 ![SMAPI executables list](screenshots/executables_config_SMAPI.png?raw=true "SMAPI Executables List")
 
+## Updating SMAPI (for Stardew Valley)
+
+SMAPI can update frequently, and this installer may be a little behind. To change the version of SMAPI installed, simply edit gamesinfo/stardewvalley.sh, and change the variable game_smapi_version to match the version of SMAPI you wish to install.
