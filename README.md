@@ -37,6 +37,20 @@ The installer will automatically configure game-specific workarounds and install
 
 **Avoid using ENBoost** with Skyrim: DXVK and Wine have their own better working memory patches, both properly enabled with this installer.
 
+#### Flatpak Steam Users
+
+Note, the usual install dirtectory of `/home/[USER]/Games/` will not be available to Flatpak Steam by default as per [issue #538](https://github.com/rockerbacon/modorganizer2-linux-installer/issues/538).
+
+You have two options:
+1. (Easiest) When prompted for an installation directory, install at the default Flatpak Steam directory, or whichever directory games are installed with:
+```
+/home/[USER]/.var/app/com.valvesoftware.Steam/data/Steam/steamapps/common/
+```
+2. Grant Flatpak Steam access to the directory. This can be done through `Flatseal` or the terminal with:
+```
+flatpak override com.valvesoftware.Steam --filesystem=/home/[USER]/Games/
+```
+
 ### Features
 
 The following is a small overview of the current state of each supported game:
