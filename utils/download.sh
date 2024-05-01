@@ -50,7 +50,7 @@ log_info "downloading '$url' to '$out_file'"
 
 case "$download_backend" in
 	"wget2")
-		wget "$url" --progress=dot --no-verbose -O "$out_file" 2>&1 \
+		wget "$url" --no-verbose -O "$out_file" 2>&1 \
 			| grep --line-buffered --color=never -oE '[0-9]+%' \
 			| zenity --progress --auto-kill --auto-close --text="$progress_text"
 		;;
