@@ -28,7 +28,7 @@ fi
 # don't have a name e.g. https://example.com/.
 if [ -n "$DOWNLOAD_BACKEND" ]; then
 	download_backend="$DOWNLOAD_BACKEND"
-elif command -v wget >& /dev/null && wget --version|grep Wget2 >& /dev/null; then
+elif command -v wget2 >& /dev/null; then
 	log_info "using wget2 backend"
 	download_backend="wget2"
 elif command -v wget >& /dev/null; then
@@ -50,7 +50,7 @@ log_info "downloading '$url' to '$out_file'"
 
 case "$download_backend" in
 	"wget2")
-		wget "$url" --no-verbose -O "$out_file" 2>&1 \
+		wget2 "$url" --no-verbose --force-progress -O "$out_file" 2>&1 \
 			| grep --line-buffered --color=never -oE '[0-9]+%' \
 			| zenity --progress --auto-kill --auto-close --text="$progress_text"
 		;;
