@@ -85,7 +85,7 @@ if [ -z "$game_prefix" ]; then
 	log_error "no prefix found"
 	"$dialog" \
 		errorbox \
-		"A prefix for the selected game could not be found.\nMake sure you have followed the instructions\non creating a clean prefix"
+		"A prefix for the selected game could not be found.\nMake sure you have followed the instructions on creating a clean prefix.\nCheck the terminal output for more details."
 	exit 1
 fi
 
