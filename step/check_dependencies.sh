@@ -6,7 +6,7 @@ if [ -z "$(command -v 7z)" ]; then
 	missing_deps+=(7z)
 fi
 
-if [ -z "$(command -v curl)" ] && [ -z "$(command -v wget)" ]; then
+if [ -z "$(command -v curl)" ] && [ -z "$(command -v wget)" ] && [ -z "$(command -v wget2)" ]; then
 	missing_deps+=("curl or wget")
 fi
 
