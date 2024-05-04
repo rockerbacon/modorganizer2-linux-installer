@@ -17,7 +17,7 @@ instance_dir=$(readlink -f  "$instance_link")
 if [ ! -d "$instance_dir" ]; then
 	[ -L "$instance_link"] && rm "$instance_link"
 
-	zenity --ok-label=Exit --ellipsize --error --text \
+	zenity --ok-label=Exit --error --text \
 		"Could not download file because there is no Mod Organizer 2 instance for '$nexus_game_id'"
 	exit 1
 fi
@@ -39,7 +39,7 @@ else
 fi
 
 if [ "$download_start_status" != "0" ]; then
-	zenity --ok-label=Exit --ellipsize --error --text \
+	zenity --ok-label=Exit --error --text \
 		"Failed to start download:\n\n$download_start_output"
 	exit 1
 fi
