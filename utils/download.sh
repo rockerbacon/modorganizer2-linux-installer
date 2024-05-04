@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# usage: download.sh url
-#   downloads resource at  url  to the current working directory.
+# usage: download.sh URL DST
+#   downloads resource at URL to DST
 
 function log_error() {
 	echo "ERROR:" "$@" >&2
@@ -22,6 +22,11 @@ elif [ -z "$out_file" ]; then
 	exit 1
 fi
 
+progress_bar() {
+	stdbuf -o0 tr '[:cntrl:]' '\n' \
+		| grep --color=never --line-buffered -oE '[0-9\.]+%' \
+		| zenity --progress --auto-kill --auto-close --text "$1"
+}
 
 # We default to wget because it seems like a better choice for this sort of work -
 # doesn't overwrite files by default, better progress bar, downloads resources that
@@ -48,17 +53,14 @@ log_info "downloading '$url' to '$out_file'"
 case "$download_backend" in
 	"wget")
 		wget "$url" --progress=dot --no-verbose --show-progress -O "$out_file" 2>&1 \
-			| grep --line-buffered --color=never -oE '[0-9]+%' \
-			| zenity --progress --auto-kill --auto-close --text="$progress_text"
+			| progress_bar "$progress_text"
 		;;
 
 	"curl")
 		redirected_url=$(curl -ILs -o /dev/null -w '%{url_effective}' "$url")
 
 		curl "$redirected_url" -o "$out_file" -# 2>&1 \
-			| tr '\r' '\n' \
-			| grep --line-buffered --color=never -oE '[0-9]+\.[0-9]+%' \
-			| zenity --progress --auto-kill --auto-close --text="$progress_text"
+			| progress_bar "$progress_text"
 		;;
 esac
 
