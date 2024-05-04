@@ -8,22 +8,22 @@ if [ -z "$(command -v zenity)" ]; then
 fi
 
 errorbox() {
-	zenity --ok-label=Exit --ellipsize --error --text "$1"
+	zenity --ok-label=Exit --error --text "$1"
 	return 0 
 }
 
 infobox() {
-	zenity --ok-label=Continue --ellipsize --info --text "$1"
+	zenity --ok-label=Continue --info --text "$1"
 	return 0
 }
 
 warnbox() {
-	zenity --ok-label=Continue --ellipsize --warning --text "$1"
+	zenity --ok-label=Continue --warning --text "$1"
 	return 0
 }
 
 question() {
-	zenity --question --ellipsize --text="$1" >/dev/null
+	zenity --question --text="$1" >/dev/null
 	echo "$?"
 	return 0
 }

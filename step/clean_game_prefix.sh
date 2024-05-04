@@ -2,11 +2,9 @@
 
 confirm_cleaning_text=$( \
 cat << EOF
-It is highly recommended to clean your current game prefix
-before starting the installation process.
+It is highly recommended to clean your current game prefix before starting the installation process.
 
-Would you like to archive your current game prefix and
-create a new one?
+Would you like to archive your current game prefix and create a new one?
 EOF
 )
 
