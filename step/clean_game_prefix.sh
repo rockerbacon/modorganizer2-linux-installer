@@ -15,7 +15,7 @@ Now you need to create a clean prefix:
 1. On Steam: right click the game > Properties > Compatibility
 2. Check the option "Force the use of a specific Steam Play compatibility tool"
 3. Select the Proton version you would like to use
-	* Proton 8.0 is the currently supported and recommended version
+	* Proton 9.0 is the currently supported and recommended version
 4. Launch the game and wait for Steam to finish its setup
 5. Close the game. It must remain stopped through the entire install process
 EOF

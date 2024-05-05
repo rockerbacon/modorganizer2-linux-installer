@@ -20,7 +20,7 @@ This document provides information on additional steps you may want to take afte
 
 ## Using alternative proton versions
 
-**IMPORTANT:** Proton 6.3 is the most extensively tested version. The author of this document provides no guarantees that alternative versions will work well.
+**IMPORTANT:** Proton 9.0 is the most extensively tested version. The author of this document provides no guarantees that alternative versions will work well.
 
 1. Close the game and Mod Organizer 2 if you have them open;
 2. Select the Proton version you'd like to use on Steam and wait for it to execute any validations and updates;
