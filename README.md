@@ -26,7 +26,7 @@ The following requirements should be available out-of-the-box in most systems:
 #### Installation steps
 
 1. Install the game you want to play on Steam;
-2. Download the the latest stable release [here](https://github.com/rockerbacon/modorganizer2-linux-installer/releases/download/4.6.2/mo2installer-4.6.2.tar.gz);
+2. Download the the latest stable release [here](https://github.com/rockerbacon/modorganizer2-linux-installer/releases/download/5.0.0/mo2installer-5.0.0.tar.gz);
 3. Extract the downloaded file;
 4. Open the extracted folder in a terminal and execute `./install.sh`;
 5. The installer will start and guide you through the rest of the process;
@@ -59,9 +59,15 @@ Please, help to keep this table up to date by [opening issues](https://github.co
 
 It is highly recommended to backup your existing installation before updating.
 
-#### From 4.0.0 and above
+#### From 5.0.0 and above
 
 You can update by simply following the install instructions again.
+
+#### From 4.X.X and below
+
+Version 5 of the installer updates ModOrganizer to version 2.5, which cannot be applied on top of an existing 2.4.4 instance. Users with working 4.X.X (or older) installations are recommended to not update.
+
+Advanced users may reference the [ModOrganizer 2.5.0 release page](https://github.com/ModOrganizer2/modorganizer/releases/tag/v2.5.0) for instructions on updating portable instances. There are no instructions for updating global instances, and this project has no plans on taking responsibility for such documentation.
 
 #### From 3.1.0 and below
 
