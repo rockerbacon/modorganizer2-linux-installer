@@ -5,14 +5,14 @@ function log_error() {
 }
 
 function get_release() {
-	if [ -z "$(command -v protontricks)" ]; then
-		if [ -n "$(command -v flatpak)" ]; then
-			if flatpak info com.github.Matoking.protontricks &> /dev/null; then
-				echo "flatpak"
-				return 0
-			fi
+	if [ -n "$(command -v flatpak)" ]; then
+		if flatpak info com.github.Matoking.protontricks &> /dev/null; then
+			echo "flatpak"
+			return 0
 		fi
-	else
+	fi
+
+	if [ -n "$(command -v protontricks)" ]; then
 		echo "system"
 		return 0
 	fi
