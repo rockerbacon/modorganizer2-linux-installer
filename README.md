@@ -50,6 +50,7 @@ The following is a small overview of the current state of each supported game:
 | Oblivion               | working    | [some plugins might require manual setup](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/63#issuecomment-643690247)                 | not tested    |
 | Skyrim                 | working       | working                   | working       |
 | Skyrim Special Edition | working       | working                   | not tested |
+| Starfield              | working       | working                   | not tested |
 
 For known bugs and necessary workarounds, please refer to the [issues page](https://github.com/rockerbacon/lutris-skyrimse-installers/issues?q=is:issue+is:open+label:bug+)
 
