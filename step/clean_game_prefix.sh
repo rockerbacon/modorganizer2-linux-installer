@@ -2,11 +2,9 @@
 
 confirm_cleaning_text=$( \
 cat << EOF
-It is highly recommended to clean your current game prefix
-before starting the installation process.
+It is highly recommended to clean your current game prefix before starting the installation process.
 
-Would you like to archive your current game prefix and
-create a new one?
+Would you like to archive your current game prefix and create a new one?
 EOF
 )
 
@@ -17,7 +15,7 @@ Now you need to create a clean prefix:
 1. On Steam: right click the game > Properties > Compatibility
 2. Check the option "Force the use of a specific Steam Play compatibility tool"
 3. Select the Proton version you would like to use
-	* Proton 8.0 is the currently supported and recommended version
+	* Proton 9.0 is the currently supported and recommended version
 4. Launch the game and wait for Steam to finish its setup
 5. Close the game. It must remain stopped through the entire install process
 EOF
@@ -87,7 +85,7 @@ if [ -z "$game_prefix" ]; then
 	log_error "no prefix found"
 	"$dialog" \
 		errorbox \
-		"A prefix for the selected game could not be found.\nMake sure you have followed the instructions\non creating a clean prefix"
+		"A prefix for the selected game could not be found.\nMake sure you have followed the instructions on creating a clean prefix.\nCheck the terminal output for more details."
 	exit 1
 fi
 
