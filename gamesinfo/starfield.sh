@@ -8,5 +8,4 @@ game_scriptextender_files=( \
 	"sfse_0_2_6/sfse_1_10_32.dll" \
 	"sfse_0_2_6/sfse_loader.exe" \
 )
-game_mo2_url="https://github.com/ModOrganizer2/modorganizer/releases/download/v2.5.0/Mod.Organizer-2.5.0.7z"
 
