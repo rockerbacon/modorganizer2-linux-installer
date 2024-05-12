@@ -2,7 +2,11 @@
 
 #include <wchar.h>
 
-#define REQUIRE_UNICODE_CONVERSION
+#define PATH_SEPARATOR '\\'
+
+#define PATHSUBST "%ls"
+
+#define MAIN(argc, argv) wmain(int argc, wchar_t** argv)
 
 typedef wchar_t char_t;
 
@@ -12,5 +16,5 @@ void check_can_execute(const char_t* path);
 
 char_t read_character(FILE* file);
 
-char_t* convert_from_unicode(const char* str);
+char_t* convert_utf8_to_wchar(const char* str);
 
