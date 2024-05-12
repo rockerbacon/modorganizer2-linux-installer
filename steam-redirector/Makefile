@@ -15,4 +15,4 @@ main.exe: $(WIN_SRC)
 	$(WIN_C) $(WIN_FLAGS) -mwindows -o main.exe $^
 
 main_debug.exe: $(WIN_SRC)
-	$(WIN_C) $(WIN_FLAGS) -o main_debug.exe $^
+	$(WIN_C) $(WIN_FLAGS) -D DEBUG -o main_debug.exe $^

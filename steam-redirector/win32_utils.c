@@ -27,7 +27,7 @@ void log_conversion_error() {
 	}
 }
 
-char_t* convert_from_unicode(const char* str) {
+char_t* convert_utf8_to_wchar(const char* str) {
 	int character_count = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
 	char_t* converted_str = (char_t*)malloc((character_count + 1) * sizeof(char_t));
 	int bytes_written = MultiByteToWideChar(CP_UTF8, 0, str, -1, converted_str, character_count);
@@ -39,3 +39,4 @@ char_t* convert_from_unicode(const char* str) {
 
 	return converted_str;
 }
+
