@@ -2,22 +2,6 @@
 
 This document provides information on additional steps you may want to take after installing Mod Organizer 2.
 
-## Running the original game launcher
-
-1. Open Mod Organizer 2;
-2. Click on the cogwheel in the top bar to configure executables:
-
-![topbar executables config](screenshots/topbar_executables_config.png?raw=true "Executables Configuration")
-
-3. Click on the launcher in the list to the left;
-4. In the "Binary" text box, add an underscore before the name of the .exe file:
-
-![executables list](screenshots/executables_config_leftside_list.png?raw=true "Executables List")
-
-5. Now you should be able to run the launcher by selecting it in the executables dropdown:
-
-![executables dropdown](screenshots/executables_dropdown.png?raw=true "Executables Dropdown")
-
 ## Using alternative proton versions
 
 **IMPORTANT:** Proton 9.0 is the most extensively tested version. The author of this document provides no guarantees that alternative versions will work well.
