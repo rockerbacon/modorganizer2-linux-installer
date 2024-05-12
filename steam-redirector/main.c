@@ -21,12 +21,22 @@
 
 #endif
 
+#ifdef REQUIRE_UNICODE_CONVERSION
+
+#define PATHSUBST "%ls"
+
+#else
+
+#define PATHSUBST "%s"
+
+#endif
+
 char_t* read_path_from_file(const char* file_path) {
 	errno = 0;
 	FILE* file = fopen(file_path, "r");
 
 	if (errno != 0) {
-		fprintf(stderr, "ERROR: failed to open '%s' - %s\n", file_path, strerror(errno));
+		fprintf(stderr, "ERROR: failed to open '"PATHSUBST"' - %s\n", file_path, strerror(errno));
 		return NULL;
 	}
 
@@ -34,7 +44,7 @@ char_t* read_path_from_file(const char* file_path) {
 	size_t estimated_line_length = ftell(file);
 
 	if (estimated_line_length == 0) {
-		fprintf(stderr, "ERROR: cannot read empty file '%s'\n", MO2_PATH_FILE);
+		fprintf(stderr, "ERROR: cannot read empty file '"PATHSUBST"'\n", MO2_PATH_FILE);
 		return NULL;
 	}
 
@@ -81,15 +91,16 @@ int execute_from_path_file(const char* path_file_location, const char_t* arg) {
 		goto exit_point;
 	}
 
-	fprintf(stdout, "INFO: read executable location '%s'\n", executable_path);
+	fprintf(stdout, "INFO: read executable location '"PATHSUBST"'\n", executable_path);
+
 	int has_access = check_file_access(executable_path);
 
 	if (has_access == 0) {
-		fprintf(stderr, "ERROR: cannot execute '%s' - %s\n", executable_path, strerror(errno));
+		fprintf(stderr, "ERROR: cannot execute '"PATHSUBST"' - %s\n", executable_path, strerror(errno));
 		goto exit_point;
 	}
 
-	fprintf(stdout, "Launching '%s'\n", executable_path);
+	fprintf(stdout, "Launching '"PATHSUBST"'\n", executable_path);
 	execute(executable_path, arg);
 	exit_status = 0;
 
