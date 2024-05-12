@@ -115,5 +115,10 @@ int main(int argc, char** argv) {
 
 	exit_status = execute_from_path_file(MO2_PATH_FILE, arg);
 
+#ifdef DEBUG
+	fprintf(stdout, "DEBUG: Process finished, press enter to exit\n");
+	getchar();
+#endif
+
 	return exit_status;
 }
