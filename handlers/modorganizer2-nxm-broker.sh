@@ -8,6 +8,15 @@ if [ -z "$nxm_link" ]; then
 	exit 1
 fi
 
+if [ -n "$(command -v zenity)" ]; then
+	ui_bin="zenity"
+elif [ -z "$(command -v kdialog)" ]; then
+	ui_bin="kdialog"
+else
+    echo "Error zenity or kdialog required, install one" >&2
+	exit 1
+fi
+
 nexus_game_id=${nxm_link#nxm://}
 nexus_game_id=${nexus_game_id%%/*}
 ###    PARSE POSITIONAL ARGS    ###
@@ -17,8 +26,16 @@ instance_dir=$(readlink -f  "$instance_link")
 if [ ! -d "$instance_dir" ]; then
 	[ -L "$instance_link"] && rm "$instance_link"
 
-	zenity --ok-label=Exit --error --text \
-		"Could not download file because there is no Mod Organizer 2 instance for '$nexus_game_id'"
+	error_text="Could not download file because there is no Mod Organizer 2 instance for '$nexus_game_id'"
+	case "$ui_bin" in
+	zenity)
+		zenity --ok-label=Exit --error --text "$error_text"
+	;;
+	kdialog)
+	    kdialog --ok-label=Exit --error "$error_text"
+	;;
+	esac
+		
 	exit 1
 fi
 
@@ -39,8 +56,15 @@ else
 fi
 
 if [ "$download_start_status" != "0" ]; then
-	zenity --ok-label=Exit --error --text \
-		"Failed to start download:\n\n$download_start_output"
+	error_text="Failed to start download:\n\n$download_start_output"
+	case "$ui_bin" in
+	zenity)
+		zenity --ok-label=Exit --error --text "$error_text"
+	;;
+	kdialog)
+	    kdialog --ok-label=Exit --error "$error_text"
+	;;
+	esac
 	exit 1
 fi
 

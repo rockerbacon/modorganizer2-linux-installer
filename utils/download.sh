@@ -22,10 +22,43 @@ elif [ -z "$out_file" ]; then
 	exit 1
 fi
 
+if [ -n "$(command -v zenity)" ]; then
+	ui_bin="zenity"
+elif [ -z "$(command -v kdialog)" ]; then
+	ui_bin="kdialog"
+else
+    echo "Error zenity or kdialog required, install one" >&2
+	exit 1
+fi
+
+display_download_progress() {
+	case "$ui_bin" in
+	zenity)
+		zenity --progress --auto-kill --auto-close --text "$1" <&0
+	;;
+	kdialog)
+		IFS=" " read -r -a bus_ref <<< "$(kdialog --progressbar "$1")"
+		while read -u 5 input; do
+			echo "$input" > /dev/tty
+			if [[ "$input" =~ ^[0-9]+ ]]; then
+				qdbus "${bus_ref[@]}" Set "" value "$input"
+				if [ "$input" -ge 100 ]; then
+					qdbus "${bus_ref[@]}" close
+				fi
+			elif [[ "$input" =~ ^\#.* ]]; then
+				# new text to use for progress bar
+				new_text=$(echo "$input" | tr -d '#' | xargs)
+				qdbus "${bus_ref[@]}" setLabelText "$new_text"
+			fi
+		done 5<&0
+	;;
+	esac
+}
+
 progress_bar() {
 	stdbuf -o0 tr '[:cntrl:]' '\n' \
 		| grep --color=never --line-buffered -oE '[0-9\.]+%' \
-		| zenity --progress --auto-kill --auto-close --text "$1"
+		| display_download_progress "$1"
 }
 
 # We default to wget because it seems like a better choice for this sort of work -

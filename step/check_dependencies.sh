@@ -14,8 +14,8 @@ if [ ! $("$utils/protontricks.sh" get-release) ]; then
 	missing_deps+=(protontricks)
 fi
 
-if [ -z "$(command -v zenity)" ]; then
-	missing_deps+=(zenity)
+if [ -z "$(command -v zenity)" ] && [ -z "$(command -v kdialog)" ]; then
+	missing_deps+=("zenity or kdialog")
 fi
 
 if [ -n "${missing_deps[*]}" ]; then

@@ -20,7 +20,7 @@ The following requirements should be available out-of-the-box in most systems:
 
 - _bash_
 - either _curl_ or _wget_
-- _zenity_
+- either _zenity_ or _kdialog_
 - _protontricks-launcher_: should be available after installing `protontricks` already, if not see [this](https://github.com/Matoking/protontricks#desktop)
 
 #### Installation steps
