@@ -28,10 +28,10 @@ fi
 
 if [ -n "$(command -v zenity)" ]; then
 	ui_bin="zenity"
-elif [ -z "$(command -v kdialog)" ]; then
+elif [ -n "$(command -v kdialog)" ]; then
 	ui_bin="kdialog"
 else
-    echo "Error zenity or kdialog required, install one" >&2
+    echo "$0: Error zenity or kdialog required, install one" >&2
 	exit 1
 fi
 
@@ -43,10 +43,10 @@ display_extract_progress() {
 	kdialog)
 		IFS=" " read -r -a bus_ref <<< "$(kdialog --progressbar "$1")"
 		while read -u 5 input; do
-			echo "$input" > /dev/tty
 			if [[ "$input" =~ ^[0-9]+ ]]; then
-				qdbus "${bus_ref[@]}" Set "" value "$input"
-				if [ "$input" -ge 100 ]; then
+				num=$(echo $input | tr -d '%' )
+				qdbus "${bus_ref[@]}" Set "" value "$num"
+				if [ "$num" -ge 100 ]; then
 					qdbus "${bus_ref[@]}" close
 				fi
 			elif [[ "$input" =~ ^\#.* ]]; then
@@ -55,6 +55,7 @@ display_extract_progress() {
 				qdbus "${bus_ref[@]}" setLabelText "$new_text"
 			fi
 		done 5<&0
+		qdbus "${bus_ref[@]}" close
 		;;
 	esac
 }

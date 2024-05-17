@@ -11,7 +11,12 @@ elif [ -n "$(command -v kdialog)" ]; then
 	ui_bin="kdialog"
 fi
 
+debug(){
+	[[ -n "$DEBUG" ]] && echo "$@" >&2
+}
+
 errorbox() {
+	debug "error box: $ui_bin, $1"
 	# display an error with an exit button
 	case $ui_bin in
 	zenity)
@@ -64,19 +69,22 @@ warnbox() {
 
 question() {
 	# get yes = 0 or no = 1 from user
+	debug "question: $ui_bin, $1"
 	case $ui_bin in
 	zenity)
 		zenity --question --text="$1" >/dev/null
+		answer="$?"
 	;;
 	kdialog)
 	    kdialog --yesno "$1"
+		answer="$?"
 	;;
 	*)
 	    echo "ERROR: $ui_bin not supported" >&2
 		return 1
 	;;
 	esac
-	echo "$?"
+	echo "$answer"
 	return 0
 }
 
@@ -99,6 +107,7 @@ dangerquestion() {
 }
 
 directorypicker() {
+	# enter a path or select a directory
 	local message=$1; shift
 	local default_directory=$1; shift
 
@@ -179,6 +188,7 @@ directorypicker() {
 }
 
 textentry() {
+	# enter some text and return it
 	message=$1; shift
 	default_value=$1; shift
 
@@ -205,18 +215,23 @@ textentry() {
 }
 
 radio() {
+	debug "radio: $radio"
+	# debug "$(echo "$@" | tr ' ' '\n')"
+	# allow user to select one of a few options
 	height=$1
 	title=$2
 	shift 2
 
 	local rows=()
 	while [ "$#" -gt "0" ]; do
+	    debug "new row: $1 $2"
 		case $ui_bin in
 		zenity)
 			rows+=('' "$1" "$2")
 			;;
 		kdialog)
 			rows+=("$1" "$2" "off")
+			
 		;;
 		*)
 			echo "ERROR: $ui_bin not supported" >&2
@@ -238,12 +253,16 @@ radio() {
 		)
 	;;
 	kdialog)
+	    tmpstderr=$(mktemp)
 	    selected_option=$( \
 	    	kdialog --radiolist "$title" \
 			--geometry "x${height}" \
 			"${rows[@]}" \
-			2>/dev/null \
+			2> $tmpstderr \
 		)
+		if grep -q -e "error: Bad file descriptor" $tmpstderr; then
+			debug "bfd: |$title|\n\n|$height|\n\n|${rows[@]}|"
+		fi
 	;;
 	*)
 	    echo "ERROR: $ui_bin not supported" >&2
@@ -253,6 +272,7 @@ radio() {
 	
 
 	if [ -z "$selected_option" ]; then
+		# debug "Cancelled at $title\n\n$height\n\n${rows[@]}"
 		return 1
 	fi
 
@@ -262,6 +282,7 @@ radio() {
 }
 
 loading() {
+	# display loading bar
 	case $ui_bin in
 	zenity)
 		tee /dev/tty <&0 \
@@ -272,8 +293,9 @@ loading() {
 		while read -u 5 input; do
 			echo "$input" > /dev/tty
 			if [[ "$input" =~ ^[0-9]+ ]]; then
-				qdbus "${bus_ref[@]}" Set "" value "$input"
-				if [ "$input" -ge 100 ]; then
+				num=$(echo $input | tr -d '%' )
+				qdbus "${bus_ref[@]}" Set "" value "$num"
+				if [ "$num" -ge 100 ]; then
 					qdbus "${bus_ref[@]}" close
 				fi
 			elif [[ "$input" =~ ^\#.* ]]; then
@@ -282,6 +304,7 @@ loading() {
 				qdbus "${bus_ref[@]}" setLabelText "$new_text"
 			fi
 		done 5<&0
+		qdbus "${bus_ref[@]}" close
 	;;
 	*)
 	    echo "ERROR: $ui_bin not supported" >&2
