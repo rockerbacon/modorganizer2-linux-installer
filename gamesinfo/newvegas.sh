@@ -1,3 +1,4 @@
+game_full_name="Fallout: New Vegas"
 game_steam_subdirectory="Fallout New Vegas"
 game_nexusid="newvegas"
 game_appid=22380

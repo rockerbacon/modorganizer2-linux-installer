@@ -1,3 +1,4 @@
+game_pretty_name="Skyrim VR"
 game_steam_subdirectory="SkyrimVR"
 game_nexusid="skyrimspecialedition"
 game_appid=611670

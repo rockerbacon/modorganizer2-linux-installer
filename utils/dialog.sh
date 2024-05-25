@@ -211,7 +211,7 @@ textentry() {
 		echo "$entry_value"
 	fi
 
-	return $confirm
+	return "$confirm"
 }
 
 radio() {
@@ -253,14 +253,15 @@ radio() {
 		)
 	;;
 	kdialog)
-	    tmpstderr=$(mktemp)
+	    tmpstderr="$(mktemp)"
+					# --geometry "x${height}" \
+
 	    selected_option=$( \
 	    	kdialog --radiolist "$title" \
-			--geometry "x${height}" \
 			"${rows[@]}" \
-			2> $tmpstderr \
+			2> "$tmpstderr" \
 		)
-		if grep -q -e "error: Bad file descriptor" $tmpstderr; then
+		if grep -q -e "error: Bad file descriptor" "$tmpstderr"; then
 			debug "bfd: |$title|\n\n|$height|\n\n|${rows[@]}|"
 		fi
 	;;
