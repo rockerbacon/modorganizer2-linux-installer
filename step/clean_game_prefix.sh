@@ -75,7 +75,6 @@ fi
 
 confirm_new_prefix=$(create_new_prefix)
 if [ "$confirm_new_prefix" != "0" ]; then
-    echo "cnp: $confirm_new_prefix"
 	log_error "installation cancelled by the user"
 	exit 1
 fi
