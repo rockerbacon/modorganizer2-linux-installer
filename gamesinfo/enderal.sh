@@ -1,3 +1,4 @@
+game_full_name="Enderal: Forgotten Stories"
 game_steam_subdirectory="Enderal"
 game_nexusid="enderal"
 game_appid=933480

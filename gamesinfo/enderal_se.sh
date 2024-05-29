@@ -1,3 +1,4 @@
+game_full_name="Enderal: Forgotten Stories (Special Edition)"
 game_steam_subdirectory="Enderal Special Edition"
 game_nexusid="enderalspecialedition"
 game_appid=976620

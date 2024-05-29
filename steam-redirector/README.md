@@ -32,6 +32,11 @@ sudo dnf install gcc make mingw64-gcc mingw64-winpthreads-static
 sudo pacman -S gcc make mingw-w64-gcc mingw-w64-winpthreads
 ```
 
+#### Debian/Ubuntu
+```
+sudo apt install -y gcc make mingw-w64
+```
+
 Check MinGW's [downloads page](https://www.mingw-w64.org/downloads/) for a more complete list of available packages.
 
 ### Compile Commands
