@@ -13,7 +13,7 @@ if [ -n "$(command -v zenity)" ]; then
 elif [ -z "$(command -v kdialog)" ]; then
 	ui_bin="kdialog"
 else
-    echo "Error zenity or kdialog required, install one" >&2
+	echo "Error zenity or kdialog required, install one" >&2
 	exit 1
 fi
 
@@ -32,7 +32,7 @@ if [ ! -d "$instance_dir" ]; then
 		zenity --ok-label=Exit --error --text "$error_text"
 	;;
 	kdialog)
-	    kdialog --ok-label=Exit --error "$error_text"
+		kdialog --ok-label=Exit --error "$error_text"
 	;;
 	esac
 		
@@ -62,7 +62,7 @@ if [ "$download_start_status" != "0" ]; then
 		zenity --ok-label=Exit --error --text "$error_text"
 	;;
 	kdialog)
-	    kdialog --ok-label=Exit --error "$error_text"
+		kdialog --ok-label=Exit --error "$error_text"
 	;;
 	esac
 	exit 1

@@ -31,7 +31,7 @@ if [ -n "$(command -v zenity)" ]; then
 elif [ -n "$(command -v kdialog)" ]; then
 	ui_bin="kdialog"
 else
-    echo "$0: Error zenity or kdialog required, install one" >&2
+	echo "$0: Error zenity or kdialog required, install one" >&2
 	exit 1
 fi
 

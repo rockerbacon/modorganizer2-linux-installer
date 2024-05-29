@@ -26,7 +26,7 @@ errorbox() {
 		kdialog --ok-label=Exit --error "$1"
 	;;
 	*)
-	    echo "ERROR: $ui_bin not supported" >&2
+		echo "ERROR: $ui_bin not supported" >&2
 		return 1
 	;;
 	esac
@@ -40,10 +40,10 @@ infobox() {
 		zenity --ok-label=Continue --info --text "$1"
 	;;
 	kdialog)
-	    kdialog --ok-label=Contnue --msgbox "$1"
+		kdialog --ok-label=Contnue --msgbox "$1"
 	;;
 	*)
-	    echo "ERROR: $ui_bin not supported" >&2
+		echo "ERROR: $ui_bin not supported" >&2
 		return 1
 	;;
 	esac
@@ -57,10 +57,10 @@ warnbox() {
 		zenity --ok-label=Continue --warning --text "$1"
 	;;
 	kdialog)
-	    kdialog --warningcontinuecancel "$1"
+		kdialog --warningcontinuecancel "$1"
 	;;
 	*)
-	    echo "ERROR: $ui_bin not supported" >&2
+		echo "ERROR: $ui_bin not supported" >&2
 		return 1
 	;;
 	esac
@@ -76,11 +76,11 @@ question() {
 		answer="$?"
 	;;
 	kdialog)
-	    kdialog --yesno "$1"
+		kdialog --yesno "$1"
 		answer="$?"
 	;;
 	*)
-	    echo "ERROR: $ui_bin not supported" >&2
+		echo "ERROR: $ui_bin not supported" >&2
 		return 1
 	;;
 	esac
@@ -95,10 +95,10 @@ dangerquestion() {
 		zenity --extra-button=No --ok-label=Yes --warning --text="$1" >/dev/null
 	;;
 	kdialog)
-	    kdialog --warningyesno "$1"
+		kdialog --warningyesno "$1"
 	;;
 	*)
-	    echo "ERROR: $ui_bin not supported" >&2
+		echo "ERROR: $ui_bin not supported" >&2
 		return 1
 	;;
 	esac
@@ -198,11 +198,11 @@ textentry() {
 		confirm=$?
 	;;
 	kdialog)
-	    entry_value=$(kdialog --inputbox "$message" "$default_value");
+		entry_value=$(kdialog --inputbox "$message" "$default_value");
 		confirm=$?
 	;;
 	*)
-	    echo "ERROR: $ui_bin not supported" >&2
+		echo "ERROR: $ui_bin not supported" >&2
 		return 1
 	;;
 	esac
@@ -224,7 +224,7 @@ radio() {
 
 	local rows=()
 	while [ "$#" -gt "0" ]; do
-	    debug "new row: $1 $2"
+		debug "new row: $1 $2"
 		case $ui_bin in
 		zenity)
 			rows+=('' "$1" "$2")
@@ -253,11 +253,11 @@ radio() {
 		)
 	;;
 	kdialog)
-	    tmpstderr="$(mktemp)"
+		tmpstderr="$(mktemp)"
 					# --geometry "x${height}" \
 
-	    selected_option=$( \
-	    	kdialog --radiolist "$title" \
+		selected_option=$( \
+			kdialog --radiolist "$title" \
 			"${rows[@]}" \
 			2> "$tmpstderr" \
 		)
@@ -266,7 +266,7 @@ radio() {
 		fi
 	;;
 	*)
-	    echo "ERROR: $ui_bin not supported" >&2
+		echo "ERROR: $ui_bin not supported" >&2
 		return 1
 	;;
 	esac
@@ -290,7 +290,7 @@ loading() {
 			| zenity --progress --auto-close --pulsate --no-cancel --text "$1"
 	;;
 	kdialog)
-	    IFS=" " read -r -a bus_ref <<< "$(kdialog --progressbar "$1")"
+		IFS=" " read -r -a bus_ref <<< "$(kdialog --progressbar "$1")"
 		while read -u 5 input; do
 			echo "$input" > /dev/tty
 			if [[ "$input" =~ ^[0-9]+ ]]; then
@@ -308,7 +308,7 @@ loading() {
 		qdbus "${bus_ref[@]}" close
 	;;
 	*)
-	    echo "ERROR: $ui_bin not supported" >&2
+		echo "ERROR: $ui_bin not supported" >&2
 		return 1
 	;;
 	esac
