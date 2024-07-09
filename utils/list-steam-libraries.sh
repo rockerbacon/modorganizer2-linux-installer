@@ -7,7 +7,7 @@ function log_info() {
 steam_install_candidates=( \
 	"$(readlink -f "$HOME/.steam/root")" \
 	"$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam" \
- 	"$STEAM_DIR" \
+	"$STEAM_DIR" \
 )
 
 for steam_install in "${steam_install_candidates[@]}"; do
