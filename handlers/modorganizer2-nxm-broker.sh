@@ -15,7 +15,7 @@ nexus_game_id=${nexus_game_id%%/*}
 instance_link="$HOME/.config/modorganizer2/instances/${nexus_game_id:?}"
 instance_dir=$(readlink -f  "$instance_link")
 if [ ! -d "$instance_dir" ]; then
-	[ -L "$instance_link"] && rm "$instance_link"
+	[ -L "$instance_link" ] && rm "$instance_link"
 
 	zenity --ok-label=Exit --error --text \
 		"Could not download file because there is no Mod Organizer 2 instance for '$nexus_game_id'"
