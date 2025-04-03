@@ -14,14 +14,20 @@ Usually, `gamemoderun` to a proton game's Launch Options within Steam can give a
 However, in my testing, it appears that having this option in a game that's been modified by this script will prevent MO2 from launching, rendering the game unplayable.
 
 ## MO2 outside of $HOME
-If you've installed MO2 outside of your $HOME directory, you may find you cannot launch. You can try adding `STEAM_COMPAT_MOUNTS=/path/to/folder %command%` to your Launch Options:
+If you've installed MO2 outside of your $HOME directory, you may find you cannot launch. You can try adding the following to your Launch Options:
+```
+`STEAM_COMPAT_MOUNTS=/path/to/folder %command%`
+```
 </br>
 For example, I install my instances on a secondary drive mounted at /nvme2/, under a folder called modding, so the argument for me would be `STEAM_COMPAT_MOUNTS=/nvme2/modding/`
 
 ## Game Specific Adjustments
 
 ### Cyberpunk 2077
-**IMPORTANT:** Add `WINEDLLOVERRIDES="winmm,version=n,b" %command%` to the game's Launch Options within Steam:</br>
+**IMPORTANT:** Add the following to the game's Launch Options within Steam:</br>
+```
+WINEDLLOVERRIDES="winmm,version=n,b" %command%
+```
 
 ## Using alternative proton versions
 
