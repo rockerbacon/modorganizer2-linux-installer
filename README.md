@@ -1,5 +1,8 @@
 ## Introduction
 
+**This is a fork!** of [rockerbacon's repo](https://github.com/rockerbacon/modorganizer2-linux-installer) to make some QOL changes for myself. I may or may not maintain this, but feel free to leave a bug report or pull request.
+This README remains unchanged aside from relevant updates. My releases begin with 5.1.
+
 This project aims to make modding and playing Bethesda games on Linux as easy as possible. It does that by providing installers which automatically setup a working experience for the user.
 
 While these installers may be available on Lutris.net, users are always recommended to use the latest stable release from this repository. The testers and maintainers of this project have little control over the content on Lutris and cannot assure that the installers available there are up to date nor that they haven't been incorrectly modified.
@@ -43,6 +46,7 @@ The following is a small overview of the current state of each supported game:
 
 | GAME                   | GAMEPLAY      | SCRIPT EXTENDER           | ENB           |
 | :--------------------- | :------------ | :------------------------ | :------------ |
+| Cyberpunk 2077              | working | not tested                | not tested    |
 | Fallout 3              | working | working                | not tested    |
 | Fallout 4              | working | [some plugins might not work](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/32) | ENB v0.393 or older, disabling "EnablePostPassShader" might be necessary |
 | Fallout New Vegas      | fullscreen only       | working | working    |
