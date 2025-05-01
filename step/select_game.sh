@@ -25,6 +25,7 @@ selected_game=$( \
 		"newvegas_ru" "Fallout: New Vegas RU" \
 		"morrowind" "Morrowind" \
 		"oblivion" "Oblivion" \
+  		"oblivionremastered" "Oblivion Remastered" \
 		"skyrim" "Skyrim" \
 		"skyrimspecialedition" "Skyrim Special Edition" \
 		"skyrimvr" "Skyrim VR" \
