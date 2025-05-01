@@ -39,11 +39,13 @@ The installer will automatically configure game-specific workarounds and install
 | Fallout New Vegas     | Fullscreen Only*  | Working*                                                                       | Working*                           |
 | Morrowind             | Not Tested*       | Not Tested*                                                                    | Not Tested*                        |
 | Oblivion              | Working*          | [Some plugins might require manual setup](https://github.com/rockerbacon/lutris-skyrimse-installers/issues/63#issuecomment-643690247)* | Not Tested*                        |
+| Oblivion Remastered**              | Not Tested          | N/A | Not Tested                        |
 | Skyrim                | Working*          | Working*                                                                       | Working*                           |
 | Skyrim Special Edition| Working*          | Working*                                                                       | Not Tested*                        |
 | Starfield             | Working*          | Working*                                                                       | Not Tested*                        |
 
-<sub>An asterisk (*) indicates that the status was indicated as such by the [original repo](https://github.com/rockerbacon/modorganizer2-linux-installer). I have not tested these games myself, but I have no reason to believe they are incorrect. If you find any issues with the games listed above, please open an issue on this repository and I will do my best to address it.</sub>
+<sub>An asterisk (*) indicates that the status was indicated as such by the [original repo](https://github.com/rockerbacon/modorganizer2-linux-installer). I have not tested these games myself, but I have no reason to believe they are incorrect. If you find any issues with the games listed above, please open an issue on this repository and I will do my best to address it.</sub><br />
+<sub>A double asterisk (**) indicates that the indicated game requires an in-dev version of MO2. This is available through the -beta tagged builds.</sub>
 
 For known bugs and necessary workarounds, please refer to the [issues page](https://github.com/furglitch/lutris-skyrimse-installers/issues?q=is:issue+is:open+label:bug+)
 
