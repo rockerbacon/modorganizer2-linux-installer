@@ -14,7 +14,7 @@ extracted_jdk="${downloaded_jdk%.*}"
 downloaded_winetricks="$downloads_cache/winetricks"
 executable_winetricks="$shared/winetricks"
 
-downloaded_mo2="$downloads_cache/${mo2_url##*/}"
+downloaded_mo2="$downloads_cache/Mod.Organizer-2.5.3dev5.7z"
 extracted_mo2="${downloaded_mo2%.*}"
 
 downloaded_scriptextender=""
