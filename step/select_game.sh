@@ -15,21 +15,7 @@ selected_game=$( \
 	"$dialog" \
 		radio \
 		450 "$screen_text" \
-		"cyberpunk" "Cyberpunk 2077" \
-		"enderal" "Enderal: Forgotten Stories" \
-		"enderal_se" "Enderal: Forgotten Stories (Special Edition)" \
-		"fallout3" "Fallout 3" \
-		"fallout3_goty" "Fallout 3 - Game of the Year Edition" \
-		"fallout4" "Fallout 4" \
-		"newvegas" "Fallout: New Vegas" \
-		"newvegas_ru" "Fallout: New Vegas RU" \
-		"morrowind" "Morrowind" \
-		"oblivion" "Oblivion" \
-  		"oblivionremastered" "Oblivion Remastered" \
-		"skyrim" "Skyrim" \
-		"skyrimspecialedition" "Skyrim Special Edition" \
-		"skyrimvr" "Skyrim VR" \
-		"starfield" "Starfield"\
+  		"oblivionremastered" "Oblivion Remastered"\
 )
 
 if [ -z "$selected_game" ]; then
