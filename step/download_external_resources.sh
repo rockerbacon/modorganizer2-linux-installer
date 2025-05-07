@@ -5,7 +5,7 @@ extract="$utils/extract.sh"
 
 jdk_url='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u312-b07/OpenJDK8U-jre_x64_windows_hotspot_8u312b07.zip'
 
-mo2_url='https://my.microsoftpersonalcontent.com/personal/371272c49a37cc4a/_layouts/15/download.aspx?UniqueId=afa1c151-318d-4f51-8e03-a8756f7d0c9c&Translate=false&ApiVersion=2.0'
+mo2_url='https://my.microsoftpersonalcontent.com/personal/371272c49a37cc4a/_layouts/15/download.aspx?UniqueId=0788b698-1ec3-42cb-9764-1fac629b32ea&Translate=false&ApiVersion=2.0'
 
 winetricks_url='https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
 
