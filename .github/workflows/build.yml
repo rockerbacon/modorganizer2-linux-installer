@@ -1,0 +1,35 @@
+name: build-release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version to build'
+        required: true
+        default: 'v5.X.X'
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-mingw-w64 make tar
+
+      - name: Run pack-release.sh
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          chmod +x ./pack-release.sh
+          ./pack-release.sh "${VERSION}"
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.version }}
+          path: mo2installer-${{ inputs.version }}.tar.gz
