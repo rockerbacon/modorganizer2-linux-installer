@@ -30,7 +30,7 @@
     "pr_template": "- ${{TITLE}} - PR #${{NUMBER}} - ${{AUTHOR}}",
     "empty_template": "No changes were made in this release.",
     "max_pull_requests": 1000,
-    "max_back_track_time_days": 1000,
+    "max_back_track_time_days": 365,
     "exclude_merge_branches": [
         "prerelease"
     ],
