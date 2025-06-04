@@ -36,6 +36,12 @@ jobs:
         with:
           configuration: ".github/build-changelog.json"
 
+      - name: Get Previous Tag
+        id: get_previous_tag
+        run: |
+          previous_tag=$(gh release list --limit 1 | awk '{print $1}')
+          echo "previous_tag=${previous_tag}" >> $GITHUB_ENV
+
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -45,6 +51,8 @@ jobs:
           tag_name: ${{ inputs.version }}
           release_name: "${{ inputs.version }}"
           body: ${{ steps.build_changelog.outputs.changelog }}
+          fromTag: ${{ env.previous_tag }}
+          toTag: ${{ inputs.version }}
           draft: false
           prerelease: false
 
