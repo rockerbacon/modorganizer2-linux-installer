@@ -20,7 +20,7 @@
         "order": "ASC",
         "on_property": "mergedAt"
     },
-    "template": "${{CHANGELOG}}\n\n---\n\n${{CONTRIBUTORS}}\n\n---\n\n**Full Changelog**: https://github.com/Furglitch/modorganizer2-linux-installer/compare/${{FROM_TAG}}...${{TO_TAG}}",
+    "template": "${{CHANGELOG}}\n\n---\n\n**Full Changelog**: https://github.com/Furglitch/modorganizer2-linux-installer/compare/${{FROM_TAG}}...${{TO_TAG}}",
     "pr_template": "- ${{TITLE}} - PR #${{NUMBER}} - ${{AUTHOR}}",
     "empty_template": "No changes were made in this release.",
     "max_pull_requests": 1000,
