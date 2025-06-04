@@ -29,7 +29,7 @@ jobs:
           ./pack-release.sh "${VERSION}"
 
       - name: Upload release artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.version }}
           path: mo2installer-${{ inputs.version }}.tar.gz
