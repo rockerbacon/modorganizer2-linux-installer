@@ -6,7 +6,7 @@ on:
       version:
         description: 'Release version to build'
         required: true
-        default: 'v5.X.X'
+        default: '5.X.X'
 
 jobs:
   build-release:
