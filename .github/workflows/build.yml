@@ -28,8 +28,23 @@ jobs:
           chmod +x ./pack-release.sh
           ./pack-release.sh "${VERSION}"
 
-      - name: Upload release artifact
-        uses: actions/upload-artifact@v4
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: ${{ inputs.version }}
-          path: mo2installer-${{ inputs.version }}.tar.gz
+          tag_name: ${{ inputs.version }}
+          release_name: "${{ inputs.version }}"
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: mo2installer-${{ inputs.version }}.tar.gz
+          asset_name: mo2installer-${{ inputs.version }}.tar.gz
+          asset_content_type: application/gzip
