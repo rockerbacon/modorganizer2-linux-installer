@@ -28,6 +28,12 @@ jobs:
           chmod +x ./pack-release.sh
           ./pack-release.sh "${VERSION}"
 
+      - name: "Write Changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -36,6 +42,7 @@ jobs:
         with:
           tag_name: ${{ inputs.version }}
           release_name: "${{ inputs.version }}"
+          body: ${{ steps.build_changelog.outputs.changelog }}
           draft: false
           prerelease: false
 
