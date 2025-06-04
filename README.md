@@ -1,4 +1,6 @@
-**This is a fork** of [rockerbacon's project](https://github.com/rockerbacon/modorganizer2-linux-installer). I intended to just add a few QOL changes, like Cyberpunk 2077 support, but am willing to make/implement adjustments if asked.
+**This is a fork** of [rockerbacon's project](https://github.com/rockerbacon/modorganizer2-linux-installer). 
+
+What started as a desire for Cyberpunk 2077 support post-archive grew into a full continuation of the project, keeping *everything* up to date including bug fixes and adding support for more games.
 
 ## Installing Mod Organizer 2
 
