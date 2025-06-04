@@ -14,7 +14,13 @@
         }
     ],
     "ignore": [
-        "ignore"
+        "duplicate",
+        "good first issue",
+        "help wanted",
+        "invalid",
+        "question",
+        "wontfix",
+        "documentation"
     ],
     "sort": {
         "order": "ASC",
