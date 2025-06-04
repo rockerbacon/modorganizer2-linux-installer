@@ -1,3 +1,7 @@
+# Mod Organizer 2 Linux Installer
+
+This project aims to installing Mod Organizer 2 instances on Linux as easy as possible. It does that by providing installers which automatically setup a working experience for the user.
+
 **This is a fork** of [rockerbacon's project](https://github.com/rockerbacon/modorganizer2-linux-installer). 
 
 What started as a desire for Cyberpunk 2077 support post-archive grew into a full continuation of the project, keeping *everything* up to date including bug fixes and adding support for more games.
