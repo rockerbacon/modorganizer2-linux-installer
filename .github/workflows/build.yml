@@ -39,7 +39,7 @@ jobs:
       - name: Get Previous Tag
         id: get_previous_tag
         run: |
-          previous_tag=$(gh release list --limit 5 | grep 'Pre-release' | awk '{print $1}')
+          previous_tag=$(gh release list --limit 5 | grep 'Pre-release' | awk 'NR==1 {print $1}')
           echo "previous_tag=${previous_tag}" >> $GITHUB_ENV
 
       - name: Create GitHub Release
