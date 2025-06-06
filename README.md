@@ -22,6 +22,7 @@ You may need to manually install the following programs:
 - _protontricks_
     - **Steam Deck users**: Protontricks must be installed through the Discover app.
     - **Other distributions**: carefully read through the [available install methods](https://github.com/Matoking/protontricks#installation) to ensure you're using an up-to-date version of the program.
+    - ⚠️ **Flatpak Installs** ⚠️ - Flatpak installations of protontricks are ***not supported***, as their use kills script functionality. Please follow the [guide for installation via pipx](https://github.com/Matoking/protontricks?tab=readme-ov-file#pipx) instead.
 
 #### Installation Steps
 1. Install the game you want to play on Steam;
