@@ -1,5 +1,5 @@
 name: Game Request
-about: Suggest a game for this project to support
+description: Suggest a game for this project to support
 title: "[Game]:"
 labels: ['enhancement']
 assignees: Furglitch
