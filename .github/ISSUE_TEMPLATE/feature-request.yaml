@@ -18,12 +18,12 @@ body:
     id: proposal
     attributes:
       label: How should we implement this?
-  - type: text area
+  - type: textarea
     id: examples
     attributes:
       label: Examples
       placeholder: Are there any other projects that have similar functionality?
-  - type: text area
+  - type: textarea
     id: alternatives
     attributes:
       label: Alternatives
@@ -34,8 +34,8 @@ body:
       label: Is this feature related to an issue?
       description: If yes, please reference the issue in the 'Additional Info' section.
       options:
-        - label: Yes
-        - label: No
+        - label: "Yes"
+        - label: "No"
     validations:
       required: true
   - type: textarea
