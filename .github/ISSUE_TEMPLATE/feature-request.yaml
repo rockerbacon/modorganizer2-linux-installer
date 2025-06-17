@@ -11,13 +11,14 @@ body:
     id: description
     attributes:
       label: Description
-      placeholder: Describe the feature you'd like
+      placeholder: Describe the feature you'd like.
     validations:
       required: true
   - type: textarea
     id: proposal
     attributes:
       label: How should we implement this?
+      placeholder: Describe how you think this feature could be written into the project.
   - type: textarea
     id: examples
     attributes:
