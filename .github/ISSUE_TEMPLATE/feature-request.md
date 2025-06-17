@@ -1,30 +1,45 @@
----
 name: Feature Request
 about: Suggest an idea for this project
-title: "[FEAT REQ]"
-labels: enhancement
+title: "[Feature]: "
+labels: ['enhancement']
 assignees: Furglitch
-
----
-
-## Feature Request
-
-If this request is for support of a certain game, please use the Game Request template.
-
-**Description:**
-A clear and concise description of the feature request.
-
-**Proposal:**
-A clear and concise description of what you want to happen.
-
-**Examples:**
-Links to other projects that have a similar feature to what you're requesting
-
-**Alternatives:**
-A clear and concise description of any alternative solutions or features you've considered.
-
-- [ ] _Is this related to a problem?_
-
----
-
-### Additional Information:
+body:
+  - type: markdown
+    attributes:
+      value: 'If this request is for support of a certain game, please use the Game Request form.'
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      placeholder: Describe the feature you'd like
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: How should we implement this?
+  - type: text area
+    id: examples
+    attributes:
+      label: Examples
+      placeholder: Are there any other projects that have similar functionality?
+  - type: text area
+    id: alternatives
+    attributes:
+      label: Alternatives
+      placeholder: If implementing this isn't possible, is there any alternatives you'd like to suggest?
+  - type: checkboxes
+    id: related-issue
+    attributes:
+      label: Is this feature related to an issue?
+      description: If yes, please reference the issue in the 'Additional Info' section.
+      options:
+        - label: Yes
+        - label: No
+    validations:
+      required: true
+  - type: textarea
+    id: misc
+    attributes:
+      label: Additional Notes
+      description: Anything else you want to add?

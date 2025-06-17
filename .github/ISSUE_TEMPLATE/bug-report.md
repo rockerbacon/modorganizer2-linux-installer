@@ -1,51 +1,80 @@
----
 name: Bug Report
 about: Create a report to help us fix issues
-title: "[BUG]"
-labels: bug
+title: "[Bug]: "
+labels: ['bug']
 assignees: Furglitch
-
----
-
-## Bug Report
-
-**Description:**
-A clear and concise description of what the bug is.
-
-**To Reproduce:**
-Steps to reproduce the issue:
-1. 
-2. 
-3. 
-
----
-
-### System Information
-- **OS:** Debian, ArchLinux, Ubuntu
-- **Installer Version:** 5.1.X
-- **Targeted Game(s):** Game you're trying to mod
-- **Dependencies Met**
-  - [ ] bash
-  - [ ] curl *or* wget
-  - [ ] zenity
-  - [ ] protontricks
-    - Installed via... (pipx, flatpak, pacman, apt)
-  - [ ] 7z
-
-<details>
-<summary>Terminal Output</summary>
-
-## 
-```
-code goes here
-```
-
-</details>
-
----
-
-### Additional Information:
-
-
-> _**All fields above are required**_
-> Failure to fill out the above fields will result in your bug report being ignored until it is completed.
+body:
+  - type: textarea
+    id: issue
+    attributes:
+      label: What happened?
+      placeholder: Describe the bug
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+      placeholder: Describe the expected behavior
+  - type: text area
+    id: reproduce
+    attributes:
+      label: Steps to reproduce the issue
+      value: '1. '
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: '## Install Environment'
+  - type: input
+    id: version
+    attributes:
+      label: Installer version
+      description: Do not put 'latest', put the version number
+      value: '5.1.X'
+    validations:
+      required: true
+  - type: dropdown
+    id: game
+    attributes:
+      label: Targeted game
+      description: Which game are you trying to install?
+      options:
+        - Cyberpunk 2077
+        - Enderal
+        - Enderal SE
+        - Fallout 3
+        - Fallout 3 GOTY
+        - Fallout 4
+        - Fallout New Vegas
+        - Fallout New Vegas (RU)
+        - Morrowind
+        - Oblivion
+        - Oblivion Remastered
+        - Skyrim
+        - Skyrim SE
+        - Skyrim VR
+        - Starfield
+        - Multiple / Other (list in 'Additional Info')
+    validations:
+      required: true
+  - type: input
+    id: distro
+    attributes:
+      label: Linux Distro
+      description: What distro are you running?
+      value: '5.1.X'
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Please include any logs here. This field is automatically formatted into code, so you do not need to include any backticks.
+      placeholder: Paste logs here
+      render: shell
+  - type: textarea
+    id: misc
+    attributes:
+      label: Additional Notes
+      description: Anything else you want to add?

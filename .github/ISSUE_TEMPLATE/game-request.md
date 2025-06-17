@@ -1,18 +1,26 @@
----
 name: Game Request
 about: Suggest a game for this project to support
-title: "[GAME REQ]"
-labels: enhancement
+title: "[Game]:"
+labels: ['enhancement']
 assignees: Furglitch
-
----
-
-## Game Request
-
-If this request is for support of a certain game, please use the Game Request template.
-
-**Game Title:** Skyrim Hologram Edition
-
-- [ ] _Is this game supported in a full release of MO2?_
-- [ ] _Is this game supported in an in-development release of MO2?_
-- [ ] _Does this game require the [modorganizer-basic_games](https://github.com/ModOrganizer2/modorganizer-basic_games) plugin?_
+body:
+  - type: input
+    id: game
+    attributes:
+      label: Game Title
+      description: Which game do you want functionality added for?
+      placeholder: 'Skyrim Hologram Edition'
+    validations:
+      required: true
+  - type: checkboxes
+    id: support
+    attributes:
+      label: MO2 Support
+      description: Is this game supported by MO2
+      options:
+        - label: Yes, a full release (i.e. 2.5.2)
+        - label: Yes, an development build (i.e. 2.5.3dev3, 2.5.3beta1)
+        - label: Yes, but requires the [modorganizer-basic_games](https://github.com/ModOrganizer2/modorganizer-basic_games) plugin
+        - label: No
+    validations:
+      required: true
