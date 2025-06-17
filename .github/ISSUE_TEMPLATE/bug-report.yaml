@@ -63,7 +63,7 @@ body:
     attributes:
       label: Linux Distro
       description: What distro are you running?
-      value: '5.1.X'
+      placeholder: 'ArchLinux, Debian, Fedora, Ubuntu, etc.'
     validations:
       required: true
   - type: textarea
