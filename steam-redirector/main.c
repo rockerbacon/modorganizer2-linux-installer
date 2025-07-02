@@ -98,11 +98,6 @@ int check_file_access(const char_t* path) {
 int MAIN(argc, argv) {
 	int exit_status = 1;
 
-	char_t *arg = NULL;
-	if (argc > 1) {
-		arg = argv[1];
-	}
-
 	char_t *exe_path = NULL;
 	if (getenv("NO_REDIRECT") == NULL) {
 		putenv("NO_REDIRECT=1");
@@ -124,7 +119,7 @@ int MAIN(argc, argv) {
 	}
 
 	fprintf(stdout, "Launching '"PATHSUBST"'\n", exe_path);
-	execute(exe_path, arg);
+	execute(exe_path);
 	exit_status = 0;
 
 #ifdef DEBUG

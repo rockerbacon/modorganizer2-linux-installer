@@ -5,12 +5,8 @@
 
 #include "win32_utils.h"
 
-void execute(const char_t* path, const char_t* arg) {
-	if (arg != NULL) {
-		_wexecl(path, path, arg, NULL);
-	} else {
-		_wexecl(path, path, NULL);
-	}
+void execute(const char_t* path) {
+	_wexecl(path, path, NULL);
 }
 
 void check_can_execute(const char_t* path) {
