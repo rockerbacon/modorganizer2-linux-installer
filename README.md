@@ -41,6 +41,7 @@ The installer will automatically configure game-specific workarounds and install
 | Game                  | Gameplay          | Script Extender                                                                | ENB                                |
 |-----------------------|-------------------|--------------------------------------------------------------------------------|------------------------------------|
 | Cyberpunk 2077        | Working           | N/A                                                                            | Not Tested                         |
+| Dragon Age: Origins   | Currently Unknown | N/A                                                                            | N/A                                |
 | Fallout 3             | Working*          | Working*                                                                       | Not Tested*                        |
 | Fallout 4             | Working*          | Some plugins may not work. See [#32](https://github.com/rockerbacon/modorganizer2-linux-installer/issues/32) | v0.393 or older might need `EnablePostPassShader` disabled* |
 | Fallout New Vegas     | Fullscreen Only*  | Working*                                                                       | Working*                           |

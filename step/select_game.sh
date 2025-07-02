@@ -16,6 +16,7 @@ selected_game=$( \
 		radio \
 		450 "$screen_text" \
 		"cyberpunk" "Cyberpunk 2077" \
+		"dragonage" "Dragon Age: Origins" \
 		"enderal" "Enderal: Forgotten Stories" \
 		"enderal_se" "Enderal: Forgotten Stories (Special Edition)" \
 		"fallout3" "Fallout 3" \
