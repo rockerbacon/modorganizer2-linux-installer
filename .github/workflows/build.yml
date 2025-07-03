@@ -6,7 +6,7 @@ on:
       version:
         description: 'Release version to build'
         required: true
-        default: '5.X.X'
+        default: '5.X.X-prerelease'
 
 jobs:
   build-release:
@@ -39,7 +39,7 @@ jobs:
       - name: Get Previous Tag
         id: get_previous_tag
         run: |
-          previous_tag=$(gh release list --limit 5 | grep -v 'Pre-release' | awk 'NR==1 {print $1}')
+          previous_tag=$(gh release list --limit 5 | grep 'Pre-release' | awk 'NR==1 {print $1}')
           echo "previous_tag=${previous_tag}" >> $GITHUB_ENV
 
       - name: Create GitHub Release
@@ -54,7 +54,7 @@ jobs:
           fromTag: ${{ env.previous_tag }}
           toTag: ${{ inputs.version }}
           draft: false
-          prerelease: false
+          prerelease: true
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1

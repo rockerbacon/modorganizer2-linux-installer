@@ -5,7 +5,7 @@ extract="$utils/extract.sh"
 
 jdk_url='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u312-b07/OpenJDK8U-jre_x64_windows_hotspot_8u312b07.zip'
 
-mo2_url='https://github.com/ModOrganizer2/modorganizer/releases/download/v2.5.2/Mod.Organizer-2.5.2.7z'
+mo2_url='https://my.microsoftpersonalcontent.com/personal/371272c49a37cc4a/_layouts/15/download.aspx?UniqueId=ba34a6d1-e3a4-4178-97ff-e90e0816a027&Translate=false&ApiVersion=2.0'
 
 winetricks_url='https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
 
@@ -14,7 +14,7 @@ extracted_jdk="${downloaded_jdk%.*}"
 downloaded_winetricks="$downloads_cache/winetricks"
 executable_winetricks="$shared/winetricks"
 
-downloaded_mo2="$downloads_cache/${mo2_url##*/}"
+downloaded_mo2="$downloads_cache/Mod.Organizer-2.5.3dev5.7z"
 extracted_mo2="${downloaded_mo2%.*}"
 
 downloaded_scriptextender=""

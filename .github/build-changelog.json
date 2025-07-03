@@ -27,7 +27,7 @@
         "on_property": "mergedAt"
     },
     "template": "${{CHANGELOG}}\n\n---\n\n**Full Changelog**: #{{RELEASE_DIFF}}",
-    "pr_template": "- ${{TITLE}} - PR #${{NUMBER}} - ${{AUTHOR}}",
+    "pr_template": "This version is only capable of installing instances of MO2 for Oblivion Remastered.\nFor other games, use the non -prerelease version\n\n- ${{TITLE}} - PR #${{NUMBER}} - ${{AUTHOR}}",
     "empty_template": "No changes were made in this release.",
     "max_pull_requests": 1000,
     "max_back_track_time_days": 365,
