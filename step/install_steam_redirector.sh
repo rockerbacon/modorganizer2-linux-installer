@@ -10,7 +10,14 @@ mo2_executable_path_config="$game_installation/modorganizer2/instance_path.txt"
 log_info "configuring mo2 executable path '$mo2_executable_windowspath' in '$mo2_executable_path_config'"
 echo "$mo2_executable_windowspath" > "$mo2_executable_path_config"
 
-original_game_executable="$game_installation/_$game_executable"
+game_executable_dir=$(dirname "$game_executable")
+game_executable_file=$(basename "$game_executable")
+
+if [ "$game_executable_dir" = "." ]; then
+	original_game_executable="$game_installation/_$game_executable_file"
+else
+	original_game_executable="$game_installation/$game_executable_dir/_$game_executable_file"
+fi
 
 full_game_executable_path="$game_installation/$game_executable"
 if [ ! -f "$original_game_executable" ]; then
