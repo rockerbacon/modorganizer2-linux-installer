@@ -32,6 +32,8 @@ You may need to manually install the following programs:
 6. Run the game on Steam and Mod Organizer 2 should start;
 7. Read the [post-install instructions](post-install.md) for recommended additional steps;
 
+**If you install MO2 on another drive/mountpoint**, make sure to add `STEAM_COMPAT_MOUNTS="/path/to/modorganizer" %command%` to your launch options in Steam. *(i.e. if you install at /mnt/gameDrive/modding, use that path)*
+
 The installer will automatically configure game-specific workarounds and install the script extender for your game of choice. Java binaries are also made available at `C:\java` for running Proc Patchers.
 
 **Avoid using ENBoost** with Skyrim: DXVK and Wine have their own better working memory patches, both properly enabled with this installer.
