@@ -11,10 +11,7 @@ Which game would you like to manage with this installation?
 EOF
 )
 
-selected_game=$( \
-	"$dialog" \
-		radio \
-		450 "$screen_text" \
+game_options=( \
 		"cyberpunk" "Cyberpunk 2077" \
 		"dragonage" "Dragon Age: Origins" \
 		"enderal" "Enderal: Forgotten Stories" \
@@ -29,7 +26,19 @@ selected_game=$( \
 		"skyrim" "Skyrim" \
 		"skyrimspecialedition" "Skyrim Special Edition" \
 		"skyrimvr" "Skyrim VR" \
-		"starfield" "Starfield"\
+		"starfield" "Starfield"
+)
+
+# Excluded from list unless script is run with flag to reduce discoverability for the unfamiliar.
+if [ "$custom_game_enabled" == "1" ]; then
+	game_options+=("custom" "Custom Game")
+fi
+
+selected_game=$( \
+	"$dialog" \
+		radio \
+		450 "$screen_text" \
+		"${game_options[@]}"
 )
 
 if [ -z "$selected_game" ]; then
