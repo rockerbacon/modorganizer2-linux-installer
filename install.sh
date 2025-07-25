@@ -18,6 +18,7 @@ workarounds="$script_root/workarounds"
 downloads_cache=/tmp/mo2-linux-installer-downloads-cache
 shared="$HOME/.local/share/modorganizer2"
 
+custom_game_enabled=0
 started_download_step=0
 expect_exit=0
 
@@ -59,6 +60,13 @@ fi
 expect_exit=1
 
 source "$step/check_dependencies.sh"
+
+# Parse options; implemented as a loop in case there are additional uses for it later.
+while getopts c launch_options; do
+	case "${launch_options}" in
+		c) custom_game_enabled=1 ;;
+	esac
+done
 
 selected_game=$(source "$step/select_game.sh")
 log_info "selected game '$selected_game'"
