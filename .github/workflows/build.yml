@@ -1,0 +1,67 @@
+name: build-release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version to build'
+        required: true
+        default: '5.X.X'
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-mingw-w64 make tar
+
+      - name: Run pack-release.sh
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          chmod +x ./pack-release.sh
+          ./pack-release.sh "${VERSION}"
+
+      - name: "Write Changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          configuration: ".github/build-changelog.json"
+
+      - name: Get Previous Tag
+        id: get_previous_tag
+        run: |
+          previous_tag=$(gh release list --limit 5 | grep -v 'Pre-release' | awk 'NR==1 {print $1}')
+          echo "previous_tag=${previous_tag}" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ inputs.version }}
+          release_name: "${{ inputs.version }}"
+          body: ${{ steps.build_changelog.outputs.changelog }}
+          fromTag: ${{ env.previous_tag }}
+          toTag: ${{ inputs.version }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: mo2installer-${{ inputs.version }}.tar.gz
+          asset_name: mo2installer-${{ inputs.version }}.tar.gz
+          asset_content_type: application/gzip

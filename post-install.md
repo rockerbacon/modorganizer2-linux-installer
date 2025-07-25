@@ -2,6 +2,33 @@
 
 This document provides information on additional steps you may want to take after installing Mod Organizer 2.
 
+## General Advice
+Remember, when adding anything to your Launch Options, include the `%command%` argument. If it's part of the game (i.e. `--skip-launcher`) then it goes after, otherwise it goes before. Other than that, ordering doesn't really matter. For example:
+```
+STEAM_COMPAT_MOUNTS=/folder1/:/folder2/ %command% --skip-launcher
+```
+
+## 'gamemoderun' Issue
+Usually, `gamemoderun` to a proton game's Launch Options within Steam can give a significant improvement in performance.
+</br>
+However, in my testing, it appears that having this option in a game that's been modified by this script will prevent MO2 from launching, rendering the game unplayable.
+
+## MO2 outside of $HOME
+If you've installed MO2 outside of your $HOME directory, you may find you cannot launch. You can try adding the following to your Launch Options:
+```
+`STEAM_COMPAT_MOUNTS=/path/to/folder %command%`
+```
+</br>
+For example, I install my instances on a secondary drive mounted at /nvme2/, under a folder called modding, so the argument for me would be `STEAM_COMPAT_MOUNTS=/nvme2/modding/`
+
+## Game Specific Adjustments
+
+### Cyberpunk 2077
+**IMPORTANT:** Add the following to the game's Launch Options within Steam:</br>
+```
+WINEDLLOVERRIDES="winmm,version=n,b" %command%
+```
+
 ## Using alternative proton versions
 
 **IMPORTANT:** Proton 9.0 is the most extensively tested version. The author of this document provides no guarantees that alternative versions will work well.
