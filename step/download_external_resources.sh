@@ -36,6 +36,9 @@ if [ -n "$plugin_download_urls" ]; then
 		downloaded_plugins+=("$downloaded_plugin")
 		extracted_plugins+=("$extracted_plugin")
 	done
+else 
+	downloaded_plugins=("")
+	extracted_plugins=("")
 fi
 
 function purge_downloads_cache() {

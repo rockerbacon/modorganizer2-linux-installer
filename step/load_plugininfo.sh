@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if ${selected_plugins} == ""; then
+if [ -z "${selected_plugins:-}" ]; then
 	plugin_names=("")
 	plugin_download_urls=("")
 	plugin_download_files=("")
