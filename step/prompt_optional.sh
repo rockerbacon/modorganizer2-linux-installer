@@ -15,7 +15,7 @@ button=$( \
 )
 
 if [ "$button" == 0 ]; then
-    echo true
+	echo true
 else
 	echo false
 fi
