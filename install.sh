@@ -71,6 +71,14 @@ log_info "selected install directory '$install_dir'"
 
 expect_exit=0
 
+if [ "$hasScriptExtender" == true ]; then
+	install_extras=$(source "$step/prompt_optional.sh")
+	log_info "Installing optional components: '$install_extras'"
+else
+	install_extras=false
+	log_info "No script extender provided for '$selected_game'."
+fi
+
 source "$step/download_external_resources.sh"
 source "$step/install_external_resources.sh"
 source "$step/install_nxm_handler.sh"
