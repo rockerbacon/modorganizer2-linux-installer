@@ -20,9 +20,22 @@ extracted_mo2="${downloaded_mo2%.*}"
 downloaded_scriptextender=""
 extracted_scriptextender=""
 
+downloaded_plugins=()
+extracted_plugins=()
+
 if [ -n "$game_scriptextender_url" ]; then
 	downloaded_scriptextender="$downloads_cache/${game_nexusid}_${game_scriptextender_url##*/}"
 	extracted_scriptextender="${downloaded_scriptextender%.*}"
+fi
+
+if [ -n "$plugin_download_urls" ]; then
+	IFS=' ' read -ra plugin_download_urls <<< "${plugin_download_urls[@]}"
+	for url in "${plugin_download_urls[@]}"; do
+		downloaded_plugin="$downloads_cache/${url##*/}"
+		extracted_plugin="${downloaded_plugin%.*}"
+		downloaded_plugins+=("$downloaded_plugin")
+		extracted_plugins+=("$extracted_plugin")
+	done
 fi
 
 function purge_downloads_cache() {
@@ -60,6 +73,20 @@ function purge_downloads_cache() {
 		log_info "removing '$downloaded_winetricks'"
 		rm "$downloaded_winetricks"
 	fi
+
+	for file in "${downloaded_plugins[@]}"; do
+		if [ -f "$file" ]; then
+			log_info "removing '$file'"
+			rm "$file"
+		fi
+	done
+
+	for dir in "${extracted_plugins[@]}"; do
+		if [ -d "$dir" ]; then
+			log_info "removing '$dir'"
+			rm -rf "$dir"
+		fi
+	done
 }
 
 if [ "$cache_enabled" == "0" ]; then
@@ -92,3 +119,12 @@ if [ -n "$downloaded_scriptextender" ] && [ ! -f "$downloaded_scriptextender" ];
 	"$extract" "$downloaded_scriptextender" "$extracted_scriptextender"
 fi
 
+if [ -n "$downloaded_plugins" ]; then
+	for i in "${!downloaded_plugins[@]}"; do
+		if [ ! -f "${downloaded_plugins[$i]}" ]; then
+			"$download" "${plugin_download_urls[$i]}" "${downloaded_plugins[$i]}"
+			mkdir "${extracted_plugins[$i]}"
+			"$extract" "${downloaded_plugins[$i]}" "${extracted_plugins[$i]}"
+		fi
+	done
+fi

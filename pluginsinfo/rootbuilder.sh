@@ -1,0 +1,5 @@
+plugin_name="Root Builder"
+plugin_version="5.0.5"
+plugin_version_support="2.5.0"
+plugin_download_url="https://github.com/Kezyma/ModOrganizer-Plugins/releases/download/rootbuilder/rootbuilder.5.0.5.zip"
+plugin_download_files="*"

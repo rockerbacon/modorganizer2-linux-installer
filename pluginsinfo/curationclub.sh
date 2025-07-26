@@ -1,0 +1,8 @@
+plugin_name="Curation Club"
+plugin_version="1.1.0"
+plugin_version_support="2.5.0"
+plugin_download_url="https://github.com/Kezyma/ModOrganizer-Plugins/releases/download/curationclub/curationclub.1.1.0.zip"
+plugin_download_files=( \
+    "curationclub/shared" \
+    "curationclub/__init__.py" \
+) #("*")

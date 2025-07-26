@@ -10,6 +10,7 @@ script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 utils="$script_root/utils"
 dialog="$utils/dialog.sh"
 gamesinfo="$script_root/gamesinfo"
+pluginsinfo="$script_root/pluginsinfo"
 handlers="$script_root/handlers"
 launchers="$script_root/launchers"
 redirector="$script_root/steam-redirector"
@@ -63,7 +64,11 @@ source "$step/check_dependencies.sh"
 selected_game=$(source "$step/select_game.sh")
 log_info "selected game '$selected_game'"
 
+selected_plugins=$(source "$step/select_plugins.sh")
+log_info "selected plugins '$selected_plugins'"
+
 source "$step/load_gameinfo.sh"
+source "$step/load_plugininfo.sh"
 source "$step/clean_game_prefix.sh"
 
 install_dir=$(source "$step/select_install_dir.sh")
