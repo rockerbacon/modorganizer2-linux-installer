@@ -72,6 +72,14 @@ done
 selected_game=$(source "$step/select_game.sh")
 log_info "selected game '$selected_game'"
 
+if [ "$hasScriptExtender" == true ]; then
+	install_extras=$(source "$step/prompt_optional.sh")
+	log_info "Installing optional components: '$install_extras'"
+else
+	install_extras=false
+	log_info "No script extender provided for '$selected_game'."
+fi
+
 selected_plugins=$(source "$step/select_plugins.sh")
 log_info "selected plugins '$selected_plugins'"
 
@@ -83,14 +91,6 @@ install_dir=$(source "$step/select_install_dir.sh")
 log_info "selected install directory '$install_dir'"
 
 expect_exit=0
-
-if [ "$hasScriptExtender" == true ]; then
-	install_extras=$(source "$step/prompt_optional.sh")
-	log_info "Installing optional components: '$install_extras'"
-else
-	install_extras=false
-	log_info "No script extender provided for '$selected_game'."
-fi
 
 source "$step/download_external_resources.sh"
 source "$step/install_external_resources.sh"
