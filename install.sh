@@ -72,6 +72,7 @@ done
 selected_game=$(source "$step/select_game.sh")
 log_info "selected game '$selected_game'"
 
+source "$step/load_gameinfo.sh"
 if [ "$hasScriptExtender" == true ]; then
 	install_extras=$(source "$step/prompt_optional.sh")
 	log_info "Installing optional components: '$install_extras'"
@@ -82,9 +83,8 @@ fi
 
 selected_plugins=$(source "$step/select_plugins.sh")
 log_info "selected plugins '$selected_plugins'"
-
-source "$step/load_gameinfo.sh"
 source "$step/load_plugininfo.sh"
+
 source "$step/clean_game_prefix.sh"
 
 install_dir=$(source "$step/select_install_dir.sh")
