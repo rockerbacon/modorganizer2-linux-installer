@@ -9,6 +9,7 @@ script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
 utils="$script_root/utils"
 dialog="$utils/dialog.sh"
+pluginsinfo="$script_root/pluginsinfo.json"
 gamesinfo="$script_root/gamesinfo"
 handlers="$script_root/handlers"
 launchers="$script_root/launchers"
@@ -18,6 +19,7 @@ workarounds="$script_root/workarounds"
 downloads_cache=/tmp/mo2-linux-installer-downloads-cache
 shared="$HOME/.local/share/modorganizer2"
 
+custom_game_enabled=0
 started_download_step=0
 expect_exit=0
 
@@ -60,10 +62,29 @@ expect_exit=1
 
 source "$step/check_dependencies.sh"
 
+# Parse options; implemented as a loop in case there are additional uses for it later.
+while getopts c launch_options; do
+	case "${launch_options}" in
+		c) custom_game_enabled=1 ;;
+	esac
+done
+
 selected_game=$(source "$step/select_game.sh")
 log_info "selected game '$selected_game'"
 
 source "$step/load_gameinfo.sh"
+if [ "$hasScriptExtender" == true ]; then
+	install_extras=$(source "$step/prompt_optional.sh")
+	log_info "Installing optional components: '$install_extras'"
+else
+	install_extras=false
+	log_info "No script extender provided for '$selected_game'."
+fi
+
+selected_plugins=$(source "$step/select_plugins.sh")
+log_info "selected plugins '$selected_plugins'"
+source "$step/load_plugininfo.sh"
+
 source "$step/clean_game_prefix.sh"
 
 install_dir=$(source "$step/select_install_dir.sh")

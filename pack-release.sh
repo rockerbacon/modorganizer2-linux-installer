@@ -16,6 +16,7 @@ release_files=( \
 	"handlers" \
 	"install.sh" \
 	"LICENSE" \
+	"pluginsinfo.json" \
 	"README.md" \
 	"steam-redirector/main.exe" \
 	"step" \

@@ -11,11 +11,20 @@ Which game would you like to manage with this installation?
 EOF
 )
 
+game_options=( \
+		"oblivionremastered" "Oblivion Remastered"\
+)
+
+# Excluded from list unless script is run with flag to reduce discoverability for the unfamiliar.
+if [ "$custom_game_enabled" == "1" ]; then
+	game_options+=("custom" "Custom Game")
+fi
+
 selected_game=$( \
 	"$dialog" \
 		radio \
 		450 "$screen_text" \
-  		"oblivionremastered" "Oblivion Remastered"\
+		"${game_options[@]}"
 )
 
 if [ -z "$selected_game" ]; then

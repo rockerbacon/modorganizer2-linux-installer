@@ -28,6 +28,14 @@ jobs:
           chmod +x ./pack-release.sh
           ./pack-release.sh "${VERSION}"
 
+      - name: Get Previous Tag
+        id: get_previous_tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          previous_tag=$(gh release list --limit 5 | grep -v 'Pre-release' | awk 'NR==1 {print $1}')
+          echo "::set-output name=previous_tag::${previous_tag}"
+
       - name: "Write Changelog"
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v5
@@ -35,12 +43,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           configuration: ".github/build-changelog.json"
-
-      - name: Get Previous Tag
-        id: get_previous_tag
-        run: |
-          previous_tag=$(gh release list --limit 5 | grep 'Pre-release' | awk 'NR==1 {print $1}')
-          echo "previous_tag=${previous_tag}" >> $GITHUB_ENV
+          fromTag: ${{ steps.get_previous_tag.outputs.previous_tag }}
+          toTag: ${{ inputs.version }}
 
       - name: Create GitHub Release
         id: create_release
@@ -51,8 +55,6 @@ jobs:
           tag_name: ${{ inputs.version }}
           release_name: "${{ inputs.version }}"
           body: ${{ steps.build_changelog.outputs.changelog }}
-          fromTag: ${{ env.previous_tag }}
-          toTag: ${{ inputs.version }}
           draft: false
           prerelease: true
 

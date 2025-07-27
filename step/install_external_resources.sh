@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 mo2_installation="$install_dir/modorganizer2"
+plugin_installation="$mo2_installation/plugins"
 
 function install_mo2() {
 	log_info "installing Mod Organizer 2 in '$mo2_installation'"
@@ -53,7 +54,7 @@ function install_files() {
 		install_mo2
 	fi
 
-	if [ -d "$extracted_scriptextender" ]; then
+	if [ "$install_extras" == true ] && [ -d "$extracted_scriptextender" ]; then
 		log_info "installing script extender in '$game_installation'"
 
 		if [ "${game_scriptextender_files[*]}" == "*" ]; then
@@ -67,6 +68,22 @@ function install_files() {
 			done
 		fi
 	fi
+
+	for i in "${!extracted_plugins[@]}"; do
+		path="${extracted_plugins[$i]}"
+		if [ -d "$path" ]; then
+			log_info "installing plugin ${plugin_names[$i]} in '$plugin_installation'"
+			IFS='|' read -ra plugin_files <<< "${plugin_download_files[$i]}"
+			for plugin_file in "${plugin_files[@]}"; do
+				plugin_filepath="${extracted_plugins[$i]}/$plugin_file"
+				output_filepath="${plugin_installation}/${plugin_file}"
+				mkdir -p "$(dirname "$output_filepath")"
+				log_info "copying '$plugin_filepath' into '$output_filepath'"
+				cp -an "$plugin_filepath" "$output_filepath" || true
+			done
+		fi
+	done
+
 }
 
 install_files \
