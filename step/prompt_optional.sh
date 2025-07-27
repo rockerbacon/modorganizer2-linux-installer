@@ -4,7 +4,7 @@ screen_text=$( \
 cat << EOF
 Do you want to automatically install the script extender for this game?
 
-If you plan to install the script extender via Mod Organizer 2, select "No". Keep in mind that this requires a plugin like Root Builder.
+If you plan to install the script extender via Mod Organizer 2 (i.e. Root Builder), select "No".
 EOF
 )
 
