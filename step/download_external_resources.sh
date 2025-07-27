@@ -116,7 +116,7 @@ fi
 cp "$downloaded_winetricks" "$executable_winetricks"
 chmod u+x "$executable_winetricks"
 
-if [ -n "$downloaded_scriptextender" ] && [ ! -f "$downloaded_scriptextender" ]; then
+if [ "$install_extras" == true ] && [ -n "$downloaded_scriptextender" ] && [ ! -f "$downloaded_scriptextender" ]; then
 	"$download" "$game_scriptextender_url" "$downloaded_scriptextender"
 	mkdir "$extracted_scriptextender"
 	"$extract" "$downloaded_scriptextender" "$extracted_scriptextender"

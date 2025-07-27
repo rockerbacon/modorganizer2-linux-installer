@@ -54,7 +54,7 @@ function install_files() {
 		install_mo2
 	fi
 
-	if [ -d "$extracted_scriptextender" ]; then
+	if [ "$install_extras" == true ] && [ -d "$extracted_scriptextender" ]; then
 		log_info "installing script extender in '$game_installation'"
 
 		if [ "${game_scriptextender_files[*]}" == "*" ]; then

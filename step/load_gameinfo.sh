@@ -28,6 +28,12 @@ if [ ! -d "$steam_library" ]; then
 	exit 1
 fi
 
+if [ "$game_scriptextender_url" != "" ]; then
+	hasScriptExtender=true
+else
+	hasScriptExtender=false
+fi
+
 game_installation="$steam_library/steamapps/common/$game_steam_subdirectory"
 
 # defer loading these variables to step/clean_game_prefix.sh
