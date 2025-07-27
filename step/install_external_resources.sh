@@ -73,20 +73,14 @@ function install_files() {
 		path="${extracted_plugins[$i]}"
 		if [ -d "$path" ]; then
 			log_info "installing plugin ${plugin_names[$i]} in '$plugin_installation'"
-			if [ "${plugin_download_files[$i]}" == "*" ]; then
-				log_info "copying all files from '$path' into '$plugin_installation'"
-				cp -an "$path"/* "$plugin_installation" || true
-			else
-				log_info ${plugin_download_files[$i]}
-				IFS=' ' read -ra plugin_files <<< "${plugin_download_files[$i]}"
-				for plugin_file in "${plugin_files[@]}"; do
-					plugin_filepath="${extracted_plugins[$i]}/$plugin_file"
-					output_filepath="${plugin_installation}/${plugin_file}"
-					mkdir -p "$(dirname "$output_filepath")"
-					log_info "copying '$plugin_filepath' into '$output_filepath'"
-					cp -an "$plugin_filepath" "$output_filepath" || true
-				done
-			fi
+			IFS='|' read -ra plugin_files <<< "${plugin_download_files[$i]}"
+			for plugin_file in "${plugin_files[@]}"; do
+				plugin_filepath="${extracted_plugins[$i]}/$plugin_file"
+				output_filepath="${plugin_installation}/${plugin_file}"
+				mkdir -p "$(dirname "$output_filepath")"
+				log_info "copying '$plugin_filepath' into '$output_filepath'"
+				cp -an "$plugin_filepath" "$output_filepath" || true
+			done
 		fi
 	done
 

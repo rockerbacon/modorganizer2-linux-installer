@@ -13,10 +13,10 @@ script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
 release_files=( \
 	"gamesinfo" \
-	"pluginsinfo" \
 	"handlers" \
 	"install.sh" \
 	"LICENSE" \
+	"pluginsinfo.json" \
 	"README.md" \
 	"steam-redirector/main.exe" \
 	"step" \

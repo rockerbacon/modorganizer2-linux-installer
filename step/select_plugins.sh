@@ -2,6 +2,12 @@
 
 shopt -s nullglob
 
+if ! command -v jq >/dev/null 2>&1; then
+    log_info "jq is not installed, skipping plugin selection"
+    echo ""
+    return 0
+fi
+
 screen_text=$( \
 cat << EOF
 Would you like to automatically install any MO2 plugins?
@@ -27,24 +33,22 @@ EOF
 )
 
 array=()
-for file in "$pluginsinfo/"*.sh; do
-    [ -e "$file" ] || continue
-    plugin_id=$(basename "$file" .sh)
-    plugin_name=$(grep -m 1 '^plugin_name=' "$file" | sed -E "s/plugin_name=([\"']?)(.*)\1/\2/")
-    array+=("$plugin_id" "$plugin_name")
-done
+while IFS=$'\t' read -r id name; do
+    array+=("$id" "$name")
+done < <(jq -r '.[] | "\(.Identifier)\t\(.Name)"' "$pluginsinfo")
 
 
 selected_plugins=$( \
     "$dialog" \
         check \
-        350 "$screen_text" \
+        450 "$screen_text" \
         "${array[@]}" \
 )
 
 if [ -z "$selected_plugins" ]; then
-    log_error "no plugins selected"
-    exit 1
+    log_info "no plugins selected"
+    echo ""
+    return 0
 fi
 
 echo $selected_plugins

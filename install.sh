@@ -9,8 +9,8 @@ script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
 utils="$script_root/utils"
 dialog="$utils/dialog.sh"
+pluginsinfo="$script_root/pluginsinfo.json"
 gamesinfo="$script_root/gamesinfo"
-pluginsinfo="$script_root/pluginsinfo"
 handlers="$script_root/handlers"
 launchers="$script_root/launchers"
 redirector="$script_root/steam-redirector"

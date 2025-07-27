@@ -9,48 +9,29 @@ fi
 
 IFS='|' read -ra plugins <<< "${selected_plugins}"
 
-load_gameinfo=()
+plugin_url=()
 for plugin in "${plugins[@]}"; do
-	load_gameinfo+=("$pluginsinfo/$plugin.sh")
+	plugin_url+=($(jq -r --arg id "$plugin" '.[] | select(.Identifier == $id) | "\(.Manifest)"' "$pluginsinfo"))
 done
 
-names=()
-urls=()
-filelists=()
+for i in "${!plugin_url[@]}"; do
+	log_info "Querying metadata for plugin: ${plugins[$i]}"
+	query=$(curl -s "${plugin_url[$i]}")
 
-for plugin in "${load_gameinfo[@]}"; do
-	plugin_data=$(bash -c "
-		source \"$plugin\"
-		echo \"name=\$plugin_name\"
-		echo \"url=\$plugin_download_url\"
-		if [ \"\${plugin_download_files}\" = \"*\" ]; then
-			echo \"files=*\"
-		elif declare -p plugin_download_files 2>/dev/null | grep -q 'declare -a'; then
-			echo \"files=\$(IFS='|'; echo \${plugin_download_files[*]})\"
-		else
-			echo \"files=\$plugin_download_files\"
-		fi
-	")
-
-	name=""
-	url=""
-	files=""
-	while IFS='=' read -r key value; do
-		case "$key" in
-			name) name="$value" ;;
-			url) url="$value" ;;
-			files) files="$value" ;;
-		esac
-	done <<< "$plugin_data"
+	name=$(echo "$query" | jq -r '.Name')
+	latest=$(echo "$query" | jq -r '.Versions | sort | last')
+	url=$(echo "$latest" | jq -r '.DownloadUrl')
+	files=$(echo "$latest" | jq -r '.PluginPath | join("|")')
 
 	if [ -z "$url" ]; then
-		log_error "empty plugin_download_url for '$(basename "$plugin" .sh)'"
+		log_error "empty plugin_download_url for '${name}'"
 		exit 1
 	fi
 
 	names+=("$name")
 	urls+=("$url")
 	filelists+=("$files")
+
 done
 
 plugin_names=("${names[@]}")
