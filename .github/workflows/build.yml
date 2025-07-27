@@ -36,6 +36,17 @@ jobs:
           previous_tag=$(gh release list --limit 5 | grep -v 'Pre-release' | awk 'NR==1 {print $1}')
           echo "::set-output name=previous_tag::${previous_tag}"
 
+      - name: Create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ inputs.version }}',
+              sha: context.sha
+            })
+
       - name: "Write Changelog"
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v5
