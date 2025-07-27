@@ -128,6 +128,35 @@ radio() {
 	return 0
 }
 
+check() {
+	height=$1
+	title=$2
+	shift 2
+
+	local rows=()
+	while [ "$#" -gt "0" ]; do
+		rows+=('' "$1" "$2")
+		shift 2
+	done
+
+	selected_option=$( \
+		zenity --height="$height" --list --checklist \
+		--text="$title" \
+		--hide-header \
+		--column="checkbox" --column="option_value" --column="option_text" \
+		--hide-column=2 \
+		"${rows[@]}" \
+	)
+
+	if [ -z "$selected_option" ]; then
+		return 1
+	fi
+
+	echo "$selected_option"
+
+	return 0
+}
+
 loading() {
 	tee /dev/tty <&0 \
 		| zenity --progress --auto-close --pulsate --no-cancel --text "$1"

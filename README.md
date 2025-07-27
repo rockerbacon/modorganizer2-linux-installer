@@ -19,6 +19,9 @@ The following requirements should be available out-of-the-box in most systems:
 You may need to manually install the following programs:
 - _7z_
     - Should be readily available in your distribution's package manager
+- _jq_
+    - Needed for MO2 plugin installation, but not required for the base installation. 
+    - Should be readily available in your distribution's package manager
 - _protontricks_
     - **Steam Deck users**: Protontricks must be installed through the Discover app.
     - **Other distributions**: carefully read through the [available install methods](https://github.com/Matoking/protontricks#installation) to ensure you're using an up-to-date version of the program.
@@ -57,6 +60,15 @@ The installer will automatically configure game-specific workarounds and install
 
 For known bugs and necessary workarounds, please refer to the [issues page](https://github.com/furglitch/modorganizer2-linux-installer/issues?q=is:issue+label:bug+)
 Please, help to keep this table up to date by [opening issues](https://github.com/furglitch/modorganizer2-linux-installer/issues/new/choose) on any successes or problems you have experienced.
+
+## Plugin Installation
+_This feature is dependent on `jq` being installed, and will be skipped if it is not available._<br/>
+The installer will give you a choice of MO2 plugins to automatically download and install. If you do not want to install any plugins, simply skip the plugin selection step.
+
+Plugin information is loaded via the manifest system created by [Kezyma](https://github.com/Kezyma) and is up to plugin developers to maintain. To add a plugin to this project, add a link to the raw manifest file to [pluginsinfo.jsonc](./pluginsinfo.jsonc) Please refer to Keyzma's [documentation](https://kezyma.github.io/?p=pluginfinder#new-col) for more information on how to create a plugin manifest.
+
+Compatibility with plugins is not guaranteed or supported. If you have issues with a plugin, please report it to the plugin developer.
+If a plugin is found to be outdated or incompatible with Linux/Proton, it will be disabled/removed from the installer until it is fixed.
 
 ## Updating Mod Organizer 2
 
