@@ -58,6 +58,12 @@ The installer will automatically configure game-specific workarounds and install
 For known bugs and necessary workarounds, please refer to the [issues page](https://github.com/furglitch/modorganizer2-linux-installer/issues?q=is:issue+label:bug+)
 Please, help to keep this table up to date by [opening issues](https://github.com/furglitch/modorganizer2-linux-installer/issues/new/choose) on any successes or problems you have experienced.
 
+## Plugin Installation
+The installer will give you a choice of MO2 plugins to automatically download and install. If you do not want to install any plugins, simply skip the plugin selection step.
+
+Compatibility with plugins is not guaranteed or supported. If you have issues with a plugin, please report it to the plugin developer.
+If a plugin is found to be incompatible, whether due to being outdated or a Linux/Proton incompatibility, it will be disabled/removed from the installer until it is fixed.
+
 ## Updating Mod Organizer 2
 
 It is highly recommended to backup your existing installation before updating.
