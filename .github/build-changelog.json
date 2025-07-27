@@ -1,26 +1,28 @@
 {
     "categories": [
         {
-            "title": "## 🚀 Features",
+            "title": "## Features",
             "labels": ["enhancement"]
         },
         {
-            "title": "## 🐛 Bugfixes",
+            "title": "## Bugfixes",
             "labels": ["bug"]
         },
         {
-            "title": "## 📥 Updates",
+            "title": "## Updates",
             "labels": ["update"]
         }
     ],
-    "ignore": [
+    "ignore_labels": [
+        "documentation",
         "duplicate",
         "good first issue",
-        "help wanted",
         "invalid",
-        "question",
-        "wontfix",
-        "documentation"
+        "not our bug",
+        "stale",
+        "unconfirmed",
+        "unsupported",
+        "wontfix"
     ],
     "sort": {
         "order": "ASC",
