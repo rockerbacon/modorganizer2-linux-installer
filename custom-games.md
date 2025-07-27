@@ -2,7 +2,7 @@
 
 Games that aren't officially supported by this project may be installed using the custom game installer.
 
-_Note that no support will be offered for these games outside of issues with the installer itself._
+_Note that no support will be offered for these games outside of issues with the installer itself. We will not provide support for the games or MO2 themselves._
 
 In order to enable the custom game installer, run `install.sh -c` and select the **Custom Game** option. 
 
@@ -23,10 +23,10 @@ In order to enable the custom game installer, run `install.sh -c` and select the
     ```yaml
     installer:
     - task:
-        app: arial vcrun2010 vcrun2012 vcrun2013
+        app: vcrun2010 vcrun2012 vcrun2013
         name: winetricks
     ```
-    and use the list from `app`; `arial vcrun2010 vcrun2012 vcrun2013`.
+    and use the list from `app`; `vcrun2010 vcrun2012 vcrun2013`.
 
 - **Script Extender URL**: A URL from which to download a script extender. You may have better luck installing this manually, depending on how the extender works.
 
