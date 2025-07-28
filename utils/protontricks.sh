@@ -42,7 +42,7 @@ function do_protontricks() {
 
 function apply() {
 	appid=$1; shift
-	do_protontricks "$appid" -q "$@"
+	do_protontricks "$appid" -q --force "$@"
 	return $?
 }
 

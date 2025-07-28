@@ -3,7 +3,7 @@
 if [ -n "${game_protontricks[*]}" ]; then
 	log_info "applying protontricks ${game_protontricks[@]}"
 
-	"$utils/protontricks.sh" apply "$game_appid" "arial" "fontsmooth=rgb" "${game_protontricks[@]}" "--force" \
+	"$utils/protontricks.sh" apply "$game_appid" "arial" "fontsmooth=rgb" "${game_protontricks[@]}" \
 		| "$dialog" loading "Configuring game prefix\nThis may take a while"
 
 	if [ "$?" != "0" ]; then
