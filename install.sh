@@ -5,7 +5,8 @@ cache_enabled="${CACHE:-1}"
 set -eu
 set -o pipefail
 
-script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
+: > "$script_root/install.log"
+exec > >(tee -a "$script_root/install.log") 2>&1
 
 exec >"$script_root/install.log" 2>&1
 
