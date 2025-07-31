@@ -41,7 +41,7 @@ body:
       description: Which game are you trying to install?
       options:
         - Cyberpunk 2077
-        - Dragon Age: Origins
+        - "Dragon Age: Origins"
         - Enderal
         - Enderal SE
         - Fallout 3
