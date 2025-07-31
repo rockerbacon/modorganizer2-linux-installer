@@ -2,6 +2,10 @@ game_steam_subdirectory="Enderal Special Edition"
 game_nexusid="enderalspecialedition"
 game_appid=976620
 game_executable="Enderal Launcher.exe"
-game_protontricks=("xaudio2_7=native")
+game_protontricks=("xaudio2_7=native" "xact" "d3dcompiler_43" "vcrun2022")
 game_scriptextender_url="https://skse.silverlock.org/beta/skse64_2_02_06.7z"
-game_scriptextender_files=""
+game_scriptextender_files=( \
+	"skse64_2_02_06/Data" \
+	"skse64_2_02_06/skse64_1_6_1170.dll" \
+	"skse64_2_02_06/skse64_loader.exe" \
+)
