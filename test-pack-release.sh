@@ -17,9 +17,9 @@ mkdir -p "$DEST_DIR"
 
 # Extract the resulting archive to the destination directory
 if [ -f "$SCRIPT_DIR/$ARCHIVE_NAME" ]; then
-    tar -xzvf "$SCRIPT_DIR/$ARCHIVE_NAME" -C "$DEST_DIR"
-    echo "Extraction complete to $DEST_DIR."
+	tar -xzvf "$SCRIPT_DIR/$ARCHIVE_NAME" -C "$DEST_DIR"
+	echo "Extraction complete to $DEST_DIR."
 else
-    echo "ERROR: Archive $ARCHIVE_NAME not found!" >&2
-    exit 1
+	echo "ERROR: Archive $ARCHIVE_NAME not found!" >&2
+	exit 1
 fi
