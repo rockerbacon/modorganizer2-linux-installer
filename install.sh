@@ -7,6 +7,8 @@ set -o pipefail
 
 script_root=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
+exec >"$script_root/install.log" 2>&1
+
 utils="$script_root/utils"
 dialog="$utils/dialog.sh"
 pluginsinfo="$script_root/pluginsinfo.json"
