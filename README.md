@@ -36,19 +36,22 @@ The installer will automatically configure game-specific workarounds and install
 **While these installers may be available on Lutris.net**, users are always recommended to use the latest stable release from this repository. The testers and maintainers of this project have little control over the content on Lutris and cannot assure that the installers available there are up to date nor that they haven't been incorrectly modified.
 
 ## Supported Games
-| Game                  | Gameplay          | Script Extender                                                                | ENB                                |
-|-----------------------|-------------------|--------------------------------------------------------------------------------|------------------------------------|
-| Cyberpunk 2077        | Working           | N/A                                                                            | Not Tested                         |
-| Dragon Age: Origins   | Working           | N/A                                                                            | N/A                                |
-| Fallout 3             | Working           | Working                                                                        | Not Tested                         |
-| Fallout 4             | Working           | Some plugins may not work. See [#32](https://github.com/Furglitch/modorganizer2-linux-installer/issues/32) | v0.393 or older might need `EnablePostPassShader` disabled  |
-| Fallout New Vegas     | Fullscreen Only   | Working                                                                        | Working                            |
-| Morrowind             | Not Tested        | Not Tested                                                                     | Not Tested                         |
-| Oblivion              | Working           | Some plugins might require manual setup                                        | Not Tested                         |
-| Oblivion Remastered*  | Not Tested        | N/A                                                                            | Not Tested                         |
-| Skyrim                | Working           | Working                                                                        | Working                            |
-| Skyrim Special Edition| Working           | Working                                                                        | Not Tested                         |
-| Starfield             | Working           | Working, Not Included (Hosted on Nexus)                                        | Not Tested                         |
+| Game                   | Gameplay          | Script Extender                                                                | ENB                                |
+|------------------------|-------------------|--------------------------------------------------------------------------------|------------------------------------|
+| Cyberpunk 2077         | Working           | N/A                                                                            | Not Tested                         |
+| Dragon Age: Origins    | Working           | N/A                                                                            | N/A                                |
+| Enderal                | Working           | Working                                                                        | Working                            |
+| Enderal Special Edition| Working           | Working                                                                        | Not Tested                         |
+| Fallout 3              | Working           | Working                                                                        | Not Tested                         |
+| Fallout 3 GOTY         | Working           | Working                                                                        | Not Tested                         |
+| Fallout 4              | Working           | Some plugins may not work. See [#32](https://github.com/Furglitch/modorganizer2-linux-installer/issues/32) | v0.393 or older might need `EnablePostPassShader` disabled  |
+| Fallout New Vegas      | Fullscreen Only   | Working                                                                        | Working                            |
+| Morrowind              | Not Tested        | Not Tested                                                                     | Not Tested                         |
+| Oblivion               | Working           | Some plugins might require manual setup                                        | Not Tested                         |
+| Oblivion Remastered*   | Not Tested        | N/A                                                                            | Not Tested                         |
+| Skyrim                 | Working           | Working                                                                        | Working                            |
+| Skyrim Special Edition | Working           | Working                                                                        | Not Tested                         |
+| Starfield              | Working           | Working, Not Included (Hosted on Nexus)                                        | Not Tested                         |
 
 <sub>* Requires an in-dev version of MO2. This is available through the prerelease builds.</sub>
 
