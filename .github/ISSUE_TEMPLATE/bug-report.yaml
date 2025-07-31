@@ -70,7 +70,7 @@ body:
     id: logs
     attributes:
       label: Logs
-      description: Please include any logs here. This field is automatically formatted into code, so you do not need to include any backticks.
+      description: Please include the logs here. You can find your log file (install.log) in the same folder as install.sh This field is automatically formatted into code, so you do not need to include any backticks.
       placeholder: Paste logs here
       render: shell
   - type: textarea
