@@ -50,7 +50,7 @@ The installer will automatically configure game-specific workarounds and install
 | Oblivion               | Working           | Some plugins might require manual setup                                        | Not Tested                         |
 | Oblivion Remastered*   | Not Tested        | N/A                                                                            | Not Tested                         |
 | Skyrim                 | Working           | Working                                                                        | Working                            |
-| Skyrim Special Edition | Working           | Working                                                                        | Not Tested                         |
+| Skyrim Special Edition | Working           | Working                                                                        | Working                            |
 | Starfield              | Working           | Working, Not Included (Hosted on Nexus)                                        | Not Tested                         |
 
 <sub>* Requires an in-dev version of MO2. This is available through the prerelease builds.</sub>
