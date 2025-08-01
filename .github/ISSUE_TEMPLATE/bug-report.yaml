@@ -2,7 +2,6 @@ name: Bug Report
 description: Create a report to help us fix issues
 title: "[Bug]: "
 labels: ['bug']
-assignees: Furglitch
 body:
   - type: textarea
     id: issue
