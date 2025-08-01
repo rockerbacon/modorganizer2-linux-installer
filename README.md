@@ -35,6 +35,8 @@ The installer will automatically configure game-specific workarounds and install
 
 **While these installers may be available on Lutris.net**, users are always recommended to use the latest stable release from this repository. The testers and maintainers of this project have little control over the content on Lutris and cannot assure that the installers available there are up to date nor that they haven't been incorrectly modified.
 
+**To uninstall MO2**, follow the [uninstallation guide](uninstall.md).
+
 ## Supported Games
 | Game                   | Gameplay          | Script Extender                                                                | ENB                                |
 |------------------------|-------------------|--------------------------------------------------------------------------------|------------------------------------|
