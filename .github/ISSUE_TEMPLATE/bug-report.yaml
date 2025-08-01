@@ -72,7 +72,7 @@ body:
     attributes:
       label: Logs
       description: Please include the logs here. You can find your log file (install.log) in the same folder as install.sh This field is automatically formatted into code, so you do not need to include any backticks.
-      placeholder: Paste logs here
+      placeholder: Drag & drop your install.log file here, or paste the contents of install.log
       render: shell
     validations:
       required: true
