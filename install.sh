@@ -21,7 +21,8 @@ workarounds="$script_root/workarounds"
 downloads_cache=/tmp/mo2-linux-installer-downloads-cache
 shared="$HOME/.local/share/modorganizer2"
 
-custom_game_enabled=0
+custom_game=''
+custom_workaround=''
 started_download_step=0
 expect_exit=0
 
@@ -67,14 +68,27 @@ expect_exit=1
 source "$step/check_dependencies.sh"
 
 # Parse options; implemented as a loop in case there are additional uses for it later.
-while getopts c launch_options; do
+while getopts "c:w:" launch_options; do
 	case "${launch_options}" in
-		c) custom_game_enabled=1 ;;
+		c) custom_game="$OPTARG" ;;
+		w) custom_workaround="$OPTARG" ;;
 	esac
 done
 
-selected_game=$(source "$step/select_game.sh")
-log_info "selected game '$selected_game'"
+# If the user's specifying a workaround, require a custom game. There's no technical reason for this requirement, just to avoid confusion
+if [ -n "$custom_workaround" -a -z "$custom_game" ]; then
+	log_error "The '-w'orkaround option is only valid when a '-c'ustom game is specified"
+	exit 1
+fi
+
+# Check for and load custom game if specified. Otherwise, follow standard prompt flow.
+if [ -n "$custom_game" ]; then
+	selected_game="$custom_game"
+	log_info "selecting custom game defined in '$custom_game'"
+else
+	selected_game=$(source "$step/select_game.sh")
+	log_info "selected game '$selected_game'"
+fi
 
 source "$step/load_gameinfo.sh"
 if [ "$hasScriptExtender" == true ]; then

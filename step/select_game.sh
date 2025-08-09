@@ -29,11 +29,6 @@ game_options=( \
 		"starfield" "Starfield"
 )
 
-# Excluded from list unless script is run with flag to reduce discoverability for the unfamiliar.
-if [ "$custom_game_enabled" == "1" ]; then
-	game_options+=("custom" "Custom Game")
-fi
-
 selected_game=$( \
 	"$dialog" \
 		radio \

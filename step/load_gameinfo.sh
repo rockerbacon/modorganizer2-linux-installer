@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-load_gameinfo="$gamesinfo/$selected_game.sh"
+if [ -z "$custom_game" ]; then
+	load_gameinfo="$gamesinfo/$selected_game.sh"
+else
+	load_gameinfo="$custom_game"
+fi
 
 if [ ! -f "$load_gameinfo" ]; then
 	log_error "no gameinfo for '$selected_game'"
