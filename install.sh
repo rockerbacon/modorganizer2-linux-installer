@@ -77,7 +77,7 @@ done
 
 # If the user's specifying a workaround, require a custom game. There's no technical reason for this requirement, just to avoid confusion
 if [ -n "$custom_workaround" -a -z "$custom_game" ]; then
-	log_error "The `-w`orkaround option is only valid when a `-c`ustom game is specified"
+	log_error "The '-w'orkaround option is only valid when a '-c'ustom game is specified"
 	exit 1
 fi
 
