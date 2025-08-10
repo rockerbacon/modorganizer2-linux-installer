@@ -1,6 +1,6 @@
 
 # Installer version (update this as needed)
-installer_version="5.2.6"
+installer_version="5.2.7"
 
 # GitHub repo info
 repo="Furglitch/modorganizer2-linux-installer"
