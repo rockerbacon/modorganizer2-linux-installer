@@ -16,8 +16,6 @@ fi
 
 if [ "$installer_version" != "$latest_version" ]; then
 	log_warn "Your installer version ($installer_version) is not the latest release ($latest_version). Please update by visiting: https://github.com/$repo/releases/latest"
-	"$dialog" warnbox \
-		"Your installer version ($installer_version) is out of date!\n(Latest: $latest_version)\n\nPlease update by visiting: https://github.com/$repo/releases/latest\n(Clickable link in terminal)"
-else
+	else
 	log_info "Installer is up to date ($installer_version)."
 fi
