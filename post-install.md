@@ -5,8 +5,9 @@ Additional steps you may want to take after installing Mod Organizer 2.
 ## Launch Options
 Remember, when adding anything to your Launch Options, include the `%command%` argument. If it's part of the game (i.e. `--skip-launcher`) then it goes after, otherwise it goes before. Other than that, ordering doesn't really matter. For example:
 ```bash
-DXVK_FRAME_RATE=60 %command% --skip-launcher
+BEFORE=true %command% --after
 ```
+<sup>The above is only an example, not actual arguments</sup>
 
 ### Accessing/Installing outside of $HOME
 When installing Mod Organizer 2 outside of your `$HOME` directory, you may encounter issues launching it due to Steam's Proton compatibility layer not being able to access the files. To resolve this, you can set the `STEAM_COMPAT_MOUNTS` environment variable in your game's Launch Options.
